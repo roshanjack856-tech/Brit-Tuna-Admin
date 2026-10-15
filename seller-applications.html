@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Brit.Tuna Seller Applications"
+  >
+
+  <meta
+    name="theme-color"
+    content="#1f5a3a"
+  >
+
+  <title>Seller Applications | Brit.Tuna Admin</title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="responsive.css"
+  >
+</head>
+
+<body>
+
+  <div id="site-header"></div>
+
+  <main class="admin-main">
+
+    <div class="container">
+
+      <div class="admin-layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="admin-sidebar">
+
+          <div class="sidebar-title">
+            Admin Menu
+          </div>
+
+          <nav class="sidebar-nav">
+
+            <a href="admin-dashboard.html">
+              Dashboard
+            </a>
+
+            <a
+              href="seller-applications.html"
+              class="active"
+            >
+              Seller Applications
+            </a>
+
+            <a href="sellers.html">
+              Sellers
+            </a>
+
+            <a href="products.html">
+              Products
+            </a>
+
+            <a href="orders.html">
+              Orders
+            </a>
+
+          </nav>
+
+        </aside>
+
+
+        <!-- CONTENT -->
+
+        <section>
+
+          <div class="toolbar">
+
+            <div class="page-header">
+
+              <h1>
+                Seller Applications
+              </h1>
+
+              <p>
+                Review businesses requesting access
+                to sell products on Brit.Tuna.
+              </p>
+
+            </div>
+
+            <div class="toolbar-actions">
+
+              <button
+                id="refresh-button"
+                class="btn btn-outline"
+                type="button"
+              >
+                Refresh
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- MESSAGE -->
+
+          <div
+            id="page-message"
+            hidden
+          ></div>
+
+
+          <!-- STATS -->
+
+          <div class="stats-grid">
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Total Applications
+              </div>
+
+              <div
+                id="total-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Pending
+              </div>
+
+              <div
+                id="pending-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Approved
+              </div>
+
+              <div
+                id="approved-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Rejected
+              </div>
+
+              <div
+                id="rejected-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- FILTERS -->
+
+          <div class="filter-bar">
+
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Search business, contact, email or phone..."
+              aria-label="Search seller applications"
+            >
+
+            <select
+              id="status-filter"
+              aria-label="Filter applications by status"
+            >
+
+              <option value="all">
+                All Status
+              </option>
+
+              <option value="pending">
+                Pending
+              </option>
+
+              <option value="approved">
+                Approved
+              </option>
+
+              <option value="rejected">
+                Rejected
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- LOADING -->
+
+          <div
+            id="loading"
+            class="loading"
+          >
+            Loading seller applications...
+          </div>
+
+
+          <!-- EMPTY -->
+
+          <div
+            id="empty-state"
+            class="card empty-state"
+            hidden
+          >
+
+            <h2>
+              No Seller Applications
+            </h2>
+
+            <p>
+              No applications match the selected filter.
+            </p>
+
+          </div>
+
+
+          <!-- APPLICATIONS -->
+
+          <div
+            id="applications-container"
+            class="admin-grid"
+            hidden
+          ></div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- DETAILS MODAL -->
+
+  <div
+    id="details-modal"
+    class="modal-backdrop"
+    hidden
+  >
+
+    <div
+      class="modal-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="details-modal-title"
+    >
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2 id="details-modal-title">
+            Seller Application
+          </h2>
+
+          <p>
+            Review the seller information before approval.
+          </p>
+
+        </div>
+
+        <button
+          id="close-modal-button"
+          class="mobile-close"
+          type="button"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div id="application-details"></div>
+
+
+      <!-- REJECTION NOTE -->
+
+      <div
+        id="rejection-section"
+        class="form-field mt-2"
+        hidden
+      >
+
+        <label for="admin-note">
+          Rejection Reason
+        </label>
+
+        <textarea
+          id="admin-note"
+          placeholder="Explain why this application is being rejected..."
+        ></textarea>
+
+        <div
+          id="admin-note-error"
+          class="error"
+        ></div>
+
+      </div>
+
+
+      <div
+        id="modal-message"
+        hidden
+      ></div>
+
+
+      <div
+        id="pending-actions"
+        class="action-panel"
+      >
+
+        <div class="muted">
+          Approving changes this user's profile role to seller.
+        </div>
+
+        <div class="action-panel-buttons">
+
+          <button
+            id="reject-button"
+            class="btn btn-danger"
+            type="button"
+          >
+            Reject
+          </button>
+
+          <button
+            id="approve-button"
+            class="btn btn-success"
+            type="button"
+          >
+            Approve Seller
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="confirm-reject-actions"
+        class="action-panel"
+        hidden
+      >
+
+        <button
+          id="cancel-reject-button"
+          class="btn btn-outline"
+          type="button"
+        >
+          Cancel
+        </button>
+
+        <button
+          id="confirm-reject-button"
+          class="btn btn-danger"
+          type="button"
+        >
+          Confirm Rejection
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div id="site-footer"></div>
+
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="config.js"></script>
+  <script src="supabase.js"></script>
+  <script src="script.js"></script>
+
+
+  <script>
+
+    (function () {
+
+      'use strict';
+
+
+      var applications = [];
+
+      var selectedApplication = null;
+
+
+      var container =
+        document.getElementById(
+          'applications-container'
+        );
+
+
+      var loading =
+        document.getElementById(
+          'loading'
+        );
+
+
+      var emptyState =
+        document.getElementById(
+          'empty-state'
+        );
+
+
+      var searchInput =
+        document.getElementById(
+          'search-input'
+        );
+
+
+      var statusFilter =
+        document.getElementById(
+          'status-filter'
+        );
+
+
+      var refreshButton =
+        document.getElementById(
+          'refresh-button'
+        );
+
+
+      var pageMessage =
+        document.getElementById(
+          'page-message'
+        );
+
+
+      var modal =
+        document.getElementById(
+          'details-modal'
+        );
+
+
+      var details =
+        document.getElementById(
+          'application-details'
+        );
+
+
+      var closeModalButton =
+        document.getElementById(
+          'close-modal-button'
+        );
+
+
+      var approveButton =
+        document.getElementById(
+          'approve-button'
+        );
+
+
+      var rejectButton =
+        document.getElementById(
+          'reject-button'
+        );
+
+
+      var rejectionSection =
+        document.getElementById(
+          'rejection-section'
+        );
+
+
+      var adminNote =
+        document.getElementById(
+          'admin-note'
+        );
+
+
+      var adminNoteError =
+        document.getElementById(
+          'admin-note-error'
+        );
+
+
+      var modalMessage =
+        document.getElementById(
+          'modal-message'
+        );
+
+
+      var pendingActions =
+        document.getElementById(
+          'pending-actions'
+        );
+
+
+      var confirmRejectActions =
+        document.getElementById(
+          'confirm-reject-actions'
+        );
+
+
+      var cancelRejectButton =
+        document.getElementById(
+          'cancel-reject-button'
+        );
+
+
+      var confirmRejectButton =
+        document.getElementById(
+          'confirm-reject-button'
+        );
+
+
+      /* ====================================================
+         HELPERS
+         ==================================================== */
+
+      function escapeHtml(value) {
+
+        return window.BTAdminUtil
+          .escapeHtml(value);
+
+      }
+
+
+      function formatDate(value) {
+
+        return window.BTAdminUtil
+          .formatDate(value);
+
+      }
+
+
+      function showPageMessage(
+        message,
+        type
+      ) {
+
+        pageMessage.hidden = false;
+
+        pageMessage.className =
+          'notice notice-' +
+          (type || 'info');
+
+        pageMessage.textContent =
+          message;
+
+      }
+
+
+      function hidePageMessage() {
+
+        pageMessage.hidden = true;
+
+        pageMessage.textContent = '';
+
+        pageMessage.className = '';
+
+      }
+
+
+      function showModalMessage(
+        message,
+        type
+      ) {
+
+        modalMessage.hidden = false;
+
+        modalMessage.className =
+          'notice notice-' +
+          (type || 'info');
+
+        modalMessage.textContent =
+          message;
+
+      }
+
+
+      function hideModalMessage() {
+
+        modalMessage.hidden = true;
+
+        modalMessage.textContent = '';
+
+        modalMessage.className = '';
+
+      }
+
+
+      function statusBadge(status) {
+
+        var safeStatus =
+          String(
+            status || 'unknown'
+          )
+          .trim()
+          .toLowerCase();
+
+
+        return (
+          '<span class="badge badge-' +
+          escapeHtml(safeStatus) +
+          '">' +
+          escapeHtml(safeStatus) +
+          '</span>'
+        );
+
+      }
+
+
+      /* ====================================================
+         LOAD APPLICATIONS
+         ==================================================== */
+
+      async function loadApplications() {
+
+        loading.hidden = false;
+
+        container.hidden = true;
+
+        emptyState.hidden = true;
+
+        hidePageMessage();
+
+
+        refreshButton.disabled = true;
+
+
+        try {
+
+          var result =
+            await window.supabaseClient
+
+              .from('seller_applications')
+
+              .select(
+                `
+                id,
+                user_id,
+                business_name,
+                contact_name,
+                phone,
+                email,
+                business_address,
+                city,
+                state,
+                pincode,
+                business_description,
+                status,
+                admin_note,
+                created_at,
+                updated_at
+                `
+              )
+
+              .order(
+                'created_at',
+                {
+                  ascending: false
+                }
+              );
+
+
+          if (result.error) {
+
+            throw result.error;
+
+          }
+
+
+          applications =
+            result.data || [];
+
+
+          updateStatistics();
+
+          renderApplications();
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Seller applications load error:',
+            error
+          );
+
+
+          applications = [];
+
+
+          loading.hidden = true;
+
+          container.hidden = true;
+
+          emptyState.hidden = false;
+
+
+          showPageMessage(
+            'Unable to load seller applications. Check Admin RLS permissions.',
+            'error'
+          );
+
+        }
+
+        finally {
+
+          refreshButton.disabled = false;
+
+        }
+
+      }
+
+
+      /* ====================================================
+         STATISTICS
+         ==================================================== */
+
+      function updateStatistics() {
+
+        var pending =
+          applications.filter(
+            function (application) {
+
+              return (
+                application.status ===
+                'pending'
+              );
+
+            }
+          ).length;
+
+
+        var approved =
+          applications.filter(
+            function (application) {
+
+              return (
+                application.status ===
+                'approved'
+              );
+
+            }
+          ).length;
+
+
+        var rejected =
+          applications.filter(
+            function (application) {
+
+              return (
+                application.status ===
+                'rejected'
+              );
+
+            }
+          ).length;
+
+
+        document.getElementById(
+          'total-count'
+        ).textContent =
+          applications.length;
+
+
+        document.getElementById(
+          'pending-count'
+        ).textContent =
+          pending;
+
+
+        document.getElementById(
+          'approved-count'
+        ).textContent =
+          approved;
+
+
+        document.getElementById(
+          'rejected-count'
+        ).textContent =
+          rejected;
+
+      }
+
+
+      /* ====================================================
+         FILTER
+         ==================================================== */
+
+      function getFilteredApplications() {
+
+        var search =
+          searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+        var status =
+          statusFilter.value;
+
+
+        return applications.filter(
+
+          function (application) {
+
+            var matchesStatus =
+              status === 'all' ||
+              application.status === status;
+
+
+            var searchable =
+              [
+                application.business_name,
+                application.contact_name,
+                application.email,
+                application.phone,
+                application.city,
+                application.state
+              ]
+              .join(' ')
+              .toLowerCase();
+
+
+            var matchesSearch =
+              !search ||
+              searchable.includes(search);
+
+
+            return (
+              matchesStatus &&
+              matchesSearch
+            );
+
+          }
+
+        );
+
+      }
+
+
+      /* ====================================================
+         RENDER
+         ==================================================== */
+
+      function renderApplications() {
+
+        var filtered =
+          getFilteredApplications();
+
+
+        loading.hidden = true;
+
+
+        if (
+          filtered.length === 0
+        ) {
+
+          container.hidden = true;
+
+          emptyState.hidden = false;
+
+          return;
+
+        }
+
+
+        emptyState.hidden = true;
+
+        container.hidden = false;
+
+
+        container.innerHTML =
+          filtered.map(
+
+            function (application) {
+
+              var description =
+                application.business_description
+                  ? application.business_description
+                  : 'No business description provided.';
+
+
+              return `
+
+                <article class="admin-item-card">
+
+                  <div
+                    style="
+                      display:flex;
+                      justify-content:space-between;
+                      gap:12px;
+                      align-items:flex-start;
+                      margin-bottom:12px;
+                    "
+                  >
+
+                    <div>
+
+                      <h2
+                        style="
+                          margin-bottom:4px;
+                          font-size:21px;
+                        "
+                      >
+                        ${escapeHtml(
+                          application.business_name
+                        )}
+                      </h2>
+
+                      <div class="muted">
+
+                        ${escapeHtml(
+                          application.contact_name
+                        )}
+
+                      </div>
+
+                    </div>
+
+                    ${statusBadge(
+                      application.status
+                    )}
+
+                  </div>
+
+
+                  <p>
+
+                    ${escapeHtml(
+                      description.length > 120
+                        ? description.substring(
+                            0,
+                            120
+                          ) + '...'
+                        : description
+                    )}
+
+                  </p>
+
+
+                  <div class="details-grid">
+
+                    <div class="detail-item">
+
+                      <span class="detail-label">
+                        Phone
+                      </span>
+
+                      <span class="detail-value">
+                        ${escapeHtml(
+                          application.phone ||
+                          '-'
+                        )}
+                      </span>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                      <span class="detail-label">
+                        City
+                      </span>
+
+                      <span class="detail-value">
+                        ${escapeHtml(
+                          application.city ||
+                          '-'
+                        )}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <button
+                    class="btn btn-outline btn-block view-application-button"
+                    type="button"
+                    data-id="${escapeHtml(
+                      application.id
+                    )}"
+                  >
+                    View Application
+                  </button>
+
+                </article>
+
+              `;
+
+            }
+
+          ).join('');
+
+
+        var buttons =
+          document.querySelectorAll(
+            '.view-application-button'
+          );
+
+
+        buttons.forEach(
+
+          function (button) {
+
+            button.addEventListener(
+              'click',
+              function () {
+
+                openApplication(
+                  button.dataset.id
+                );
+
+              }
+            );
+
+          }
+
+        );
+
+      }
+
+
+      /* ====================================================
+         OPEN APPLICATION
+         ==================================================== */
+
+      function openApplication(id) {
+
+        selectedApplication =
+          applications.find(
+
+            function (application) {
+
+              return (
+                String(application.id) ===
+                String(id)
+              );
+
+            }
+
+          );
+
+
+        if (!selectedApplication) {
+
+          return;
+
+        }
+
+
+        hideModalMessage();
+
+        adminNote.value = '';
+
+        adminNoteError.textContent = '';
+
+        rejectionSection.hidden = true;
+
+        confirmRejectActions.hidden = true;
+
+
+        var application =
+          selectedApplication;
+
+
+        details.innerHTML = `
+
+          <div class="details-grid">
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Business Name
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  application.business_name
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Contact Name
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  application.contact_name
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Email
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  application.email ||
+                  '-'
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Phone
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  application.phone ||
+                  '-'
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                City
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  application.city ||
+                  '-'
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                State
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  application.state ||
+                  '-'
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Pincode
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  application.pincode ||
+                  '-'
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Status
+              </span>
+
+              <span class="detail-value">
+
+                ${statusBadge(
+                  application.status
+                )}
+
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="detail-item mb-2">
+
+            <span class="detail-label">
+              Business Address
+            </span>
+
+            <span class="detail-value">
+              ${escapeHtml(
+                application.business_address ||
+                '-'
+              )}
+            </span>
+
+          </div>
+
+
+          <div class="detail-item mb-2">
+
+            <span class="detail-label">
+              Business Description
+            </span>
+
+            <span class="detail-value">
+              ${escapeHtml(
+                application.business_description ||
+                '-'
+              )}
+            </span>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              Application Date
+            </span>
+
+            <span class="detail-value">
+              ${escapeHtml(
+                formatDate(
+                  application.created_at
+                )
+              )}
+            </span>
+
+          </div>
+
+
+          ${
+            application.admin_note
+              ? `
+
+                <div class="notice notice-warning mt-2 mb-0">
+
+                  <strong>
+                    Admin Note:
+                  </strong>
+
+                  ${escapeHtml(
+                    application.admin_note
+                  )}
+
+                </div>
+
+              `
+              : ''
+          }
+
+        `;
+
+
+        pendingActions.hidden =
+          application.status !==
+          'pending';
+
+
+        modal.hidden = false;
+
+        document.body.classList.add(
+          'menu-open'
+        );
+
+      }
+
+
+      /* ====================================================
+         CLOSE MODAL
+         ==================================================== */
+
+      function closeModal() {
+
+        modal.hidden = true;
+
+        selectedApplication = null;
+
+        rejectionSection.hidden = true;
+
+        confirmRejectActions.hidden = true;
+
+        pendingActions.hidden = false;
+
+        adminNote.value = '';
+
+        adminNoteError.textContent = '';
+
+        hideModalMessage();
+
+
+        document.body.classList.remove(
+          'menu-open'
+        );
+
+      }
+
+
+      /* ====================================================
+         APPROVE SELLER
+         ==================================================== */
+
+      async function approveSeller() {
+
+        if (!selectedApplication) {
+
+          return;
+
+        }
+
+
+        if (
+          selectedApplication.status !==
+          'pending'
+        ) {
+
+          return;
+
+        }
+
+
+        var confirmed =
+          window.confirm(
+            'Approve this seller application? The user will receive the seller role.'
+          );
+
+
+        if (!confirmed) {
+
+          return;
+
+        }
+
+
+        approveButton.disabled = true;
+
+        rejectButton.disabled = true;
+
+        approveButton.textContent =
+          'Approving...';
+
+
+        hideModalMessage();
+
+
+        try {
+
+          /*
+           * Secure database function.
+           *
+           * The function itself checks:
+           * public.is_admin()
+           *
+           * and then:
+           * 1. marks application approved
+           * 2. changes profiles.role to seller
+           */
+
+          var result =
+            await window.supabaseClient
+              .rpc(
+                'approve_seller_application',
+                {
+                  application_id:
+                    selectedApplication.id
+                }
+              );
+
+
+          if (result.error) {
+
+            throw result.error;
+
+          }
+
+
+          showModalMessage(
+            'Seller approved successfully.',
+            'success'
+          );
+
+
+          await loadApplications();
+
+
+          selectedApplication =
+            applications.find(
+
+              function (application) {
+
+                return (
+                  String(application.id) ===
+                  String(
+                    selectedApplication.id
+                  )
+                );
+
+              }
+
+            );
+
+
+          if (selectedApplication) {
+
+            openApplication(
+              selectedApplication.id
+            );
+
+          }
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Approve seller error:',
+            error
+          );
+
+
+          showModalMessage(
+            error.message ||
+            'Unable to approve seller.',
+            'error'
+          );
+
+        }
+
+        finally {
+
+          approveButton.disabled = false;
+
+          rejectButton.disabled = false;
+
+          approveButton.textContent =
+            'Approve Seller';
+
+        }
+
+      }
+
+
+      /* ====================================================
+         SHOW REJECTION FORM
+         ==================================================== */
+
+      function showRejectForm() {
+
+        if (!selectedApplication) {
+
+          return;
+
+        }
+
+
+        rejectionSection.hidden = false;
+
+        pendingActions.hidden = true;
+
+        confirmRejectActions.hidden = false;
+
+        adminNoteError.textContent = '';
+
+        adminNote.focus();
+
+      }
+
+
+      /* ====================================================
+         CANCEL REJECTION
+         ==================================================== */
+
+      function cancelReject() {
+
+        rejectionSection.hidden = true;
+
+        confirmRejectActions.hidden = true;
+
+        pendingActions.hidden = false;
+
+        adminNote.value = '';
+
+        adminNoteError.textContent = '';
+
+        hideModalMessage();
+
+      }
+
+
+      /* ====================================================
+         CONFIRM REJECTION
+         ==================================================== */
+
+      async function rejectSeller() {
+
+        if (!selectedApplication) {
+
+          return;
+
+        }
+
+
+        var note =
+          adminNote.value.trim();
+
+
+        adminNoteError.textContent = '';
+
+
+        if (!note) {
+
+          adminNoteError.textContent =
+            'Enter a reason for rejecting this application.';
+
+          return;
+
+        }
+
+
+        var confirmed =
+          window.confirm(
+            'Reject this seller application?'
+          );
+
+
+        if (!confirmed) {
+
+          return;
+
+        }
+
+
+        confirmRejectButton.disabled = true;
+
+        cancelRejectButton.disabled = true;
+
+        confirmRejectButton.textContent =
+          'Rejecting...';
+
+
+        hideModalMessage();
+
+
+        try {
+
+          /*
+           * Secure database RPC.
+           *
+           * The function checks Admin permission
+           * inside the database.
+           */
+
+          var result =
+            await window.supabaseClient
+              .rpc(
+                'reject_seller_application',
+                {
+                  application_id:
+                    selectedApplication.id,
+
+                  note:
+                    note
+                }
+              );
+
+
+          if (result.error) {
+
+            throw result.error;
+
+          }
+
+
+          showPageMessage(
+            'Seller application rejected.',
+            'success'
+          );
+
+
+          closeModal();
+
+          await loadApplications();
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Reject seller error:',
+            error
+          );
+
+
+          showModalMessage(
+            error.message ||
+            'Unable to reject seller application.',
+            'error'
+          );
+
+        }
+
+        finally {
+
+          confirmRejectButton.disabled = false;
+
+          cancelRejectButton.disabled = false;
+
+          confirmRejectButton.textContent =
+            'Confirm Rejection';
+
+        }
+
+      }
+
+
+      /* ====================================================
+         EVENTS
+         ==================================================== */
+
+      searchInput.addEventListener(
+        'input',
+        renderApplications
+      );
+
+
+      statusFilter.addEventListener(
+        'change',
+        renderApplications
+      );
+
+
+      refreshButton.addEventListener(
+        'click',
+        loadApplications
+      );
+
+
+      closeModalButton.addEventListener(
+        'click',
+        closeModal
+      );
+
+
+      approveButton.addEventListener(
+        'click',
+        approveSeller
+      );
+
+
+      rejectButton.addEventListener(
+        'click',
+        showRejectForm
+      );
+
+
+      cancelRejectButton.addEventListener(
+        'click',
+        cancelReject
+      );
+
+
+      confirmRejectButton.addEventListener(
+        'click',
+        rejectSeller
+      );
+
+
+      modal.addEventListener(
+        'click',
+        function (event) {
+
+          if (
+            event.target === modal
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
+
+
+      document.addEventListener(
+        'keydown',
+        function (event) {
+
+          if (
+            event.key === 'Escape' &&
+            !modal.hidden
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
+
+
+      /* ====================================================
+         INITIALIZE
+         ==================================================== */
+
+      async function initialize() {
+
+        if (
+          !window.supabaseClient ||
+          !window.BTAdmin
+        ) {
+
+          showPageMessage(
+            'Admin Portal could not start. Check the configuration.',
+            'error'
+          );
+
+          loading.hidden = true;
+
+          return;
+
+        }
+
+
+        var session =
+          await window.BTAdmin
+            .requireAdmin();
+
+
+        if (!session) {
+
+          loading.hidden = true;
+
+          return;
+
+        }
+
+
+        await loadApplications();
+
+      }
+
+
+      initialize();
+
+
+    })();
+
+  </script>
+
+</body>
+
+</html>
