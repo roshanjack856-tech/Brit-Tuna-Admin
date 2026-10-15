@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Brit.Tuna Admin Dashboard"
+  >
+
+  <meta
+    name="theme-color"
+    content="#1f5a3a"
+  >
+
+  <title>Admin Dashboard | Brit.Tuna</title>
+
+
+  <!-- Google Fonts -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="responsive.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- ======================================================
+       HEADER
+       ====================================================== -->
+
+  <div id="site-header"></div>
+
+
+  <!-- ======================================================
+       MAIN
+       ====================================================== -->
+
+  <main class="admin-main">
+
+    <div class="container">
+
+      <div class="admin-layout">
+
+
+        <!-- ==================================================
+             SIDEBAR
+             ================================================== -->
+
+        <aside class="admin-sidebar">
+
+          <div class="sidebar-title">
+            Admin Menu
+          </div>
+
+          <nav class="sidebar-nav">
+
+            <a
+              href="admin-dashboard.html"
+              class="active"
+            >
+              Dashboard
+            </a>
+
+            <a href="seller-applications.html">
+              Seller Applications
+            </a>
+
+            <a href="sellers.html">
+              Sellers
+            </a>
+
+            <a href="products.html">
+              Products
+            </a>
+
+            <a href="orders.html">
+              Orders
+            </a>
+
+          </nav>
+
+        </aside>
+
+
+        <!-- ==================================================
+             DASHBOARD CONTENT
+             ================================================== -->
+
+        <section>
+
+
+          <!-- PAGE HEADER -->
+
+          <div class="page-header">
+
+            <h1>
+              Admin Dashboard
+            </h1>
+
+            <p>
+              Manage sellers, marketplace products,
+              applications and customer orders from one place.
+            </p>
+
+          </div>
+
+
+          <!-- MESSAGE -->
+
+          <div
+            id="dashboard-message"
+            hidden
+          ></div>
+
+
+          <!-- ==================================================
+               STATISTICS
+               ================================================== -->
+
+          <div class="stats-grid">
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Pending Applications
+              </div>
+
+              <div
+                id="pending-applications-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Waiting for Admin review
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Sellers
+              </div>
+
+              <div
+                id="sellers-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Approved seller accounts
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Products
+              </div>
+
+              <div
+                id="products-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Products in marketplace database
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Orders
+              </div>
+
+              <div
+                id="orders-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Customer orders
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               SECONDARY STATS
+               ================================================== -->
+
+          <div class="stats-grid">
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Pending Products
+              </div>
+
+              <div
+                id="pending-products-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Products needing review
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Active Products
+              </div>
+
+              <div
+                id="active-products-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Approved marketplace products
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Pending Orders
+              </div>
+
+              <div
+                id="pending-orders-count"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Orders waiting for processing
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Paid Sales
+              </div>
+
+              <div
+                id="paid-sales-total"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Paid order value
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               QUICK ACTIONS
+               ================================================== -->
+
+          <div class="card mb-3">
+
+            <h2 class="card-title">
+              Quick Actions
+            </h2>
+
+            <p class="card-subtitle">
+              Open the most important marketplace management areas.
+            </p>
+
+
+            <div class="toolbar-actions">
+
+              <a
+                href="seller-applications.html"
+                class="btn btn-primary"
+              >
+                Review Seller Applications
+              </a>
+
+              <a
+                href="products.html"
+                class="btn btn-outline"
+              >
+                Review Products
+              </a>
+
+              <a
+                href="orders.html"
+                class="btn btn-outline"
+              >
+                View Orders
+              </a>
+
+              <a
+                href="sellers.html"
+                class="btn btn-outline"
+              >
+                Manage Sellers
+              </a>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               RECENT SELLER APPLICATIONS
+               ================================================== -->
+
+          <div class="card table-card mb-3">
+
+            <div
+              style="
+                padding: 20px 20px 5px;
+              "
+            >
+
+              <h2 class="card-title">
+                Recent Seller Applications
+              </h2>
+
+              <p class="card-subtitle">
+                Latest seller registration requests.
+              </p>
+
+            </div>
+
+
+            <div
+              id="applications-loading"
+              class="loading"
+            >
+              Loading applications...
+            </div>
+
+
+            <div
+              id="applications-empty"
+              class="empty-state"
+              hidden
+            >
+
+              <h2>
+                No Applications
+              </h2>
+
+              <p>
+                No seller applications are available yet.
+              </p>
+
+            </div>
+
+
+            <div
+              id="applications-table-wrapper"
+              class="table-scroll"
+              hidden
+            >
+
+              <table class="admin-table">
+
+                <thead>
+
+                  <tr>
+
+                    <th>
+                      Business
+                    </th>
+
+                    <th>
+                      Contact
+                    </th>
+
+                    <th>
+                      Status
+                    </th>
+
+                    <th>
+                      Submitted
+                    </th>
+
+                    <th>
+                      Action
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+
+                <tbody
+                  id="applications-table-body"
+                ></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               RECENT PRODUCTS
+               ================================================== -->
+
+          <div class="card table-card">
+
+            <div
+              style="
+                padding: 20px 20px 5px;
+              "
+            >
+
+              <h2 class="card-title">
+                Recent Products
+              </h2>
+
+              <p class="card-subtitle">
+                Latest products added to the marketplace.
+              </p>
+
+            </div>
+
+
+            <div
+              id="products-loading"
+              class="loading"
+            >
+              Loading products...
+            </div>
+
+
+            <div
+              id="products-empty"
+              class="empty-state"
+              hidden
+            >
+
+              <h2>
+                No Products
+              </h2>
+
+              <p>
+                No marketplace products are available yet.
+              </p>
+
+            </div>
+
+
+            <div
+              id="products-table-wrapper"
+              class="table-scroll"
+              hidden
+            >
+
+              <table class="admin-table">
+
+                <thead>
+
+                  <tr>
+
+                    <th>
+                      Product
+                    </th>
+
+                    <th>
+                      Type
+                    </th>
+
+                    <th>
+                      Price
+                    </th>
+
+                    <th>
+                      Status
+                    </th>
+
+                    <th>
+                      Added
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+
+                <tbody
+                  id="products-table-body"
+                ></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- ======================================================
+       FOOTER
+       ====================================================== -->
+
+  <div id="site-footer"></div>
+
+
+  <!-- ======================================================
+       SUPABASE
+       ====================================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+  <!-- PROJECT FILES -->
+
+  <script src="config.js"></script>
+
+  <script src="supabase.js"></script>
+
+  <script src="script.js"></script>
+
+
+  <!-- ======================================================
+       DASHBOARD LOGIC
+       ====================================================== -->
+
+  <script>
+
+    (function () {
+
+      'use strict';
+
+
+      var messageBox =
+        document.getElementById(
+          'dashboard-message'
+        );
+
+
+      /* ====================================================
+         HELPERS
+         ==================================================== */
+
+      function escapeHtml(value) {
+
+        return window.BTAdminUtil
+          .escapeHtml(value);
+
+      }
+
+
+      function formatINR(value) {
+
+        return window.BTAdminUtil
+          .formatINR(value);
+
+      }
+
+
+      function formatDate(value) {
+
+        return window.BTAdminUtil
+          .formatDate(value);
+
+      }
+
+
+      function showMessage(
+        message,
+        type
+      ) {
+
+        messageBox.hidden = false;
+
+        messageBox.className =
+          'notice notice-' +
+          (type || 'info');
+
+        messageBox.textContent =
+          message;
+
+      }
+
+
+      function statusBadge(status) {
+
+        var safeStatus =
+          String(
+            status || 'unknown'
+          )
+          .trim()
+          .toLowerCase();
+
+
+        return (
+          '<span class="badge badge-' +
+          escapeHtml(safeStatus) +
+          '">' +
+          escapeHtml(safeStatus) +
+          '</span>'
+        );
+
+      }
+
+
+      /* ====================================================
+         COUNT QUERY
+
+         head:true means Supabase returns only the count,
+         not all rows.
+         ==================================================== */
+
+      async function getCount(
+        tableName,
+        filters
+      ) {
+
+        var query =
+          window.supabaseClient
+
+            .from(tableName)
+
+            .select(
+              '*',
+              {
+                count: 'exact',
+                head: true
+              }
+            );
+
+
+        if (filters) {
+
+          filters.forEach(
+            function (filter) {
+
+              query =
+                query.eq(
+                  filter.column,
+                  filter.value
+                );
+
+            }
+          );
+
+        }
+
+
+        var result =
+          await query;
+
+
+        if (result.error) {
+
+          throw result.error;
+
+        }
+
+
+        return result.count || 0;
+
+      }
+
+
+      /* ====================================================
+         LOAD STATISTICS
+         ==================================================== */
+
+      async function loadStatistics() {
+
+        var pendingApplicationsElement =
+          document.getElementById(
+            'pending-applications-count'
+          );
+
+
+        var sellersElement =
+          document.getElementById(
+            'sellers-count'
+          );
+
+
+        var productsElement =
+          document.getElementById(
+            'products-count'
+          );
+
+
+        var ordersElement =
+          document.getElementById(
+            'orders-count'
+          );
+
+
+        var pendingProductsElement =
+          document.getElementById(
+            'pending-products-count'
+          );
+
+
+        var activeProductsElement =
+          document.getElementById(
+            'active-products-count'
+          );
+
+
+        var pendingOrdersElement =
+          document.getElementById(
+            'pending-orders-count'
+          );
+
+
+        var paidSalesElement =
+          document.getElementById(
+            'paid-sales-total'
+          );
+
+
+        try {
+
+          /*
+           * Run independent count queries together.
+           */
+
+          var counts =
+            await Promise.all([
+
+              getCount(
+                'seller_applications',
+                [
+                  {
+                    column: 'status',
+                    value: 'pending'
+                  }
+                ]
+              ),
+
+              getCount(
+                'profiles',
+                [
+                  {
+                    column: 'role',
+                    value: 'seller'
+                  }
+                ]
+              ),
+
+              getCount(
+                'products'
+              ),
+
+              getCount(
+                'orders'
+              ),
+
+              getCount(
+                'products',
+                [
+                  {
+                    column: 'status',
+                    value: 'pending'
+                  }
+                ]
+              ),
+
+              getCount(
+                'products',
+                [
+                  {
+                    column: 'status',
+                    value: 'active'
+                  }
+                ]
+              ),
+
+              getCount(
+                'orders',
+                [
+                  {
+                    column: 'order_status',
+                    value: 'pending'
+                  }
+                ]
+              )
+
+            ]);
+
+
+          pendingApplicationsElement.textContent =
+            counts[0];
+
+
+          sellersElement.textContent =
+            counts[1];
+
+
+          productsElement.textContent =
+            counts[2];
+
+
+          ordersElement.textContent =
+            counts[3];
+
+
+          pendingProductsElement.textContent =
+            counts[4];
+
+
+          activeProductsElement.textContent =
+            counts[5];
+
+
+          pendingOrdersElement.textContent =
+            counts[6];
+
+
+          /*
+           * Paid sales total.
+           *
+           * This is the total_amount of orders currently
+           * marked payment_status = paid.
+           *
+           * This is a dashboard statistic only.
+           * It is NOT seller payout/settlement accounting.
+           */
+
+          var paidOrdersResult =
+            await window.supabaseClient
+
+              .from('orders')
+
+              .select(
+                'total_amount'
+              )
+
+              .eq(
+                'payment_status',
+                'paid'
+              );
+
+
+          if (paidOrdersResult.error) {
+
+            throw paidOrdersResult.error;
+
+          }
+
+
+          var paidSales =
+            (paidOrdersResult.data || [])
+              .reduce(
+
+                function (
+                  total,
+                  order
+                ) {
+
+                  return (
+                    total +
+                    Number(
+                      order.total_amount || 0
+                    )
+                  );
+
+                },
+
+                0
+
+              );
+
+
+          paidSalesElement.textContent =
+            formatINR(
+              paidSales
+            );
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Dashboard statistics error:',
+            error
+          );
+
+
+          showMessage(
+            'Some dashboard statistics could not be loaded.',
+            'error'
+          );
+
+        }
+
+      }
+
+
+      /* ====================================================
+         LOAD RECENT APPLICATIONS
+         ==================================================== */
+
+      async function loadRecentApplications() {
+
+        var loading =
+          document.getElementById(
+            'applications-loading'
+          );
+
+
+        var empty =
+          document.getElementById(
+            'applications-empty'
+          );
+
+
+        var wrapper =
+          document.getElementById(
+            'applications-table-wrapper'
+          );
+
+
+        var body =
+          document.getElementById(
+            'applications-table-body'
+          );
+
+
+        try {
+
+          var result =
+            await window.supabaseClient
+
+              .from(
+                'seller_applications'
+              )
+
+              .select(
+                `
+                id,
+                business_name,
+                contact_name,
+                phone,
+                email,
+                status,
+                created_at
+                `
+              )
+
+              .order(
+                'created_at',
+                {
+                  ascending: false
+                }
+              )
+
+              .limit(5);
+
+
+          if (result.error) {
+
+            throw result.error;
+
+          }
+
+
+          var applications =
+            result.data || [];
+
+
+          loading.hidden = true;
+
+
+          if (
+            applications.length === 0
+          ) {
+
+            empty.hidden = false;
+
+            wrapper.hidden = true;
+
+            return;
+
+          }
+
+
+          empty.hidden = true;
+
+          wrapper.hidden = false;
+
+
+          body.innerHTML =
+            applications
+              .map(
+
+                function (application) {
+
+                  return `
+
+                    <tr>
+
+                      <td>
+
+                        <strong>
+                          ${escapeHtml(
+                            application.business_name
+                          )}
+                        </strong>
+
+                      </td>
+
+
+                      <td>
+
+                        ${escapeHtml(
+                          application.contact_name
+                        )}
+
+                        <br>
+
+                        <small class="muted">
+
+                          ${escapeHtml(
+                            application.phone || ''
+                          )}
+
+                        </small>
+
+                      </td>
+
+
+                      <td>
+
+                        ${statusBadge(
+                          application.status
+                        )}
+
+                      </td>
+
+
+                      <td>
+
+                        ${escapeHtml(
+                          formatDate(
+                            application.created_at
+                          )
+                        )}
+
+                      </td>
+
+
+                      <td>
+
+                        <a
+                          href="seller-applications.html"
+                          class="btn btn-outline btn-small"
+                        >
+                          Review
+                        </a>
+
+                      </td>
+
+                    </tr>
+
+                  `;
+
+                }
+
+              )
+              .join('');
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Recent seller applications error:',
+            error
+          );
+
+
+          loading.hidden = true;
+
+          empty.hidden = false;
+
+          empty.innerHTML = `
+
+            <h2>
+              Unable to Load Applications
+            </h2>
+
+            <p>
+              Check your Admin RLS permissions
+              and Supabase connection.
+            </p>
+
+          `;
+
+        }
+
+      }
+
+
+      /* ====================================================
+         LOAD RECENT PRODUCTS
+         ==================================================== */
+
+      async function loadRecentProducts() {
+
+        var loading =
+          document.getElementById(
+            'products-loading'
+          );
+
+
+        var empty =
+          document.getElementById(
+            'products-empty'
+          );
+
+
+        var wrapper =
+          document.getElementById(
+            'products-table-wrapper'
+          );
+
+
+        var body =
+          document.getElementById(
+            'products-table-body'
+          );
+
+
+        try {
+
+          var result =
+            await window.supabaseClient
+
+              .from('products')
+
+              .select(
+                `
+                id,
+                name,
+                price,
+                product_type,
+                status,
+                created_at
+                `
+              )
+
+              .order(
+                'created_at',
+                {
+                  ascending: false
+                }
+              )
+
+              .limit(5);
+
+
+          if (result.error) {
+
+            throw result.error;
+
+          }
+
+
+          var products =
+            result.data || [];
+
+
+          loading.hidden = true;
+
+
+          if (
+            products.length === 0
+          ) {
+
+            empty.hidden = false;
+
+            wrapper.hidden = true;
+
+            return;
+
+          }
+
+
+          empty.hidden = true;
+
+          wrapper.hidden = false;
+
+
+          body.innerHTML =
+            products
+              .map(
+
+                function (product) {
+
+                  return `
+
+                    <tr>
+
+                      <td>
+
+                        <strong>
+                          ${escapeHtml(
+                            product.name
+                          )}
+                        </strong>
+
+                        <br>
+
+                        <small class="muted">
+                          ID:
+                          ${escapeHtml(
+                            product.id
+                          )}
+                        </small>
+
+                      </td>
+
+
+                      <td>
+
+                        ${escapeHtml(
+                          product.product_type ||
+                          'own'
+                        )}
+
+                      </td>
+
+
+                      <td>
+
+                        ${escapeHtml(
+                          formatINR(
+                            product.price
+                          )
+                        )}
+
+                      </td>
+
+
+                      <td>
+
+                        ${statusBadge(
+                          product.status
+                        )}
+
+                      </td>
+
+
+                      <td>
+
+                        ${escapeHtml(
+                          formatDate(
+                            product.created_at
+                          )
+                        )}
+
+                      </td>
+
+                    </tr>
+
+                  `;
+
+                }
+
+              )
+              .join('');
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Recent products error:',
+            error
+          );
+
+
+          loading.hidden = true;
+
+          empty.hidden = false;
+
+          empty.innerHTML = `
+
+            <h2>
+              Unable to Load Products
+            </h2>
+
+            <p>
+              Check the products table and
+              Admin RLS permissions.
+            </p>
+
+          `;
+
+        }
+
+      }
+
+
+      /* ====================================================
+         INITIALIZE DASHBOARD
+         ==================================================== */
+
+      async function initializeDashboard() {
+
+        if (
+          !window.supabaseClient ||
+          !window.BTAdmin
+        ) {
+
+          showMessage(
+            'Admin Portal could not start. Check the JavaScript configuration.',
+            'error'
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * IMPORTANT:
+         * Verify login + profiles.role = admin
+         * before loading Admin database information.
+         */
+
+        var session =
+          await window.BTAdmin
+            .requireAdmin();
+
+
+        if (!session) {
+
+          return;
+
+        }
+
+
+        await Promise.all([
+
+          loadStatistics(),
+
+          loadRecentApplications(),
+
+          loadRecentProducts()
+
+        ]);
+
+      }
+
+
+      initializeDashboard();
+
+
+    })();
+
+  </script>
+
+
+</body>
+
+</html>
