@@ -1,0 +1,684 @@
+/* ==========================================================
+   Brit.Tuna Admin Portal
+   Responsive Styles
+   ========================================================== */
+
+
+/* ==========================================================
+   1. LARGE TABLETS / SMALL LAPTOPS
+   ========================================================== */
+
+@media (max-width: 1100px) {
+
+  :root {
+    --sidebar-width: 210px;
+  }
+
+
+  .admin-nav {
+    gap: 2px;
+  }
+
+
+  .admin-nav a {
+    padding: 8px 7px;
+
+    font-size: 13px;
+  }
+
+
+  .stats-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  .admin-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  .admin-layout {
+    gap: 18px;
+  }
+
+}
+
+
+/* ==========================================================
+   2. TABLET / MOBILE NAVIGATION
+   ========================================================== */
+
+@media (max-width: 900px) {
+
+  .container {
+    width:
+      min(
+        calc(100% - 30px),
+        var(--container)
+      );
+  }
+
+
+  /* Hide desktop navigation */
+
+  .admin-nav {
+    display: none;
+  }
+
+
+  .header-actions {
+    display: none;
+  }
+
+
+  /* Show hamburger */
+
+  .mobile-menu-button {
+    display: inline-flex;
+  }
+
+
+  /* Remove desktop sidebar */
+
+  .admin-layout {
+    display: block;
+  }
+
+
+  .admin-sidebar {
+    display: none;
+  }
+
+
+  .admin-header-inner {
+    min-height: 68px;
+  }
+
+
+  .admin-main {
+    padding-top: 26px;
+  }
+
+
+  .details-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* ==========================================================
+   3. SMALL TABLETS
+   ========================================================== */
+
+@media (max-width: 760px) {
+
+  .container {
+    width:
+      min(
+        calc(100% - 24px),
+        var(--container)
+      );
+  }
+
+
+  body {
+    font-size: 15px;
+  }
+
+
+  .admin-main {
+    padding:
+      22px 0 45px;
+  }
+
+
+  /* ------------------------------------------
+     Page Header
+  ------------------------------------------- */
+
+  .page-header {
+    margin-bottom: 18px;
+  }
+
+
+  .page-header h1 {
+    font-size: 29px;
+  }
+
+
+  /* ------------------------------------------
+     Forms
+  ------------------------------------------- */
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .form-field.full {
+    grid-column: auto;
+  }
+
+
+  /* ------------------------------------------
+     Stats
+  ------------------------------------------- */
+
+  .stats-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+  }
+
+
+  .stat-card {
+    padding: 17px;
+  }
+
+
+  .stat-value {
+    font-size: 26px;
+  }
+
+
+  /* ------------------------------------------
+     Cards
+  ------------------------------------------- */
+
+  .card {
+    padding: 18px;
+  }
+
+
+  .auth-card {
+    padding: 24px 19px;
+  }
+
+
+  /* ------------------------------------------
+     Grid
+  ------------------------------------------- */
+
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  /* ------------------------------------------
+     Toolbar
+  ------------------------------------------- */
+
+  .toolbar {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+
+  .toolbar-actions {
+    width: 100%;
+  }
+
+
+  /* ------------------------------------------
+     Filters
+  ------------------------------------------- */
+
+  .filter-bar {
+    grid-template-columns: 1fr;
+  }
+
+
+  /* ------------------------------------------
+     Details
+  ------------------------------------------- */
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  /* ------------------------------------------
+     Action Panel
+  ------------------------------------------- */
+
+  .action-panel {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+
+  .action-panel-buttons {
+    width: 100%;
+  }
+
+
+  /* ------------------------------------------
+     Footer
+  ------------------------------------------- */
+
+  .admin-footer-inner {
+    padding:
+      18px 0;
+
+    align-items:
+      flex-start;
+
+    flex-direction:
+      column;
+
+    justify-content:
+      center;
+
+    gap:
+      8px;
+  }
+
+
+  /* ------------------------------------------
+     Order Header
+  ------------------------------------------- */
+
+  .order-card-header {
+    flex-direction: column;
+  }
+
+
+  .order-summary {
+    justify-content:
+      flex-start;
+  }
+
+}
+
+
+/* ==========================================================
+   4. MOBILE
+   ========================================================== */
+
+@media (max-width: 560px) {
+
+  .container {
+    width:
+      calc(100% - 20px);
+  }
+
+
+  /* ------------------------------------------
+     Header
+  ------------------------------------------- */
+
+  .admin-header-inner {
+    min-height: 64px;
+
+    gap: 10px;
+  }
+
+
+  .admin-logo {
+    gap: 8px;
+  }
+
+
+  .admin-logo-mark {
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 10px;
+
+    font-size: 18px;
+  }
+
+
+  .admin-logo-text strong {
+    font-size: 17px;
+  }
+
+
+  .admin-logo-text small {
+    font-size: 9px;
+  }
+
+
+  .mobile-menu-button {
+    width: 40px;
+
+    height: 40px;
+  }
+
+
+  /* ------------------------------------------
+     Main
+  ------------------------------------------- */
+
+  .admin-main {
+    padding:
+      18px 0 38px;
+  }
+
+
+  /* ------------------------------------------
+     Heading
+  ------------------------------------------- */
+
+  .page-header h1 {
+    font-size: 26px;
+  }
+
+
+  /* ------------------------------------------
+     Stats
+  ------------------------------------------- */
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .stat-card {
+    padding: 16px;
+  }
+
+
+  /* ------------------------------------------
+     Cards
+  ------------------------------------------- */
+
+  .card {
+    padding: 16px;
+
+    border-radius: 13px;
+  }
+
+
+  .auth-card {
+    padding: 21px 16px;
+  }
+
+
+  /* ------------------------------------------
+     Buttons
+  ------------------------------------------- */
+
+  .toolbar-actions .btn {
+    width: 100%;
+  }
+
+
+  .action-panel-buttons {
+    flex-direction: column;
+  }
+
+
+  .action-panel-buttons .btn {
+    width: 100%;
+  }
+
+
+  /* ------------------------------------------
+     Tables
+  ------------------------------------------- */
+
+  .admin-table {
+    min-width: 680px;
+  }
+
+
+  .admin-table th,
+  .admin-table td {
+    padding:
+      11px 12px;
+
+    font-size:
+      13px;
+  }
+
+
+  /* ------------------------------------------
+     Mobile Drawer
+  ------------------------------------------- */
+
+  .mobile-drawer {
+    width:
+      min(90vw, 340px);
+
+    padding:
+      17px;
+  }
+
+
+  /* ------------------------------------------
+     Modal
+  ------------------------------------------- */
+
+  .modal-backdrop {
+    padding:
+      12px;
+  }
+
+
+  .modal-card {
+    padding:
+      18px;
+
+    border-radius:
+      13px;
+  }
+
+
+  .modal-header {
+    gap: 10px;
+  }
+
+
+  /* ------------------------------------------
+     Product Image
+  ------------------------------------------- */
+
+  .product-image,
+  .product-image-placeholder {
+    height: 170px;
+  }
+
+
+  /* ------------------------------------------
+     Access Denied
+  ------------------------------------------- */
+
+  .access-denied {
+    margin:
+      25px auto;
+
+    padding:
+      24px 17px;
+  }
+
+}
+
+
+/* ==========================================================
+   5. VERY SMALL MOBILE
+   ========================================================== */
+
+@media (max-width: 380px) {
+
+  body {
+    font-size: 14px;
+  }
+
+
+  .container {
+    width:
+      calc(100% - 16px);
+  }
+
+
+  .admin-logo-text small {
+    display: none;
+  }
+
+
+  .admin-logo-mark {
+    width: 36px;
+
+    height: 36px;
+  }
+
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+
+  .card {
+    padding: 14px;
+  }
+
+
+  .stat-card {
+    padding: 14px;
+  }
+
+
+  .stat-value {
+    font-size: 24px;
+  }
+
+
+  .btn {
+    padding:
+      9px 12px;
+
+    font-size:
+      14px;
+  }
+
+
+  .mobile-drawer {
+    width: 92vw;
+  }
+
+}
+
+
+/* ==========================================================
+   6. PREVENT HORIZONTAL OVERFLOW
+   ========================================================== */
+
+html,
+body {
+  max-width: 100%;
+
+  overflow-x: hidden;
+}
+
+
+.admin-layout,
+.admin-layout > *,
+.admin-grid,
+.admin-grid > *,
+.form-grid,
+.form-grid > *,
+.details-grid,
+.details-grid > * {
+  min-width: 0;
+}
+
+
+/* ==========================================================
+   7. TOUCH DEVICES
+   ========================================================== */
+
+@media (hover: none) {
+
+  .btn:hover {
+    transform: none;
+  }
+
+
+  .admin-nav a:hover,
+  .sidebar-nav a:hover,
+  .mobile-nav a:hover,
+  .mobile-nav button:hover {
+    background: inherit;
+
+    color: inherit;
+  }
+
+}
+
+
+/* ==========================================================
+   8. REDUCED MOTION ACCESSIBILITY
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    transition-duration: 0.01ms !important;
+
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+  }
+
+}
+
+
+/* ==========================================================
+   9. PRINT
+   ========================================================== */
+
+@media print {
+
+  .admin-header,
+  .admin-sidebar,
+  .admin-footer,
+  .mobile-drawer,
+  .mobile-backdrop,
+  .mobile-menu-button,
+  .toolbar-actions,
+  .action-panel-buttons {
+    display: none !important;
+  }
+
+
+  body {
+    background: #ffffff;
+
+    color: #000000;
+  }
+
+
+  .admin-main {
+    padding: 0;
+  }
+
+
+  .admin-layout {
+    display: block;
+  }
+
+
+  .card,
+  .stat-card,
+  .admin-item-card {
+    border:
+      1px solid #cccccc;
+
+    box-shadow:
+      none;
+  }
+
+}
