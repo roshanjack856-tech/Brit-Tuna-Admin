@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Manage Brit.Tuna Marketplace Orders"
+  >
+
+  <meta
+    name="theme-color"
+    content="#1f5a3a"
+  >
+
+  <title>Orders | Brit.Tuna Admin</title>
+
+
+  <!-- Google Fonts -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="responsive.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- ======================================================
+       HEADER
+       ====================================================== -->
+
+  <div id="site-header"></div>
+
+
+  <!-- ======================================================
+       MAIN
+       ====================================================== -->
+
+  <main class="admin-main">
+
+    <div class="container">
+
+      <div class="admin-layout">
+
+
+        <!-- ==================================================
+             SIDEBAR
+             ================================================== -->
+
+        <aside class="admin-sidebar">
+
+          <div class="sidebar-title">
+            Admin Menu
+          </div>
+
+          <nav class="sidebar-nav">
+
+            <a href="admin-dashboard.html">
+              Dashboard
+            </a>
+
+            <a href="seller-applications.html">
+              Seller Applications
+            </a>
+
+            <a href="sellers.html">
+              Sellers
+            </a>
+
+            <a href="products.html">
+              Products
+            </a>
+
+            <a
+              href="orders.html"
+              class="active"
+            >
+              Orders
+            </a>
+
+          </nav>
+
+        </aside>
+
+
+        <!-- ==================================================
+             CONTENT
+             ================================================== -->
+
+        <section>
+
+
+          <!-- PAGE HEADER -->
+
+          <div class="toolbar">
+
+            <div class="page-header">
+
+              <h1>
+                Orders
+              </h1>
+
+              <p>
+                View customer orders, payment status,
+                delivery information and marketplace items.
+              </p>
+
+            </div>
+
+
+            <div class="toolbar-actions">
+
+              <button
+                id="refresh-button"
+                class="btn btn-outline"
+                type="button"
+              >
+                Refresh
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- MESSAGE -->
+
+          <div
+            id="page-message"
+            hidden
+          ></div>
+
+
+          <!-- ==================================================
+               STATISTICS
+               ================================================== -->
+
+          <div class="stats-grid">
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Total Orders
+              </div>
+
+              <div
+                id="total-orders"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                All customer orders
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Pending Orders
+              </div>
+
+              <div
+                id="pending-orders"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Waiting for processing
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Paid Orders
+              </div>
+
+              <div
+                id="paid-orders"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Payment marked as paid
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Paid Sales
+              </div>
+
+              <div
+                id="paid-sales"
+                class="stat-value"
+              >
+                —
+              </div>
+
+              <div class="stat-note">
+                Paid order value
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               FILTERS
+               ================================================== -->
+
+          <div class="filter-bar">
+
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Search order ID, customer or phone..."
+              aria-label="Search orders"
+            >
+
+            <select
+              id="order-status-filter"
+              aria-label="Filter by order status"
+            >
+
+              <option value="all">
+                All Order Status
+              </option>
+
+              <option value="pending">
+                Pending
+              </option>
+
+              <option value="confirmed">
+                Confirmed
+              </option>
+
+              <option value="processing">
+                Processing
+              </option>
+
+              <option value="shipped">
+                Shipped
+              </option>
+
+              <option value="delivered">
+                Delivered
+              </option>
+
+              <option value="cancelled">
+                Cancelled
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div
+            class="filter-bar"
+            style="margin-top:-6px;"
+          >
+
+            <select
+              id="payment-status-filter"
+              aria-label="Filter by payment status"
+            >
+
+              <option value="all">
+                All Payment Status
+              </option>
+
+              <option value="pending">
+                Payment Pending
+              </option>
+
+              <option value="paid">
+                Paid
+              </option>
+
+              <option value="failed">
+                Failed
+              </option>
+
+              <option value="refunded">
+                Refunded
+              </option>
+
+            </select>
+
+            <select
+              id="sort-filter"
+              aria-label="Sort orders"
+            >
+
+              <option value="newest">
+                Newest First
+              </option>
+
+              <option value="oldest">
+                Oldest First
+              </option>
+
+              <option value="highest">
+                Highest Amount
+              </option>
+
+              <option value="lowest">
+                Lowest Amount
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- ==================================================
+               LOADING
+               ================================================== -->
+
+          <div
+            id="loading"
+            class="loading"
+          >
+            Loading orders...
+          </div>
+
+
+          <!-- ==================================================
+               EMPTY
+               ================================================== -->
+
+          <div
+            id="empty-state"
+            class="card empty-state"
+            hidden
+          >
+
+            <h2>
+              No Orders Found
+            </h2>
+
+            <p>
+              No orders match the selected filters.
+            </p>
+
+          </div>
+
+
+          <!-- ==================================================
+               ORDERS
+               ================================================== -->
+
+          <div
+            id="orders-container"
+            hidden
+          ></div>
+
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- ======================================================
+       ORDER DETAILS MODAL
+       ====================================================== -->
+
+  <div
+    id="order-modal"
+    class="modal-backdrop"
+    hidden
+  >
+
+    <div
+      class="modal-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="order-modal-title"
+    >
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2 id="order-modal-title">
+            Order Details
+          </h2>
+
+          <p>
+            Customer, payment and marketplace item information.
+          </p>
+
+        </div>
+
+
+        <button
+          id="close-modal-button"
+          class="mobile-close"
+          type="button"
+          aria-label="Close order details"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div id="order-details"></div>
+
+
+      <div class="notice notice-info mt-2 mb-0">
+
+        Order management is currently read-only.
+        Secure Admin order-status updates will be connected
+        through a protected database function later.
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================
+       FOOTER
+       ====================================================== -->
+
+  <div id="site-footer"></div>
+
+
+  <!-- ======================================================
+       SUPABASE
+       ====================================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+  <!-- PROJECT FILES -->
+
+  <script src="config.js"></script>
+
+  <script src="supabase.js"></script>
+
+  <script src="script.js"></script>
+
+
+  <!-- ======================================================
+       ORDERS PAGE LOGIC
+       ====================================================== -->
+
+  <script>
+
+    (function () {
+
+      'use strict';
+
+
+      /* ====================================================
+         STATE
+         ==================================================== */
+
+      var orders = [];
+
+      var orderItems = [];
+
+      var selectedOrder = null;
+
+
+      /* ====================================================
+         ELEMENTS
+         ==================================================== */
+
+      var ordersContainer =
+        document.getElementById(
+          'orders-container'
+        );
+
+
+      var loading =
+        document.getElementById(
+          'loading'
+        );
+
+
+      var emptyState =
+        document.getElementById(
+          'empty-state'
+        );
+
+
+      var searchInput =
+        document.getElementById(
+          'search-input'
+        );
+
+
+      var orderStatusFilter =
+        document.getElementById(
+          'order-status-filter'
+        );
+
+
+      var paymentStatusFilter =
+        document.getElementById(
+          'payment-status-filter'
+        );
+
+
+      var sortFilter =
+        document.getElementById(
+          'sort-filter'
+        );
+
+
+      var refreshButton =
+        document.getElementById(
+          'refresh-button'
+        );
+
+
+      var pageMessage =
+        document.getElementById(
+          'page-message'
+        );
+
+
+      var modal =
+        document.getElementById(
+          'order-modal'
+        );
+
+
+      var closeModalButton =
+        document.getElementById(
+          'close-modal-button'
+        );
+
+
+      var orderDetails =
+        document.getElementById(
+          'order-details'
+        );
+
+
+      /* ====================================================
+         HELPERS
+         ==================================================== */
+
+      function escapeHtml(value) {
+
+        return window.BTAdminUtil
+          .escapeHtml(value);
+
+      }
+
+
+      function formatINR(value) {
+
+        return window.BTAdminUtil
+          .formatINR(value);
+
+      }
+
+
+      function formatDate(value) {
+
+        return window.BTAdminUtil
+          .formatDate(value);
+
+      }
+
+
+      function showMessage(
+        message,
+        type
+      ) {
+
+        pageMessage.hidden = false;
+
+        pageMessage.className =
+          'notice notice-' +
+          (type || 'info');
+
+        pageMessage.textContent =
+          message;
+
+      }
+
+
+      function hideMessage() {
+
+        pageMessage.hidden = true;
+
+        pageMessage.textContent = '';
+
+        pageMessage.className = '';
+
+      }
+
+
+      function statusBadge(status) {
+
+        var safeStatus =
+          String(
+            status || 'unknown'
+          )
+          .trim()
+          .toLowerCase();
+
+
+        return (
+          '<span class="badge badge-' +
+          escapeHtml(safeStatus) +
+          '">' +
+          escapeHtml(safeStatus) +
+          '</span>'
+        );
+
+      }
+
+
+      /* ====================================================
+         GET ORDER ITEMS
+         ==================================================== */
+
+      function getItemsForOrder(
+        orderId
+      ) {
+
+        return orderItems.filter(
+
+          function (item) {
+
+            return (
+              String(item.order_id) ===
+              String(orderId)
+            );
+
+          }
+
+        );
+
+      }
+
+
+      /* ====================================================
+         LOAD ORDERS
+         ==================================================== */
+
+      async function loadOrders() {
+
+        loading.hidden = false;
+
+        ordersContainer.hidden = true;
+
+        emptyState.hidden = true;
+
+        hideMessage();
+
+
+        refreshButton.disabled = true;
+
+
+        try {
+
+          /*
+           * Admin RLS must allow Admin SELECT
+           * on the orders table.
+           */
+
+          var ordersResult =
+            await window.supabaseClient
+
+              .from('orders')
+
+              .select(
+                `
+                id,
+                user_id,
+                customer_name,
+                customer_phone,
+                shipping_address,
+                city,
+                state,
+                pincode,
+                total_amount,
+                payment_status,
+                order_status,
+                payment_method,
+                created_at,
+                updated_at
+                `
+              )
+
+              .order(
+                'created_at',
+                {
+                  ascending: false
+                }
+              );
+
+
+          if (ordersResult.error) {
+
+            throw ordersResult.error;
+
+          }
+
+
+          /*
+           * Admin RLS must allow Admin SELECT
+           * on order_items.
+           */
+
+          var itemsResult =
+            await window.supabaseClient
+
+              .from('order_items')
+
+              .select(
+                `
+                id,
+                order_id,
+                product_id,
+                seller_id,
+                product_name,
+                price,
+                quantity,
+                created_at
+                `
+              )
+
+              .order(
+                'id',
+                {
+                  ascending: true
+                }
+              );
+
+
+          if (itemsResult.error) {
+
+            throw itemsResult.error;
+
+          }
+
+
+          orders =
+            ordersResult.data || [];
+
+
+          orderItems =
+            itemsResult.data || [];
+
+
+          updateStatistics();
+
+          renderOrders();
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Admin orders load error:',
+            error
+          );
+
+
+          orders = [];
+
+          orderItems = [];
+
+
+          loading.hidden = true;
+
+          ordersContainer.hidden = true;
+
+          emptyState.hidden = false;
+
+
+          showMessage(
+            'Unable to load orders. Check Admin RLS permissions for orders and order_items.',
+            'error'
+          );
+
+        }
+
+        finally {
+
+          refreshButton.disabled = false;
+
+        }
+
+      }
+
+
+      /* ====================================================
+         STATISTICS
+         ==================================================== */
+
+      function updateStatistics() {
+
+        var pendingOrders =
+          orders.filter(
+
+            function (order) {
+
+              return (
+                order.order_status ===
+                'pending'
+              );
+
+            }
+
+          ).length;
+
+
+        var paidOrders =
+          orders.filter(
+
+            function (order) {
+
+              return (
+                order.payment_status ===
+                'paid'
+              );
+
+            }
+
+          );
+
+
+        var paidSales =
+          paidOrders.reduce(
+
+            function (
+              total,
+              order
+            ) {
+
+              return (
+                total +
+                Number(
+                  order.total_amount || 0
+                )
+              );
+
+            },
+
+            0
+
+          );
+
+
+        document.getElementById(
+          'total-orders'
+        ).textContent =
+          orders.length;
+
+
+        document.getElementById(
+          'pending-orders'
+        ).textContent =
+          pendingOrders;
+
+
+        document.getElementById(
+          'paid-orders'
+        ).textContent =
+          paidOrders.length;
+
+
+        document.getElementById(
+          'paid-sales'
+        ).textContent =
+          formatINR(
+            paidSales
+          );
+
+      }
+
+
+      /* ====================================================
+         FILTER + SORT
+         ==================================================== */
+
+      function getFilteredOrders() {
+
+        var search =
+          searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+        var orderStatus =
+          orderStatusFilter.value;
+
+
+        var paymentStatus =
+          paymentStatusFilter.value;
+
+
+        var sort =
+          sortFilter.value;
+
+
+        var filtered =
+          orders.filter(
+
+            function (order) {
+
+              var matchesOrderStatus =
+                orderStatus === 'all' ||
+                order.order_status ===
+                  orderStatus;
+
+
+              var matchesPaymentStatus =
+                paymentStatus === 'all' ||
+                order.payment_status ===
+                  paymentStatus;
+
+
+              var searchable =
+                [
+                  order.id,
+                  order.customer_name,
+                  order.customer_phone,
+                  order.city,
+                  order.state,
+                  order.pincode,
+                  order.payment_method
+                ]
+                .join(' ')
+                .toLowerCase();
+
+
+              var matchesSearch =
+                !search ||
+                searchable.includes(
+                  search
+                );
+
+
+              return (
+                matchesOrderStatus &&
+                matchesPaymentStatus &&
+                matchesSearch
+              );
+
+            }
+
+          );
+
+
+        filtered.sort(
+
+          function (a, b) {
+
+            if (sort === 'oldest') {
+
+              return (
+                new Date(a.created_at) -
+                new Date(b.created_at)
+              );
+
+            }
+
+
+            if (sort === 'highest') {
+
+              return (
+                Number(b.total_amount || 0) -
+                Number(a.total_amount || 0)
+              );
+
+            }
+
+
+            if (sort === 'lowest') {
+
+              return (
+                Number(a.total_amount || 0) -
+                Number(b.total_amount || 0)
+              );
+
+            }
+
+
+            return (
+              new Date(b.created_at) -
+              new Date(a.created_at)
+            );
+
+          }
+
+        );
+
+
+        return filtered;
+
+      }
+
+
+      /* ====================================================
+         RENDER ORDERS
+         ==================================================== */
+
+      function renderOrders() {
+
+        var filtered =
+          getFilteredOrders();
+
+
+        loading.hidden = true;
+
+
+        if (
+          filtered.length === 0
+        ) {
+
+          ordersContainer.hidden = true;
+
+          emptyState.hidden = false;
+
+          return;
+
+        }
+
+
+        emptyState.hidden = true;
+
+        ordersContainer.hidden = false;
+
+
+        ordersContainer.innerHTML =
+          filtered.map(
+
+            function (order) {
+
+              var items =
+                getItemsForOrder(
+                  order.id
+                );
+
+
+              var quantity =
+                items.reduce(
+
+                  function (
+                    total,
+                    item
+                  ) {
+
+                    return (
+                      total +
+                      Number(
+                        item.quantity || 0
+                      )
+                    );
+
+                  },
+
+                  0
+
+                );
+
+
+              return `
+
+                <article class="order-card">
+
+                  <div class="order-card-header">
+
+                    <div>
+
+                      <h2
+                        style="
+                          margin-bottom:5px;
+                          font-size:21px;
+                        "
+                      >
+                        Order #${escapeHtml(
+                          order.id
+                        )}
+                      </h2>
+
+                      <div class="muted">
+
+                        ${escapeHtml(
+                          formatDate(
+                            order.created_at
+                          )
+                        )}
+
+                      </div>
+
+                    </div>
+
+
+                    <div class="order-statuses">
+
+                      ${statusBadge(
+                        order.order_status
+                      )}
+
+                      ${statusBadge(
+                        order.payment_status
+                      )}
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="details-grid">
+
+                    <div class="detail-item">
+
+                      <span class="detail-label">
+                        Customer
+                      </span>
+
+                      <span class="detail-value">
+                        ${escapeHtml(
+                          order.customer_name
+                        )}
+                      </span>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                      <span class="detail-label">
+                        Phone
+                      </span>
+
+                      <span class="detail-value">
+                        ${escapeHtml(
+                          order.customer_phone
+                        )}
+                      </span>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                      <span class="detail-label">
+                        Items
+                      </span>
+
+                      <span class="detail-value">
+                        ${quantity}
+                      </span>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                      <span class="detail-label">
+                        Total
+                      </span>
+
+                      <span class="detail-value">
+
+                        <strong>
+                          ${escapeHtml(
+                            formatINR(
+                              order.total_amount
+                            )
+                          )}
+                        </strong>
+
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="order-summary">
+
+                    <div>
+
+                      <span class="detail-label">
+                        Payment Method
+                      </span>
+
+                      <div class="detail-value">
+                        ${escapeHtml(
+                          order.payment_method ||
+                          'Not specified'
+                        )}
+                      </div>
+
+                    </div>
+
+
+                    <button
+                      class="btn btn-outline view-order-button"
+                      type="button"
+                      data-id="${escapeHtml(
+                        order.id
+                      )}"
+                    >
+                      View Order
+                    </button>
+
+                  </div>
+
+                </article>
+
+              `;
+
+            }
+
+          ).join('');
+
+
+        document
+          .querySelectorAll(
+            '.view-order-button'
+          )
+          .forEach(
+
+            function (button) {
+
+              button.addEventListener(
+                'click',
+                function () {
+
+                  openOrder(
+                    button.dataset.id
+                  );
+
+                }
+              );
+
+            }
+
+          );
+
+      }
+
+
+      /* ====================================================
+         OPEN ORDER
+         ==================================================== */
+
+      function openOrder(
+        orderId
+      ) {
+
+        selectedOrder =
+          orders.find(
+
+            function (order) {
+
+              return (
+                String(order.id) ===
+                String(orderId)
+              );
+
+            }
+
+          );
+
+
+        if (!selectedOrder) {
+
+          return;
+
+        }
+
+
+        var order =
+          selectedOrder;
+
+
+        var items =
+          getItemsForOrder(
+            order.id
+          );
+
+
+        var itemsHtml;
+
+
+        if (
+          items.length === 0
+        ) {
+
+          itemsHtml = `
+
+            <div class="notice notice-warning">
+              No order items were found for this order.
+            </div>
+
+          `;
+
+        }
+
+        else {
+
+          itemsHtml = `
+
+            <div class="table-scroll">
+
+              <table class="admin-table">
+
+                <thead>
+
+                  <tr>
+
+                    <th>
+                      Product
+                    </th>
+
+                    <th>
+                      Seller
+                    </th>
+
+                    <th>
+                      Price
+                    </th>
+
+                    <th>
+                      Qty
+                    </th>
+
+                    <th>
+                      Total
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                  ${items.map(
+
+                    function (item) {
+
+                      var lineTotal =
+                        Number(
+                          item.price || 0
+                        ) *
+                        Number(
+                          item.quantity || 0
+                        );
+
+
+                      return `
+
+                        <tr>
+
+                          <td>
+
+                            <strong>
+                              ${escapeHtml(
+                                item.product_name
+                              )}
+                            </strong>
+
+                            <br>
+
+                            <small class="muted">
+                              Product ID:
+                              ${escapeHtml(
+                                item.product_id ||
+                                '-'
+                              )}
+                            </small>
+
+                          </td>
+
+
+                          <td>
+
+                            ${escapeHtml(
+                              item.seller_id ||
+                              'Brit.Tuna'
+                            )}
+
+                          </td>
+
+
+                          <td>
+
+                            ${escapeHtml(
+                              formatINR(
+                                item.price
+                              )
+                            )}
+
+                          </td>
+
+
+                          <td>
+
+                            ${escapeHtml(
+                              item.quantity
+                            )}
+
+                          </td>
+
+
+                          <td>
+
+                            <strong>
+
+                              ${escapeHtml(
+                                formatINR(
+                                  lineTotal
+                                )
+                              )}
+
+                            </strong>
+
+                          </td>
+
+                        </tr>
+
+                      `;
+
+                    }
+
+                  ).join('')}
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          `;
+
+        }
+
+
+        orderDetails.innerHTML = `
+
+          <div class="order-card-header">
+
+            <div>
+
+              <h2>
+                Order #${escapeHtml(
+                  order.id
+                )}
+              </h2>
+
+              <p class="muted">
+                ${escapeHtml(
+                  formatDate(
+                    order.created_at
+                  )
+                )}
+              </p>
+
+            </div>
+
+
+            <div class="order-statuses">
+
+              ${statusBadge(
+                order.order_status
+              )}
+
+              ${statusBadge(
+                order.payment_status
+              )}
+
+            </div>
+
+          </div>
+
+
+          <h3 class="mt-2">
+            Customer
+          </h3>
+
+
+          <div class="details-grid">
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Name
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  order.customer_name
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Phone
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  order.customer_phone
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                User ID
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  order.user_id
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Payment Method
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  order.payment_method ||
+                  '-'
+                )}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <h3 class="mt-2">
+            Delivery Address
+          </h3>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              Address
+            </span>
+
+            <span class="detail-value">
+
+              ${escapeHtml(
+                order.shipping_address
+              )}
+
+              <br>
+
+              ${escapeHtml(
+                order.city
+              )}
+
+              ${
+                order.state
+                  ? ', ' +
+                    escapeHtml(
+                      order.state
+                    )
+                  : ''
+              }
+
+              <br>
+
+              ${escapeHtml(
+                order.pincode
+              )}
+
+            </span>
+
+          </div>
+
+
+          <h3 class="mt-2">
+            Items
+          </h3>
+
+
+          ${itemsHtml}
+
+
+          <div class="order-summary mt-2">
+
+            <div>
+
+              <span class="detail-label">
+                Order Total
+              </span>
+
+              <div
+                class="detail-value"
+                style="font-size:22px;"
+              >
+
+                <strong>
+                  ${escapeHtml(
+                    formatINR(
+                      order.total_amount
+                    )
+                  )}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div>
+
+              <span class="detail-label">
+                Last Updated
+              </span>
+
+              <div class="detail-value">
+
+                ${escapeHtml(
+                  formatDate(
+                    order.updated_at
+                  )
+                )}
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `;
+
+
+        modal.hidden = false;
+
+
+        document.body.classList.add(
+          'menu-open'
+        );
+
+      }
+
+
+      /* ====================================================
+         CLOSE MODAL
+         ==================================================== */
+
+      function closeModal() {
+
+        modal.hidden = true;
+
+        selectedOrder = null;
+
+
+        document.body.classList.remove(
+          'menu-open'
+        );
+
+      }
+
+
+      /* ====================================================
+         EVENTS
+         ==================================================== */
+
+      searchInput.addEventListener(
+        'input',
+        renderOrders
+      );
+
+
+      orderStatusFilter.addEventListener(
+        'change',
+        renderOrders
+      );
+
+
+      paymentStatusFilter.addEventListener(
+        'change',
+        renderOrders
+      );
+
+
+      sortFilter.addEventListener(
+        'change',
+        renderOrders
+      );
+
+
+      refreshButton.addEventListener(
+        'click',
+        loadOrders
+      );
+
+
+      closeModalButton.addEventListener(
+        'click',
+        closeModal
+      );
+
+
+      modal.addEventListener(
+        'click',
+        function (event) {
+
+          if (
+            event.target === modal
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
+
+
+      document.addEventListener(
+        'keydown',
+        function (event) {
+
+          if (
+            event.key === 'Escape' &&
+            !modal.hidden
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
+
+
+      /* ====================================================
+         INITIALIZE
+         ==================================================== */
+
+      async function initialize() {
+
+        if (
+          !window.supabaseClient ||
+          !window.BTAdmin
+        ) {
+
+          loading.hidden = true;
+
+
+          showMessage(
+            'Admin Portal could not start. Check the configuration.',
+            'error'
+          );
+
+
+          return;
+
+        }
+
+
+        /*
+         * Only profiles.role === admin
+         * can continue.
+         */
+
+        var session =
+          await window.BTAdmin
+            .requireAdmin();
+
+
+        if (!session) {
+
+          loading.hidden = true;
+
+          return;
+
+        }
+
+
+        await loadOrders();
+
+      }
+
+
+      initialize();
+
+
+    })();
+
+  </script>
+
+
+</body>
+
+</html>
