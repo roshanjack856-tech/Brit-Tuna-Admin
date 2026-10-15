@@ -1,0 +1,2204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Manage Brit.Tuna Marketplace Products"
+  >
+
+  <meta
+    name="theme-color"
+    content="#1f5a3a"
+  >
+
+  <title>Products | Brit.Tuna Admin</title>
+
+
+  <!-- Google Fonts -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="responsive.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <div id="site-header"></div>
+
+
+  <!-- MAIN -->
+
+  <main class="admin-main">
+
+    <div class="container">
+
+      <div class="admin-layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="admin-sidebar">
+
+          <div class="sidebar-title">
+            Admin Menu
+          </div>
+
+          <nav class="sidebar-nav">
+
+            <a href="admin-dashboard.html">
+              Dashboard
+            </a>
+
+            <a href="seller-applications.html">
+              Seller Applications
+            </a>
+
+            <a href="sellers.html">
+              Sellers
+            </a>
+
+            <a
+              href="products.html"
+              class="active"
+            >
+              Products
+            </a>
+
+            <a href="orders.html">
+              Orders
+            </a>
+
+          </nav>
+
+        </aside>
+
+
+        <!-- CONTENT -->
+
+        <section>
+
+
+          <!-- PAGE HEADER -->
+
+          <div class="toolbar">
+
+            <div class="page-header">
+
+              <h1>
+                Products
+              </h1>
+
+              <p>
+                Review and manage products available
+                in the Brit.Tuna marketplace.
+              </p>
+
+            </div>
+
+
+            <div class="toolbar-actions">
+
+              <button
+                id="clear-seller-filter"
+                class="btn btn-outline"
+                type="button"
+                hidden
+              >
+                Clear Seller Filter
+              </button>
+
+              <button
+                id="refresh-button"
+                class="btn btn-outline"
+                type="button"
+              >
+                Refresh
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- MESSAGE -->
+
+          <div
+            id="page-message"
+            hidden
+          ></div>
+
+
+          <!-- SELLER FILTER NOTICE -->
+
+          <div
+            id="seller-filter-notice"
+            class="notice notice-info"
+            hidden
+          ></div>
+
+
+          <!-- STATS -->
+
+          <div class="stats-grid">
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Total Products
+              </div>
+
+              <div
+                id="total-products"
+                class="stat-value"
+              >
+                —
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Pending
+              </div>
+
+              <div
+                id="pending-products"
+                class="stat-value"
+              >
+                —
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Active
+              </div>
+
+              <div
+                id="active-products"
+                class="stat-value"
+              >
+                —
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-label">
+                Seller Products
+              </div>
+
+              <div
+                id="seller-products"
+                class="stat-value"
+              >
+                —
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- SEARCH -->
+
+          <div class="filter-bar">
+
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Search product, category or ID..."
+              aria-label="Search products"
+            >
+
+            <select
+              id="status-filter"
+              aria-label="Filter by product status"
+            >
+
+              <option value="all">
+                All Status
+              </option>
+
+              <option value="pending">
+                Pending
+              </option>
+
+              <option value="active">
+                Active
+              </option>
+
+              <option value="rejected">
+                Rejected
+              </option>
+
+              <option value="inactive">
+                Inactive
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div
+            class="filter-bar"
+            style="margin-top:-6px;"
+          >
+
+            <select
+              id="type-filter"
+              aria-label="Filter by product type"
+            >
+
+              <option value="all">
+                All Product Types
+              </option>
+
+              <option value="own">
+                Brit.Tuna Products
+              </option>
+
+              <option value="seller">
+                Seller Products
+              </option>
+
+              <option value="affiliate">
+                Affiliate Products
+              </option>
+
+            </select>
+
+            <select
+              id="availability-filter"
+              aria-label="Filter by availability"
+            >
+
+              <option value="all">
+                All Availability
+              </option>
+
+              <option value="enabled">
+                Enabled
+              </option>
+
+              <option value="disabled">
+                Disabled
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- LOADING -->
+
+          <div
+            id="loading"
+            class="loading"
+          >
+            Loading products...
+          </div>
+
+
+          <!-- EMPTY -->
+
+          <div
+            id="empty-state"
+            class="card empty-state"
+            hidden
+          >
+
+            <h2>
+              No Products Found
+            </h2>
+
+            <p>
+              No products match the selected filters.
+            </p>
+
+          </div>
+
+
+          <!-- PRODUCT GRID -->
+
+          <div
+            id="products-container"
+            class="admin-grid"
+            hidden
+          ></div>
+
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- ======================================================
+       PRODUCT DETAILS MODAL
+       ====================================================== -->
+
+  <div
+    id="product-modal"
+    class="modal-backdrop"
+    hidden
+  >
+
+    <div
+      class="modal-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="product-modal-title"
+    >
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2 id="product-modal-title">
+            Product Details
+          </h2>
+
+          <p>
+            Review product information before changing status.
+          </p>
+
+        </div>
+
+
+        <button
+          id="close-modal-button"
+          class="mobile-close"
+          type="button"
+          aria-label="Close product details"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div id="product-details"></div>
+
+
+      <div
+        id="modal-message"
+        hidden
+      ></div>
+
+
+      <!-- PENDING ACTIONS -->
+
+      <div
+        id="pending-actions"
+        class="action-panel"
+        hidden
+      >
+
+        <div class="muted">
+          This product is waiting for Admin review.
+        </div>
+
+        <div class="action-panel-buttons">
+
+          <button
+            id="reject-button"
+            class="btn btn-danger"
+            type="button"
+          >
+            Reject
+          </button>
+
+          <button
+            id="approve-button"
+            class="btn btn-success"
+            type="button"
+          >
+            Approve Product
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIVE ACTION -->
+
+      <div
+        id="active-actions"
+        class="action-panel"
+        hidden
+      >
+
+        <div class="muted">
+          This product is currently active.
+        </div>
+
+        <div class="action-panel-buttons">
+
+          <button
+            id="deactivate-button"
+            class="btn btn-danger"
+            type="button"
+          >
+            Make Inactive
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- INACTIVE / REJECTED ACTION -->
+
+      <div
+        id="inactive-actions"
+        class="action-panel"
+        hidden
+      >
+
+        <div class="muted">
+          This product is not currently active.
+        </div>
+
+        <div class="action-panel-buttons">
+
+          <button
+            id="activate-button"
+            class="btn btn-success"
+            type="button"
+          >
+            Activate Product
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+
+  <div id="site-footer"></div>
+
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+  <!-- PROJECT FILES -->
+
+  <script src="config.js"></script>
+
+  <script src="supabase.js"></script>
+
+  <script src="script.js"></script>
+
+
+  <!-- ======================================================
+       PRODUCTS PAGE LOGIC
+       ====================================================== -->
+
+  <script>
+
+    (function () {
+
+      'use strict';
+
+
+      /* ====================================================
+         STATE
+         ==================================================== */
+
+      var products = [];
+
+      var selectedProduct = null;
+
+      var sellerFilter =
+        new URLSearchParams(
+          window.location.search
+        ).get('seller');
+
+
+      /* ====================================================
+         ELEMENTS
+         ==================================================== */
+
+      var productsContainer =
+        document.getElementById(
+          'products-container'
+        );
+
+
+      var loading =
+        document.getElementById(
+          'loading'
+        );
+
+
+      var emptyState =
+        document.getElementById(
+          'empty-state'
+        );
+
+
+      var searchInput =
+        document.getElementById(
+          'search-input'
+        );
+
+
+      var statusFilter =
+        document.getElementById(
+          'status-filter'
+        );
+
+
+      var typeFilter =
+        document.getElementById(
+          'type-filter'
+        );
+
+
+      var availabilityFilter =
+        document.getElementById(
+          'availability-filter'
+        );
+
+
+      var refreshButton =
+        document.getElementById(
+          'refresh-button'
+        );
+
+
+      var clearSellerFilterButton =
+        document.getElementById(
+          'clear-seller-filter'
+        );
+
+
+      var sellerFilterNotice =
+        document.getElementById(
+          'seller-filter-notice'
+        );
+
+
+      var pageMessage =
+        document.getElementById(
+          'page-message'
+        );
+
+
+      var modal =
+        document.getElementById(
+          'product-modal'
+        );
+
+
+      var closeModalButton =
+        document.getElementById(
+          'close-modal-button'
+        );
+
+
+      var productDetails =
+        document.getElementById(
+          'product-details'
+        );
+
+
+      var modalMessage =
+        document.getElementById(
+          'modal-message'
+        );
+
+
+      var pendingActions =
+        document.getElementById(
+          'pending-actions'
+        );
+
+
+      var activeActions =
+        document.getElementById(
+          'active-actions'
+        );
+
+
+      var inactiveActions =
+        document.getElementById(
+          'inactive-actions'
+        );
+
+
+      var approveButton =
+        document.getElementById(
+          'approve-button'
+        );
+
+
+      var rejectButton =
+        document.getElementById(
+          'reject-button'
+        );
+
+
+      var deactivateButton =
+        document.getElementById(
+          'deactivate-button'
+        );
+
+
+      var activateButton =
+        document.getElementById(
+          'activate-button'
+        );
+
+
+      /* ====================================================
+         HELPERS
+         ==================================================== */
+
+      function escapeHtml(value) {
+
+        return window.BTAdminUtil
+          .escapeHtml(value);
+
+      }
+
+
+      function formatINR(value) {
+
+        return window.BTAdminUtil
+          .formatINR(value);
+
+      }
+
+
+      function formatDate(value) {
+
+        return window.BTAdminUtil
+          .formatDate(value);
+
+      }
+
+
+      function showPageMessage(
+        message,
+        type
+      ) {
+
+        pageMessage.hidden = false;
+
+        pageMessage.className =
+          'notice notice-' +
+          (type || 'info');
+
+        pageMessage.textContent =
+          message;
+
+      }
+
+
+      function hidePageMessage() {
+
+        pageMessage.hidden = true;
+
+        pageMessage.textContent = '';
+
+        pageMessage.className = '';
+
+      }
+
+
+      function showModalMessage(
+        message,
+        type
+      ) {
+
+        modalMessage.hidden = false;
+
+        modalMessage.className =
+          'notice notice-' +
+          (type || 'info');
+
+        modalMessage.textContent =
+          message;
+
+      }
+
+
+      function hideModalMessage() {
+
+        modalMessage.hidden = true;
+
+        modalMessage.textContent = '';
+
+        modalMessage.className = '';
+
+      }
+
+
+      function statusBadge(status) {
+
+        var safeStatus =
+          String(
+            status || 'unknown'
+          )
+          .trim()
+          .toLowerCase();
+
+
+        return (
+          '<span class="badge badge-' +
+          escapeHtml(safeStatus) +
+          '">' +
+          escapeHtml(safeStatus) +
+          '</span>'
+        );
+
+      }
+
+
+      function productTypeLabel(type) {
+
+        if (type === 'seller') {
+          return 'Seller Product';
+        }
+
+        if (type === 'affiliate') {
+          return 'Affiliate';
+        }
+
+        return 'Brit.Tuna';
+      }
+
+
+      /* ====================================================
+         LOAD PRODUCTS
+         ==================================================== */
+
+      async function loadProducts() {
+
+        loading.hidden = false;
+
+        productsContainer.hidden = true;
+
+        emptyState.hidden = true;
+
+        hidePageMessage();
+
+
+        refreshButton.disabled = true;
+
+
+        try {
+
+          /*
+           * Admin RLS should allow the authenticated
+           * Admin account to read all products.
+           */
+
+          var result =
+            await window.supabaseClient
+
+              .from('products')
+
+              .select(
+                `
+                id,
+                name,
+                description,
+                category,
+                category_id,
+                price,
+                image_url,
+                affiliate_url,
+                is_active,
+                brand_id,
+                seller_id,
+                product_type,
+                status,
+                created_at,
+                updated_at,
+                product_variants (
+                  id,
+                  pack_size,
+                  price,
+                  stock_quantity,
+                  is_active
+                )
+                `
+              )
+
+              .order(
+                'created_at',
+                {
+                  ascending: false
+                }
+              );
+
+
+          if (result.error) {
+
+            throw result.error;
+
+          }
+
+
+          products =
+            result.data || [];
+
+
+          updateStatistics();
+
+          updateSellerFilterNotice();
+
+          renderProducts();
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Load products error:',
+            error
+          );
+
+
+          products = [];
+
+
+          loading.hidden = true;
+
+          productsContainer.hidden = true;
+
+          emptyState.hidden = false;
+
+
+          showPageMessage(
+            'Unable to load products. Check Admin RLS permissions and the products table.',
+            'error'
+          );
+
+        }
+
+        finally {
+
+          refreshButton.disabled = false;
+
+        }
+
+      }
+
+
+      /* ====================================================
+         STATISTICS
+         ==================================================== */
+
+      function updateStatistics() {
+
+        var pending =
+          products.filter(
+
+            function (product) {
+
+              return (
+                product.status ===
+                'pending'
+              );
+
+            }
+
+          ).length;
+
+
+        var active =
+          products.filter(
+
+            function (product) {
+
+              return (
+                product.status === 'active' &&
+                product.is_active === true
+              );
+
+            }
+
+          ).length;
+
+
+        var sellerProducts =
+          products.filter(
+
+            function (product) {
+
+              return (
+                product.product_type ===
+                'seller'
+              );
+
+            }
+
+          ).length;
+
+
+        document.getElementById(
+          'total-products'
+        ).textContent =
+          products.length;
+
+
+        document.getElementById(
+          'pending-products'
+        ).textContent =
+          pending;
+
+
+        document.getElementById(
+          'active-products'
+        ).textContent =
+          active;
+
+
+        document.getElementById(
+          'seller-products'
+        ).textContent =
+          sellerProducts;
+
+      }
+
+
+      /* ====================================================
+         SELLER FILTER
+         ==================================================== */
+
+      function updateSellerFilterNotice() {
+
+        if (!sellerFilter) {
+
+          sellerFilterNotice.hidden = true;
+
+          clearSellerFilterButton.hidden = true;
+
+          return;
+
+        }
+
+
+        sellerFilterNotice.hidden = false;
+
+        clearSellerFilterButton.hidden = false;
+
+
+        sellerFilterNotice.textContent =
+          'Showing products for Seller ID: ' +
+          sellerFilter;
+
+      }
+
+
+      /* ====================================================
+         FILTER PRODUCTS
+         ==================================================== */
+
+      function getFilteredProducts() {
+
+        var search =
+          searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+        var status =
+          statusFilter.value;
+
+
+        var type =
+          typeFilter.value;
+
+
+        var availability =
+          availabilityFilter.value;
+
+
+        return products.filter(
+
+          function (product) {
+
+            var matchesSeller =
+              !sellerFilter ||
+              product.seller_id ===
+                sellerFilter;
+
+
+            var matchesStatus =
+              status === 'all' ||
+              product.status === status;
+
+
+            var productType =
+              product.product_type ||
+              'own';
+
+
+            var matchesType =
+              type === 'all' ||
+              productType === type;
+
+
+            var matchesAvailability =
+              availability === 'all' ||
+
+              (
+                availability ===
+                  'enabled' &&
+                product.is_active === true
+              ) ||
+
+              (
+                availability ===
+                  'disabled' &&
+                product.is_active === false
+              );
+
+
+            var searchable =
+              [
+                product.id,
+                product.name,
+                product.category,
+                product.seller_id,
+                productType
+              ]
+              .join(' ')
+              .toLowerCase();
+
+
+            var matchesSearch =
+              !search ||
+              searchable.includes(
+                search
+              );
+
+
+            return (
+              matchesSeller &&
+              matchesStatus &&
+              matchesType &&
+              matchesAvailability &&
+              matchesSearch
+            );
+
+          }
+
+        );
+
+      }
+
+
+      /* ====================================================
+         TOTAL STOCK
+         ==================================================== */
+
+      function getTotalStock(product) {
+
+        var variants =
+          product.product_variants || [];
+
+
+        return variants.reduce(
+
+          function (
+            total,
+            variant
+          ) {
+
+            return (
+              total +
+              Number(
+                variant.stock_quantity || 0
+              )
+            );
+
+          },
+
+          0
+
+        );
+
+      }
+
+
+      /* ====================================================
+         RENDER PRODUCTS
+         ==================================================== */
+
+      function renderProducts() {
+
+        var filtered =
+          getFilteredProducts();
+
+
+        loading.hidden = true;
+
+
+        if (
+          filtered.length === 0
+        ) {
+
+          productsContainer.hidden = true;
+
+          emptyState.hidden = false;
+
+          return;
+
+        }
+
+
+        emptyState.hidden = true;
+
+        productsContainer.hidden = false;
+
+
+        productsContainer.innerHTML =
+          filtered.map(
+
+            function (product) {
+
+              var imageHtml;
+
+
+              if (product.image_url) {
+
+                imageHtml = `
+
+                  <img
+                    class="product-image"
+                    src="${escapeHtml(
+                      product.image_url
+                    )}"
+                    alt="${escapeHtml(
+                      product.name
+                    )}"
+                    loading="lazy"
+                  >
+
+                `;
+
+              }
+
+              else {
+
+                imageHtml = `
+
+                  <div class="product-image-placeholder">
+                    No Product Image
+                  </div>
+
+                `;
+
+              }
+
+
+              var variants =
+                product.product_variants ||
+                [];
+
+
+              return `
+
+                <article class="admin-item-card">
+
+                  ${imageHtml}
+
+
+                  <div
+                    style="
+                      display:flex;
+                      justify-content:space-between;
+                      align-items:flex-start;
+                      gap:10px;
+                      margin-bottom:10px;
+                    "
+                  >
+
+                    <div>
+
+                      <h2
+                        style="
+                          font-size:20px;
+                          margin-bottom:4px;
+                        "
+                      >
+                        ${escapeHtml(
+                          product.name
+                        )}
+                      </h2>
+
+                      <div class="muted">
+
+                        ${escapeHtml(
+                          product.category ||
+                          'Uncategorized'
+                        )}
+
+                      </div>
+
+                    </div>
+
+
+                    ${statusBadge(
+                      product.status
+                    )}
+
+                  </div>
+
+
+                  <div class="details-grid">
+
+                    <div class="detail-item">
+
+                      <span class="detail-label">
+                        Price
+                      </span>
+
+                      <span class="detail-value">
+                        ${escapeHtml(
+                          formatINR(
+                            product.price
+                          )
+                        )}
+                      </span>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                      <span class="detail-label">
+                        Type
+                      </span>
+
+                      <span class="detail-value">
+                        ${escapeHtml(
+                          productTypeLabel(
+                            product.product_type
+                          )
+                        )}
+                      </span>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                      <span class="detail-label">
+                        Variants
+                      </span>
+
+                      <span class="detail-value">
+                        ${variants.length}
+                      </span>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                      <span class="detail-label">
+                        Stock
+                      </span>
+
+                      <span class="detail-value">
+                        ${getTotalStock(
+                          product
+                        )}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <button
+                    class="btn btn-outline btn-block view-product-button"
+                    type="button"
+                    data-id="${escapeHtml(
+                      product.id
+                    )}"
+                  >
+                    Review Product
+                  </button>
+
+                </article>
+
+              `;
+
+            }
+
+          ).join('');
+
+
+        document
+          .querySelectorAll(
+            '.view-product-button'
+          )
+          .forEach(
+
+            function (button) {
+
+              button.addEventListener(
+                'click',
+                function () {
+
+                  openProduct(
+                    button.dataset.id
+                  );
+
+                }
+              );
+
+            }
+
+          );
+
+      }
+
+
+      /* ====================================================
+         OPEN PRODUCT
+         ==================================================== */
+
+      function openProduct(id) {
+
+        selectedProduct =
+          products.find(
+
+            function (product) {
+
+              return (
+                String(product.id) ===
+                String(id)
+              );
+
+            }
+
+          );
+
+
+        if (!selectedProduct) {
+
+          return;
+
+        }
+
+
+        hideModalMessage();
+
+
+        var product =
+          selectedProduct;
+
+
+        var variants =
+          product.product_variants ||
+          [];
+
+
+        var variantsHtml;
+
+
+        if (
+          variants.length === 0
+        ) {
+
+          variantsHtml = `
+
+            <div class="notice notice-warning mb-0">
+              This product does not have any variants.
+            </div>
+
+          `;
+
+        }
+
+        else {
+
+          variantsHtml = `
+
+            <div class="table-scroll">
+
+              <table class="admin-table">
+
+                <thead>
+
+                  <tr>
+
+                    <th>
+                      Variant
+                    </th>
+
+                    <th>
+                      Price
+                    </th>
+
+                    <th>
+                      Stock
+                    </th>
+
+                    <th>
+                      Active
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody>
+
+                  ${variants.map(
+
+                    function (variant) {
+
+                      return `
+
+                        <tr>
+
+                          <td>
+                            ${escapeHtml(
+                              variant.pack_size
+                            )}
+                          </td>
+
+                          <td>
+                            ${escapeHtml(
+                              formatINR(
+                                variant.price
+                              )
+                            )}
+                          </td>
+
+                          <td>
+                            ${escapeHtml(
+                              variant.stock_quantity
+                            )}
+                          </td>
+
+                          <td>
+                            ${
+                              variant.is_active
+                                ? 'Yes'
+                                : 'No'
+                            }
+                          </td>
+
+                        </tr>
+
+                      `;
+
+                    }
+
+                  ).join('')}
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          `;
+
+        }
+
+
+        productDetails.innerHTML = `
+
+          ${
+            product.image_url
+              ? `
+
+                <img
+                  class="product-image"
+                  src="${escapeHtml(
+                    product.image_url
+                  )}"
+                  alt="${escapeHtml(
+                    product.name
+                  )}"
+                >
+
+              `
+              : ''
+          }
+
+
+          <h2>
+            ${escapeHtml(
+              product.name
+            )}
+          </h2>
+
+
+          <p class="muted">
+            ${escapeHtml(
+              product.description ||
+              'No description provided.'
+            )}
+          </p>
+
+
+          <div class="details-grid">
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Product ID
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  product.id
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Status
+              </span>
+
+              <span class="detail-value">
+                ${statusBadge(
+                  product.status
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Product Type
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  productTypeLabel(
+                    product.product_type
+                  )
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Base Price
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  formatINR(
+                    product.price
+                  )
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Category
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  product.category ||
+                  '-'
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Enabled
+              </span>
+
+              <span class="detail-value">
+                ${
+                  product.is_active
+                    ? 'Yes'
+                    : 'No'
+                }
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Seller ID
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  product.seller_id ||
+                  'Brit.Tuna'
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Created
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  formatDate(
+                    product.created_at
+                  )
+                )}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <h3 class="mt-3">
+            Product Variants
+          </h3>
+
+
+          ${variantsHtml}
+
+        `;
+
+
+        pendingActions.hidden =
+          product.status !==
+          'pending';
+
+
+        activeActions.hidden =
+          !(
+            product.status === 'active' &&
+            product.is_active === true
+          );
+
+
+        inactiveActions.hidden =
+          !(
+            product.status === 'inactive' ||
+            product.status === 'rejected' ||
+            product.is_active === false
+          );
+
+
+        modal.hidden = false;
+
+
+        document.body.classList.add(
+          'menu-open'
+        );
+
+      }
+
+
+      /* ====================================================
+         CLOSE MODAL
+         ==================================================== */
+
+      function closeModal() {
+
+        modal.hidden = true;
+
+        selectedProduct = null;
+
+        hideModalMessage();
+
+
+        document.body.classList.remove(
+          'menu-open'
+        );
+
+      }
+
+
+      /* ====================================================
+         UPDATE PRODUCT STATUS
+         ==================================================== */
+
+      async function updateProductStatus(
+        status,
+        isActive
+      ) {
+
+        if (!selectedProduct) {
+
+          return;
+
+        }
+
+
+        approveButton.disabled = true;
+        rejectButton.disabled = true;
+        deactivateButton.disabled = true;
+        activateButton.disabled = true;
+
+
+        hideModalMessage();
+
+
+        try {
+
+          /*
+           * Admin UPDATE is protected by Supabase RLS.
+           *
+           * Never use service_role or secret key
+           * in this browser page.
+           */
+
+          var result =
+            await window.supabaseClient
+
+              .from('products')
+
+              .update({
+
+                status:
+                  status,
+
+                is_active:
+                  isActive,
+
+                updated_at:
+                  new Date()
+                    .toISOString()
+
+              })
+
+              .eq(
+                'id',
+                selectedProduct.id
+              )
+
+              .select(
+                `
+                id,
+                status,
+                is_active,
+                updated_at
+                `
+              )
+
+              .single();
+
+
+          if (result.error) {
+
+            throw result.error;
+
+          }
+
+
+          showPageMessage(
+            'Product status updated successfully.',
+            'success'
+          );
+
+
+          closeModal();
+
+
+          await loadProducts();
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Product status update error:',
+            error
+          );
+
+
+          showModalMessage(
+            error.message ||
+            'Unable to update product status.',
+            'error'
+          );
+
+        }
+
+        finally {
+
+          approveButton.disabled = false;
+          rejectButton.disabled = false;
+          deactivateButton.disabled = false;
+          activateButton.disabled = false;
+
+        }
+
+      }
+
+
+      /* ====================================================
+         APPROVE
+         ==================================================== */
+
+      async function approveProduct() {
+
+        if (!selectedProduct) {
+          return;
+        }
+
+
+        var confirmed =
+          window.confirm(
+            'Approve this product and make it active?'
+          );
+
+
+        if (!confirmed) {
+          return;
+        }
+
+
+        await updateProductStatus(
+          'active',
+          true
+        );
+
+      }
+
+
+      /* ====================================================
+         REJECT
+         ==================================================== */
+
+      async function rejectProduct() {
+
+        if (!selectedProduct) {
+          return;
+        }
+
+
+        var confirmed =
+          window.confirm(
+            'Reject this product? It will not be active on the marketplace.'
+          );
+
+
+        if (!confirmed) {
+          return;
+        }
+
+
+        await updateProductStatus(
+          'rejected',
+          false
+        );
+
+      }
+
+
+      /* ====================================================
+         DEACTIVATE
+         ==================================================== */
+
+      async function deactivateProduct() {
+
+        if (!selectedProduct) {
+          return;
+        }
+
+
+        var confirmed =
+          window.confirm(
+            'Make this product inactive?'
+          );
+
+
+        if (!confirmed) {
+          return;
+        }
+
+
+        await updateProductStatus(
+          'inactive',
+          false
+        );
+
+      }
+
+
+      /* ====================================================
+         ACTIVATE
+         ==================================================== */
+
+      async function activateProduct() {
+
+        if (!selectedProduct) {
+          return;
+        }
+
+
+        var confirmed =
+          window.confirm(
+            'Activate this product?'
+          );
+
+
+        if (!confirmed) {
+          return;
+        }
+
+
+        await updateProductStatus(
+          'active',
+          true
+        );
+
+      }
+
+
+      /* ====================================================
+         EVENTS
+         ==================================================== */
+
+      searchInput.addEventListener(
+        'input',
+        renderProducts
+      );
+
+
+      statusFilter.addEventListener(
+        'change',
+        renderProducts
+      );
+
+
+      typeFilter.addEventListener(
+        'change',
+        renderProducts
+      );
+
+
+      availabilityFilter.addEventListener(
+        'change',
+        renderProducts
+      );
+
+
+      refreshButton.addEventListener(
+        'click',
+        loadProducts
+      );
+
+
+      clearSellerFilterButton.addEventListener(
+        'click',
+        function () {
+
+          window.location.href =
+            'products.html';
+
+        }
+      );
+
+
+      closeModalButton.addEventListener(
+        'click',
+        closeModal
+      );
+
+
+      approveButton.addEventListener(
+        'click',
+        approveProduct
+      );
+
+
+      rejectButton.addEventListener(
+        'click',
+        rejectProduct
+      );
+
+
+      deactivateButton.addEventListener(
+        'click',
+        deactivateProduct
+      );
+
+
+      activateButton.addEventListener(
+        'click',
+        activateProduct
+      );
+
+
+      modal.addEventListener(
+        'click',
+        function (event) {
+
+          if (
+            event.target === modal
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
+
+
+      document.addEventListener(
+        'keydown',
+        function (event) {
+
+          if (
+            event.key === 'Escape' &&
+            !modal.hidden
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
+
+
+      /* ====================================================
+         INITIALIZE
+         ==================================================== */
+
+      async function initialize() {
+
+        if (
+          !window.supabaseClient ||
+          !window.BTAdmin
+        ) {
+
+          loading.hidden = true;
+
+
+          showPageMessage(
+            'Admin Portal could not start. Check the configuration.',
+            'error'
+          );
+
+
+          return;
+
+        }
+
+
+        /*
+         * Login + profiles.role === admin
+         */
+
+        var session =
+          await window.BTAdmin
+            .requireAdmin();
+
+
+        if (!session) {
+
+          loading.hidden = true;
+
+          return;
+
+        }
+
+
+        await loadProducts();
+
+      }
+
+
+      initialize();
+
+
+    })();
+
+  </script>
+
+
+</body>
+
+</html>
