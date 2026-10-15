@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -12,7 +11,7 @@
 
   <meta
     name="description"
-    content="Brit.Tuna Admin Portal"
+    content="Brit.Tuna Admin Portal Login"
   >
 
   <meta
@@ -22,9 +21,7 @@
 
   <title>Admin Login | Brit.Tuna</title>
 
-
   <!-- Google Fonts -->
-
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
@@ -41,9 +38,7 @@
     rel="stylesheet"
   >
 
-
   <!-- CSS -->
-
   <link
     rel="stylesheet"
     href="style.css"
@@ -53,62 +48,67 @@
     rel="stylesheet"
     href="responsive.css"
   >
-
 </head>
 
 
 <body>
 
-
-  <!-- ======================================================
-       HEADER
-       ====================================================== -->
-
+  <!-- HEADER -->
   <div id="site-header"></div>
 
 
-  <!-- ======================================================
-       MAIN
-       ====================================================== -->
-
+  <!-- MAIN -->
   <main class="admin-main">
 
     <div class="container">
 
-      <section class="auth-layout">
+      <div class="auth-layout">
 
-        <div class="card auth-card">
+        <section class="auth-card">
+
+          <!-- LOGO -->
+          <div
+            style="
+              width:64px;
+              height:64px;
+              border-radius:18px;
+              background:#1f5a3a;
+              color:#ffffff;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-family:'Fraunces',serif;
+              font-size:30px;
+              font-weight:700;
+              margin:0 auto 18px;
+            "
+          >
+            B
+          </div>
 
 
-          <!-- ==============================================
-               TITLE
-               ============================================== -->
-
-          <div class="text-center">
-
-            <div
-              class="admin-logo-mark"
-              style="margin: 0 auto 18px;"
-            >
-              B
-            </div>
+          <div
+            style="
+              text-align:center;
+              margin-bottom:24px;
+            "
+          >
 
             <h1>
               Admin Login
             </h1>
 
-            <p>
+            <p class="muted">
               Sign in to manage the Brit.Tuna marketplace.
             </p>
 
           </div>
 
 
-          <!-- ==============================================
-               SECURITY NOTICE
-               ============================================== -->
-
+          <!-- SECURITY NOTICE -->
           <div class="notice notice-info">
+
+            <strong>Admin access only.</strong>
 
             Only accounts with the
             <strong>admin</strong>
@@ -117,115 +117,91 @@
           </div>
 
 
-          <!-- ==============================================
-               MESSAGE
-               ============================================== -->
-
+          <!-- LOGIN MESSAGE -->
           <div
             id="login-message"
             hidden
           ></div>
 
 
-          <!-- ==============================================
-               EMAIL LOGIN FORM
-               ============================================== -->
-
+          <!-- EMAIL LOGIN -->
           <form
             id="admin-login-form"
             novalidate
           >
 
-            <div class="form-grid">
+            <div class="form-field">
 
+              <label for="email">
+                Email Address
+              </label>
 
-              <!-- EMAIL -->
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="admin@example.com"
+                autocomplete="email"
+                required
+              >
 
-              <div class="form-field full">
-
-                <label for="email">
-                  Email Address
-                </label>
-
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  autocomplete="email"
-                  placeholder="admin@example.com"
-                  required
-                >
-
-                <div
-                  id="email-error"
-                  class="error"
-                ></div>
-
-              </div>
-
-
-              <!-- PASSWORD -->
-
-              <div class="form-field full">
-
-                <label for="password">
-                  Password
-                </label>
-
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  autocomplete="current-password"
-                  placeholder="Enter your password"
-                  required
-                >
-
-                <div
-                  id="password-error"
-                  class="error"
-                ></div>
-
-              </div>
-
-
-              <!-- LOGIN BUTTON -->
-
-              <div class="form-field full">
-
-                <button
-                  id="login-button"
-                  class="btn btn-primary btn-block"
-                  type="submit"
-                >
-                  Sign In as Admin
-                </button>
-
-              </div>
+              <div
+                id="email-error"
+                class="error"
+              ></div>
 
             </div>
+
+
+            <div class="form-field">
+
+              <label for="password">
+                Password
+              </label>
+
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              >
+
+              <div
+                id="password-error"
+                class="error"
+              ></div>
+
+            </div>
+
+
+            <button
+              id="login-button"
+              class="btn btn-primary btn-block"
+              type="submit"
+            >
+              Login as Admin
+            </button>
 
           </form>
 
 
-          <!-- ==============================================
-               DIVIDER
-               ============================================== -->
-
+          <!-- DIVIDER -->
           <div
             style="
-              display: flex;
-              align-items: center;
-              gap: 12px;
-              margin: 22px 0;
+              display:flex;
+              align-items:center;
+              gap:12px;
+              margin:24px 0;
             "
           >
 
             <div
               style="
-                height: 1px;
-                background: var(--border);
-                flex: 1;
+                flex:1;
+                height:1px;
+                background:#ddd;
               "
             ></div>
 
@@ -235,19 +211,16 @@
 
             <div
               style="
-                height: 1px;
-                background: var(--border);
-                flex: 1;
+                flex:1;
+                height:1px;
+                background:#ddd;
               "
             ></div>
 
           </div>
 
 
-          <!-- ==============================================
-               GOOGLE LOGIN
-               ============================================== -->
-
+          <!-- GOOGLE LOGIN -->
           <button
             id="google-login-button"
             class="btn btn-outline btn-block"
@@ -257,72 +230,49 @@
           </button>
 
 
-          <!-- ==============================================
-               NO ADMIN REGISTRATION
-               ============================================== -->
-
-          <div
-            class="notice notice-warning mt-3 mb-0"
-          >
+          <!-- WARNING -->
+          <div class="notice notice-warning mt-2 mb-0">
 
             There is no public Admin registration.
+
             Admin permission must be assigned securely
-            in the database.
+            through the database.
 
           </div>
 
+        </section>
 
-        </div>
-
-      </section>
+      </div>
 
     </div>
 
   </main>
 
 
-  <!-- ======================================================
-       FOOTER
-       ====================================================== -->
-
+  <!-- FOOTER -->
   <div id="site-footer"></div>
 
 
-  <!-- ======================================================
-       SUPABASE JAVASCRIPT
-       ====================================================== -->
-
+  <!-- SUPABASE LIBRARY -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
-  <!-- ======================================================
-       PROJECT SCRIPTS
-
-       IMPORTANT ORDER:
-       config.js
-       ↓
-       supabase.js
-       ↓
-       script.js
-       ====================================================== -->
-
+  <!-- PROJECT FILES -->
   <script src="config.js"></script>
-
   <script src="supabase.js"></script>
-
   <script src="script.js"></script>
 
 
-  <!-- ======================================================
-       ADMIN LOGIN PAGE LOGIC
-       ====================================================== -->
-
+  <!-- LOGIN LOGIC -->
   <script>
 
     (function () {
 
       'use strict';
 
+
+      /* ==========================================
+         ELEMENTS
+         ========================================== */
 
       var form =
         document.getElementById(
@@ -342,24 +292,6 @@
         );
 
 
-      var loginButton =
-        document.getElementById(
-          'login-button'
-        );
-
-
-      var googleButton =
-        document.getElementById(
-          'google-login-button'
-        );
-
-
-      var messageBox =
-        document.getElementById(
-          'login-message'
-        );
-
-
       var emailError =
         document.getElementById(
           'email-error'
@@ -372,22 +304,40 @@
         );
 
 
-      /* ====================================================
+      var loginButton =
+        document.getElementById(
+          'login-button'
+        );
+
+
+      var googleButton =
+        document.getElementById(
+          'google-login-button'
+        );
+
+
+      var loginMessage =
+        document.getElementById(
+          'login-message'
+        );
+
+
+      /* ==========================================
          MESSAGE
-         ==================================================== */
+         ========================================== */
 
       function showMessage(
         message,
         type
       ) {
 
-        messageBox.hidden = false;
+        loginMessage.hidden = false;
 
-        messageBox.className =
+        loginMessage.className =
           'notice notice-' +
           (type || 'info');
 
-        messageBox.textContent =
+        loginMessage.textContent =
           message;
 
       }
@@ -395,18 +345,18 @@
 
       function hideMessage() {
 
-        messageBox.hidden = true;
+        loginMessage.hidden = true;
 
-        messageBox.textContent = '';
+        loginMessage.className = '';
 
-        messageBox.className = '';
+        loginMessage.textContent = '';
 
       }
 
 
-      /* ====================================================
+      /* ==========================================
          CLEAR ERRORS
-         ==================================================== */
+         ========================================== */
 
       function clearErrors() {
 
@@ -419,71 +369,23 @@
       }
 
 
-      /* ====================================================
-         VALIDATE FORM
-         ==================================================== */
+      /* ==========================================
+         EMAIL VALIDATION
+         ========================================== */
 
-      function validateForm() {
+      function isValidEmail(email) {
 
-        clearErrors();
-
-
-        var email =
-          emailInput.value
-            .trim();
-
-
-        var password =
-          passwordInput.value;
-
-
-        var valid = true;
-
-
-        if (!email) {
-
-          emailError.textContent =
-            'Email address is required.';
-
-          valid = false;
-
-        }
-
-        else if (
-          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-            .test(email)
-        ) {
-
-          emailError.textContent =
-            'Enter a valid email address.';
-
-          valid = false;
-
-        }
-
-
-        if (!password) {
-
-          passwordError.textContent =
-            'Password is required.';
-
-          valid = false;
-
-        }
-
-
-        return valid;
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+          .test(email);
 
       }
 
 
-      /* ====================================================
+      /* ==========================================
          VERIFY ADMIN ROLE
-         ==================================================== */
+         ========================================== */
 
-      async function verifyAdmin(
-        user
-      ) {
+      async function verifyAdmin(user) {
 
         if (!user) {
 
@@ -492,33 +394,88 @@
         }
 
 
-        var result =
-          await window.supabaseClient
+        try {
 
-            .from('profiles')
+          var result =
+            await window.supabaseClient
 
-            .select(
-              'id, full_name, role'
-            )
+              .from('profiles')
 
-            .eq(
-              'id',
-              user.id
-            )
+              .select(
+                `
+                id,
+                full_name,
+                role
+                `
+              )
 
-            .maybeSingle();
+              .eq(
+                'id',
+                user.id
+              )
+
+              .maybeSingle();
 
 
-        if (result.error) {
+          if (result.error) {
+
+            throw result.error;
+
+          }
+
+
+          if (!result.data) {
+
+            showMessage(
+              'Profile was not found for this account.',
+              'error'
+            );
+
+            await window.supabaseClient
+              .auth
+              .signOut();
+
+            return false;
+
+          }
+
+
+          if (
+            result.data.role !==
+            'admin'
+          ) {
+
+            showMessage(
+              'Access denied. This account does not have Admin permission.',
+              'error'
+            );
+
+
+            await window.supabaseClient
+              .auth
+              .signOut();
+
+
+            return false;
+
+          }
+
+
+          return true;
+
+        }
+
+        catch (error) {
 
           console.error(
-            'Admin profile verification failed:',
-            result.error
+            'Admin verification error:',
+            error
           );
 
 
           showMessage(
-            'Unable to verify Admin access.',
+            error.message ||
+            'Unable to verify Admin permission.',
             'error'
           );
 
@@ -526,42 +483,13 @@
           return false;
 
         }
-
-
-        if (
-          !result.data ||
-          result.data.role !== 'admin'
-        ) {
-
-          showMessage(
-            'Access denied. This account is not an Admin account.',
-            'error'
-          );
-
-
-          /*
-           * Sign out non-admin accounts from
-           * the Admin Portal origin.
-           */
-
-          await window.supabaseClient
-            .auth
-            .signOut();
-
-
-          return false;
-
-        }
-
-
-        return true;
 
       }
 
 
-      /* ====================================================
-         REDIRECT TO DASHBOARD
-         ==================================================== */
+      /* ==========================================
+         GO TO DASHBOARD
+         ========================================== */
 
       function goToDashboard() {
 
@@ -571,14 +499,9 @@
           );
 
 
-        sessionStorage.removeItem(
-          'britTunaAdminReturnTo'
-        );
-
-
         /*
-         * Only allow known Admin pages.
-         * Do not redirect to arbitrary URLs.
+         * Only allow known local Admin pages.
+         * This prevents unsafe external redirects.
          */
 
         var allowedPages = [
@@ -603,9 +526,15 @@
           )
         ) {
 
+          sessionStorage.removeItem(
+            'britTunaAdminReturnTo'
+          );
+
+
           window.location.replace(
             returnPage
           );
+
 
           return;
 
@@ -619,262 +548,281 @@
       }
 
 
-      /* ====================================================
+      /* ==========================================
          EMAIL / PASSWORD LOGIN
-         ==================================================== */
+         ========================================== */
 
-      async function handleLogin(
-        event
-      ) {
+      form.addEventListener(
 
-        event.preventDefault();
+        'submit',
 
+        async function (event) {
 
-        if (!window.supabaseClient) {
-
-          showMessage(
-            'Supabase connection is unavailable. Check config.js.',
-            'error'
-          );
-
-          return;
-
-        }
+          event.preventDefault();
 
 
-        if (!validateForm()) {
-
-          return;
-
-        }
+          clearErrors();
 
 
-        loginButton.disabled = true;
-
-        loginButton.textContent =
-          'Signing In...';
-
-
-        try {
-
-          var result =
-            await window.supabaseClient
-              .auth
-              .signInWithPassword({
-
-                email:
-                  emailInput.value
-                    .trim(),
-
-                password:
-                  passwordInput.value
-
-              });
+          var email =
+            emailInput.value
+              .trim();
 
 
-          if (result.error) {
+          var password =
+            passwordInput.value;
 
-            showMessage(
-              result.error.message ||
-              'Login failed.',
-              'error'
-            );
 
-            return;
+          var valid = true;
+
+
+          if (!email) {
+
+            emailError.textContent =
+              'Email address is required.';
+
+            valid = false;
 
           }
 
-
-          if (
-            !result.data ||
-            !result.data.user
+          else if (
+            !isValidEmail(email)
           ) {
 
+            emailError.textContent =
+              'Enter a valid email address.';
+
+            valid = false;
+
+          }
+
+
+          if (!password) {
+
+            passwordError.textContent =
+              'Password is required.';
+
+            valid = false;
+
+          }
+
+
+          if (!valid) {
+
+            return;
+
+          }
+
+
+          loginButton.disabled = true;
+
+          googleButton.disabled = true;
+
+          loginButton.textContent =
+            'Signing in...';
+
+
+          try {
+
+            var result =
+              await window.supabaseClient
+                .auth
+                .signInWithPassword({
+
+                  email:
+                    email,
+
+                  password:
+                    password
+
+                });
+
+
+            if (result.error) {
+
+              throw result.error;
+
+            }
+
+
+            if (
+              !result.data ||
+              !result.data.user
+            ) {
+
+              throw new Error(
+                'Login failed.'
+              );
+
+            }
+
+
+            var isAdmin =
+              await verifyAdmin(
+                result.data.user
+              );
+
+
+            if (!isAdmin) {
+
+              return;
+
+            }
+
+
             showMessage(
-              'Unable to load the signed-in account.',
+              'Admin login successful.',
+              'success'
+            );
+
+
+            goToDashboard();
+
+          }
+
+          catch (error) {
+
+            console.error(
+              'Admin login error:',
+              error
+            );
+
+
+            showMessage(
+              error.message ||
+              'Unable to login.',
               'error'
             );
 
-            return;
+          }
+
+          finally {
+
+            loginButton.disabled = false;
+
+            googleButton.disabled = false;
+
+            loginButton.textContent =
+              'Login as Admin';
 
           }
 
-
-          var adminAllowed =
-            await verifyAdmin(
-              result.data.user
-            );
-
-
-          if (!adminAllowed) {
-
-            return;
-
-          }
-
-
-          showMessage(
-            'Admin login successful. Redirecting...',
-            'success'
-          );
-
-
-          goToDashboard();
-
         }
 
-        catch (error) {
-
-          console.error(
-            'Admin login error:',
-            error
-          );
+      );
 
 
-          showMessage(
-            'Something went wrong while signing in.',
-            'error'
-          );
-
-        }
-
-        finally {
-
-          loginButton.disabled = false;
-
-          loginButton.textContent =
-            'Sign In as Admin';
-
-        }
-
-      }
-
-
-      /* ====================================================
+      /* ==========================================
          GOOGLE LOGIN
-         ==================================================== */
+         ========================================== */
 
-      async function handleGoogleLogin() {
+      googleButton.addEventListener(
 
-        if (!window.supabaseClient) {
+        'click',
 
-          showMessage(
-            'Supabase connection is unavailable.',
-            'error'
-          );
+        async function () {
 
-          return;
-
-        }
+          clearErrors();
 
 
-        googleButton.disabled = true;
+          googleButton.disabled = true;
 
-        googleButton.textContent =
-          'Opening Google...';
+          loginButton.disabled = true;
 
-
-        try {
-
-          /*
-           * IMPORTANT:
-           * Uses the current Admin Portal origin.
-
-           * Local example:
-           * http://localhost:3000/
-
-           * Vercel example:
-           * https://your-admin-domain.vercel.app/
-           */
-
-          var adminPortalUrl =
-            window.location.origin + '/';
+          googleButton.textContent =
+            'Opening Google...';
 
 
-          var result =
-            await window.supabaseClient
-              .auth
-              .signInWithOAuth({
+          try {
 
-                provider:
-                  'google',
+            /*
+             * IMPORTANT:
+             *
+             * window.location.origin automatically
+             * uses the website where this Admin
+             * index.html is running.
+             *
+             * Production:
+             * https://brit-tuna-admin.vercel.app/
+             *
+             * It DOES NOT redirect to the
+             * main Brit.Tuna customer website.
+             */
 
-                options: {
+            var adminPortalUrl =
+              window.location.origin + '/';
 
-                  redirectTo:
-                    adminPortalUrl,
 
-                  queryParams: {
+            var result =
+              await window.supabaseClient
+                .auth
+                .signInWithOAuth({
 
-                    access_type:
-                      'offline',
+                  provider:
+                    'google',
 
-                    prompt:
-                      'select_account'
+                  options: {
+
+                    redirectTo:
+                      adminPortalUrl,
+
+                    queryParams: {
+
+                      access_type:
+                        'offline',
+
+                      prompt:
+                        'select_account'
+
+                    }
 
                   }
 
-                }
-
-              });
+                });
 
 
-          if (result.error) {
+            if (result.error) {
+
+              throw result.error;
+
+            }
+
+          }
+
+          catch (error) {
+
+            console.error(
+              'Google Admin login error:',
+              error
+            );
+
 
             showMessage(
-              result.error.message ||
-              'Google login failed.',
+              error.message ||
+              'Unable to start Google login.',
               'error'
             );
+
+
+            googleButton.disabled = false;
+
+            loginButton.disabled = false;
+
+            googleButton.textContent =
+              'Continue with Google';
 
           }
 
         }
 
-        catch (error) {
-
-          console.error(
-            'Google Admin login error:',
-            error
-          );
+      );
 
 
-          showMessage(
-            'Unable to start Google login.',
-            'error'
-          );
-
-
-          googleButton.disabled = false;
-
-          googleButton.textContent =
-            'Continue with Google';
-
-        }
-
-      }
-
-
-      /* ====================================================
+      /* ==========================================
          CHECK EXISTING SESSION
-
-         This also runs after Google redirects back
-         to index.html.
-         ==================================================== */
+         ========================================== */
 
       async function checkExistingSession() {
-
-        if (!window.supabaseClient) {
-
-          showMessage(
-            'Supabase is not connected. Check config.js.',
-            'error'
-          );
-
-          return;
-
-        }
-
 
         try {
 
@@ -886,12 +834,7 @@
 
           if (result.error) {
 
-            console.error(
-              'Session check failed:',
-              result.error
-            );
-
-            return;
+            throw result.error;
 
           }
 
@@ -912,22 +855,23 @@
           }
 
 
-          showMessage(
-            'Checking Admin permission...',
-            'info'
-          );
+          /*
+           * User may have just returned
+           * from Google OAuth.
+           *
+           * Now verify profiles.role.
+           */
 
-
-          var adminAllowed =
+          var isAdmin =
             await verifyAdmin(
               session.user
             );
 
 
-          if (adminAllowed) {
+          if (isAdmin) {
 
             showMessage(
-              'Admin verified. Redirecting...',
+              'Admin verified. Opening dashboard...',
               'success'
             );
 
@@ -941,13 +885,14 @@
         catch (error) {
 
           console.error(
-            'Existing Admin session check error:',
+            'Session check error:',
             error
           );
 
 
           showMessage(
-            'Unable to verify the current session.',
+            error.message ||
+            'Unable to check login session.',
             'error'
           );
 
@@ -956,25 +901,28 @@
       }
 
 
-      /* ====================================================
-         EVENTS
-         ==================================================== */
-
-      form.addEventListener(
-        'submit',
-        handleLogin
-      );
-
-
-      googleButton.addEventListener(
-        'click',
-        handleGoogleLogin
-      );
-
-
-      /* ====================================================
+      /* ==========================================
          START
-         ==================================================== */
+         ========================================== */
+
+      if (
+        !window.supabaseClient
+      ) {
+
+        showMessage(
+          'Supabase configuration was not loaded.',
+          'error'
+        );
+
+
+        loginButton.disabled = true;
+
+        googleButton.disabled = true;
+
+        return;
+
+      }
+
 
       checkExistingSession();
 
