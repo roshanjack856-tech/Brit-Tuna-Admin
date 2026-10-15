@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Brit.Tuna Admin Portal"
+  >
+
+  <meta
+    name="theme-color"
+    content="#1f5a3a"
+  >
+
+  <title>Admin Login | Brit.Tuna</title>
+
+
+  <!-- Google Fonts -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="responsive.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- ======================================================
+       HEADER
+       ====================================================== -->
+
+  <div id="site-header"></div>
+
+
+  <!-- ======================================================
+       MAIN
+       ====================================================== -->
+
+  <main class="admin-main">
+
+    <div class="container">
+
+      <section class="auth-layout">
+
+        <div class="card auth-card">
+
+
+          <!-- ==============================================
+               TITLE
+               ============================================== -->
+
+          <div class="text-center">
+
+            <div
+              class="admin-logo-mark"
+              style="margin: 0 auto 18px;"
+            >
+              B
+            </div>
+
+            <h1>
+              Admin Login
+            </h1>
+
+            <p>
+              Sign in to manage the Brit.Tuna marketplace.
+            </p>
+
+          </div>
+
+
+          <!-- ==============================================
+               SECURITY NOTICE
+               ============================================== -->
+
+          <div class="notice notice-info">
+
+            Only accounts with the
+            <strong>admin</strong>
+            role can access this portal.
+
+          </div>
+
+
+          <!-- ==============================================
+               MESSAGE
+               ============================================== -->
+
+          <div
+            id="login-message"
+            hidden
+          ></div>
+
+
+          <!-- ==============================================
+               EMAIL LOGIN FORM
+               ============================================== -->
+
+          <form
+            id="admin-login-form"
+            novalidate
+          >
+
+            <div class="form-grid">
+
+
+              <!-- EMAIL -->
+
+              <div class="form-field full">
+
+                <label for="email">
+                  Email Address
+                </label>
+
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  autocomplete="email"
+                  placeholder="admin@example.com"
+                  required
+                >
+
+                <div
+                  id="email-error"
+                  class="error"
+                ></div>
+
+              </div>
+
+
+              <!-- PASSWORD -->
+
+              <div class="form-field full">
+
+                <label for="password">
+                  Password
+                </label>
+
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  autocomplete="current-password"
+                  placeholder="Enter your password"
+                  required
+                >
+
+                <div
+                  id="password-error"
+                  class="error"
+                ></div>
+
+              </div>
+
+
+              <!-- LOGIN BUTTON -->
+
+              <div class="form-field full">
+
+                <button
+                  id="login-button"
+                  class="btn btn-primary btn-block"
+                  type="submit"
+                >
+                  Sign In as Admin
+                </button>
+
+              </div>
+
+            </div>
+
+          </form>
+
+
+          <!-- ==============================================
+               DIVIDER
+               ============================================== -->
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              margin: 22px 0;
+            "
+          >
+
+            <div
+              style="
+                height: 1px;
+                background: var(--border);
+                flex: 1;
+              "
+            ></div>
+
+            <span class="muted">
+              OR
+            </span>
+
+            <div
+              style="
+                height: 1px;
+                background: var(--border);
+                flex: 1;
+              "
+            ></div>
+
+          </div>
+
+
+          <!-- ==============================================
+               GOOGLE LOGIN
+               ============================================== -->
+
+          <button
+            id="google-login-button"
+            class="btn btn-outline btn-block"
+            type="button"
+          >
+            Continue with Google
+          </button>
+
+
+          <!-- ==============================================
+               NO ADMIN REGISTRATION
+               ============================================== -->
+
+          <div
+            class="notice notice-warning mt-3 mb-0"
+          >
+
+            There is no public Admin registration.
+            Admin permission must be assigned securely
+            in the database.
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- ======================================================
+       FOOTER
+       ====================================================== -->
+
+  <div id="site-footer"></div>
+
+
+  <!-- ======================================================
+       SUPABASE JAVASCRIPT
+       ====================================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+  <!-- ======================================================
+       PROJECT SCRIPTS
+
+       IMPORTANT ORDER:
+       config.js
+       ↓
+       supabase.js
+       ↓
+       script.js
+       ====================================================== -->
+
+  <script src="config.js"></script>
+
+  <script src="supabase.js"></script>
+
+  <script src="script.js"></script>
+
+
+  <!-- ======================================================
+       ADMIN LOGIN PAGE LOGIC
+       ====================================================== -->
+
+  <script>
+
+    (function () {
+
+      'use strict';
+
+
+      var form =
+        document.getElementById(
+          'admin-login-form'
+        );
+
+
+      var emailInput =
+        document.getElementById(
+          'email'
+        );
+
+
+      var passwordInput =
+        document.getElementById(
+          'password'
+        );
+
+
+      var loginButton =
+        document.getElementById(
+          'login-button'
+        );
+
+
+      var googleButton =
+        document.getElementById(
+          'google-login-button'
+        );
+
+
+      var messageBox =
+        document.getElementById(
+          'login-message'
+        );
+
+
+      var emailError =
+        document.getElementById(
+          'email-error'
+        );
+
+
+      var passwordError =
+        document.getElementById(
+          'password-error'
+        );
+
+
+      /* ====================================================
+         MESSAGE
+         ==================================================== */
+
+      function showMessage(
+        message,
+        type
+      ) {
+
+        messageBox.hidden = false;
+
+        messageBox.className =
+          'notice notice-' +
+          (type || 'info');
+
+        messageBox.textContent =
+          message;
+
+      }
+
+
+      function hideMessage() {
+
+        messageBox.hidden = true;
+
+        messageBox.textContent = '';
+
+        messageBox.className = '';
+
+      }
+
+
+      /* ====================================================
+         CLEAR ERRORS
+         ==================================================== */
+
+      function clearErrors() {
+
+        emailError.textContent = '';
+
+        passwordError.textContent = '';
+
+        hideMessage();
+
+      }
+
+
+      /* ====================================================
+         VALIDATE FORM
+         ==================================================== */
+
+      function validateForm() {
+
+        clearErrors();
+
+
+        var email =
+          emailInput.value
+            .trim();
+
+
+        var password =
+          passwordInput.value;
+
+
+        var valid = true;
+
+
+        if (!email) {
+
+          emailError.textContent =
+            'Email address is required.';
+
+          valid = false;
+
+        }
+
+        else if (
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            .test(email)
+        ) {
+
+          emailError.textContent =
+            'Enter a valid email address.';
+
+          valid = false;
+
+        }
+
+
+        if (!password) {
+
+          passwordError.textContent =
+            'Password is required.';
+
+          valid = false;
+
+        }
+
+
+        return valid;
+
+      }
+
+
+      /* ====================================================
+         VERIFY ADMIN ROLE
+         ==================================================== */
+
+      async function verifyAdmin(
+        user
+      ) {
+
+        if (!user) {
+
+          return false;
+
+        }
+
+
+        var result =
+          await window.supabaseClient
+
+            .from('profiles')
+
+            .select(
+              'id, full_name, role'
+            )
+
+            .eq(
+              'id',
+              user.id
+            )
+
+            .maybeSingle();
+
+
+        if (result.error) {
+
+          console.error(
+            'Admin profile verification failed:',
+            result.error
+          );
+
+
+          showMessage(
+            'Unable to verify Admin access.',
+            'error'
+          );
+
+
+          return false;
+
+        }
+
+
+        if (
+          !result.data ||
+          result.data.role !== 'admin'
+        ) {
+
+          showMessage(
+            'Access denied. This account is not an Admin account.',
+            'error'
+          );
+
+
+          /*
+           * Sign out non-admin accounts from
+           * the Admin Portal origin.
+           */
+
+          await window.supabaseClient
+            .auth
+            .signOut();
+
+
+          return false;
+
+        }
+
+
+        return true;
+
+      }
+
+
+      /* ====================================================
+         REDIRECT TO DASHBOARD
+         ==================================================== */
+
+      function goToDashboard() {
+
+        var returnPage =
+          sessionStorage.getItem(
+            'britTunaAdminReturnTo'
+          );
+
+
+        sessionStorage.removeItem(
+          'britTunaAdminReturnTo'
+        );
+
+
+        /*
+         * Only allow known Admin pages.
+         * Do not redirect to arbitrary URLs.
+         */
+
+        var allowedPages = [
+
+          'admin-dashboard.html',
+
+          'seller-applications.html',
+
+          'sellers.html',
+
+          'products.html',
+
+          'orders.html'
+
+        ];
+
+
+        if (
+          returnPage &&
+          allowedPages.includes(
+            returnPage
+          )
+        ) {
+
+          window.location.replace(
+            returnPage
+          );
+
+          return;
+
+        }
+
+
+        window.location.replace(
+          'admin-dashboard.html'
+        );
+
+      }
+
+
+      /* ====================================================
+         EMAIL / PASSWORD LOGIN
+         ==================================================== */
+
+      async function handleLogin(
+        event
+      ) {
+
+        event.preventDefault();
+
+
+        if (!window.supabaseClient) {
+
+          showMessage(
+            'Supabase connection is unavailable. Check config.js.',
+            'error'
+          );
+
+          return;
+
+        }
+
+
+        if (!validateForm()) {
+
+          return;
+
+        }
+
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+          'Signing In...';
+
+
+        try {
+
+          var result =
+            await window.supabaseClient
+              .auth
+              .signInWithPassword({
+
+                email:
+                  emailInput.value
+                    .trim(),
+
+                password:
+                  passwordInput.value
+
+              });
+
+
+          if (result.error) {
+
+            showMessage(
+              result.error.message ||
+              'Login failed.',
+              'error'
+            );
+
+            return;
+
+          }
+
+
+          if (
+            !result.data ||
+            !result.data.user
+          ) {
+
+            showMessage(
+              'Unable to load the signed-in account.',
+              'error'
+            );
+
+            return;
+
+          }
+
+
+          var adminAllowed =
+            await verifyAdmin(
+              result.data.user
+            );
+
+
+          if (!adminAllowed) {
+
+            return;
+
+          }
+
+
+          showMessage(
+            'Admin login successful. Redirecting...',
+            'success'
+          );
+
+
+          goToDashboard();
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Admin login error:',
+            error
+          );
+
+
+          showMessage(
+            'Something went wrong while signing in.',
+            'error'
+          );
+
+        }
+
+        finally {
+
+          loginButton.disabled = false;
+
+          loginButton.textContent =
+            'Sign In as Admin';
+
+        }
+
+      }
+
+
+      /* ====================================================
+         GOOGLE LOGIN
+         ==================================================== */
+
+      async function handleGoogleLogin() {
+
+        if (!window.supabaseClient) {
+
+          showMessage(
+            'Supabase connection is unavailable.',
+            'error'
+          );
+
+          return;
+
+        }
+
+
+        googleButton.disabled = true;
+
+        googleButton.textContent =
+          'Opening Google...';
+
+
+        try {
+
+          /*
+           * IMPORTANT:
+           * Uses the current Admin Portal origin.
+
+           * Local example:
+           * http://localhost:3000/
+
+           * Vercel example:
+           * https://your-admin-domain.vercel.app/
+           */
+
+          var adminPortalUrl =
+            window.location.origin + '/';
+
+
+          var result =
+            await window.supabaseClient
+              .auth
+              .signInWithOAuth({
+
+                provider:
+                  'google',
+
+                options: {
+
+                  redirectTo:
+                    adminPortalUrl,
+
+                  queryParams: {
+
+                    access_type:
+                      'offline',
+
+                    prompt:
+                      'select_account'
+
+                  }
+
+                }
+
+              });
+
+
+          if (result.error) {
+
+            showMessage(
+              result.error.message ||
+              'Google login failed.',
+              'error'
+            );
+
+          }
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Google Admin login error:',
+            error
+          );
+
+
+          showMessage(
+            'Unable to start Google login.',
+            'error'
+          );
+
+
+          googleButton.disabled = false;
+
+          googleButton.textContent =
+            'Continue with Google';
+
+        }
+
+      }
+
+
+      /* ====================================================
+         CHECK EXISTING SESSION
+
+         This also runs after Google redirects back
+         to index.html.
+         ==================================================== */
+
+      async function checkExistingSession() {
+
+        if (!window.supabaseClient) {
+
+          showMessage(
+            'Supabase is not connected. Check config.js.',
+            'error'
+          );
+
+          return;
+
+        }
+
+
+        try {
+
+          var result =
+            await window.supabaseClient
+              .auth
+              .getSession();
+
+
+          if (result.error) {
+
+            console.error(
+              'Session check failed:',
+              result.error
+            );
+
+            return;
+
+          }
+
+
+          var session =
+            result.data
+              ? result.data.session
+              : null;
+
+
+          if (
+            !session ||
+            !session.user
+          ) {
+
+            return;
+
+          }
+
+
+          showMessage(
+            'Checking Admin permission...',
+            'info'
+          );
+
+
+          var adminAllowed =
+            await verifyAdmin(
+              session.user
+            );
+
+
+          if (adminAllowed) {
+
+            showMessage(
+              'Admin verified. Redirecting...',
+              'success'
+            );
+
+
+            goToDashboard();
+
+          }
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Existing Admin session check error:',
+            error
+          );
+
+
+          showMessage(
+            'Unable to verify the current session.',
+            'error'
+          );
+
+        }
+
+      }
+
+
+      /* ====================================================
+         EVENTS
+         ==================================================== */
+
+      form.addEventListener(
+        'submit',
+        handleLogin
+      );
+
+
+      googleButton.addEventListener(
+        'click',
+        handleGoogleLogin
+      );
+
+
+      /* ====================================================
+         START
+         ==================================================== */
+
+      checkExistingSession();
+
+
+    })();
+
+  </script>
+
+
+</body>
+
+</html>
