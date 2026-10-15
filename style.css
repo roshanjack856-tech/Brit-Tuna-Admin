@@ -1,0 +1,2302 @@
+/* ==========================================================
+   Brit.Tuna Admin Portal
+   Main Stylesheet
+   ========================================================== */
+
+
+/* ==========================================================
+   1. ROOT VARIABLES
+   ========================================================== */
+
+:root {
+  --green: #1f5a3a;
+  --green-dark: #153f29;
+  --green-light: #e6f0ea;
+
+  --red: #b83a32;
+  --red-dark: #922d27;
+  --red-light: #f8e8e6;
+
+  --cream: #f8f5ec;
+  --cream-dark: #eee8da;
+
+  --white: #ffffff;
+  --black: #172019;
+
+  --text: #253129;
+  --muted: #68746c;
+
+  --border: #dedbd2;
+
+  --success: #19733d;
+  --success-bg: #e6f4eb;
+
+  --warning: #94620b;
+  --warning-bg: #fff3d8;
+
+  --danger: #b42318;
+  --danger-bg: #fdecea;
+
+  --info: #245b82;
+  --info-bg: #e8f2f8;
+
+  --shadow:
+    0 12px 35px rgba(23, 32, 25, 0.08);
+
+  --shadow-small:
+    0 5px 18px rgba(23, 32, 25, 0.07);
+
+  --radius: 16px;
+  --radius-small: 10px;
+
+  --container: 1240px;
+
+  --sidebar-width: 235px;
+
+  --transition: 0.2s ease;
+}
+
+
+/* ==========================================================
+   2. RESET
+   ========================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  margin: 0;
+
+  min-height: 100vh;
+
+  background:
+    var(--cream);
+
+  color:
+    var(--text);
+
+  font-family:
+    "DM Sans",
+    Arial,
+    sans-serif;
+
+  font-size: 16px;
+
+  line-height: 1.6;
+
+  overflow-x: hidden;
+}
+
+
+body.menu-open {
+  overflow: hidden;
+}
+
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+
+button {
+  cursor: pointer;
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+
+  color:
+    var(--green-dark);
+
+  font-family:
+    "Fraunces",
+    Georgia,
+    serif;
+
+  line-height: 1.2;
+}
+
+
+p {
+  margin-top: 0;
+}
+
+
+[hidden] {
+  display: none !important;
+}
+
+
+/* ==========================================================
+   3. CONTAINER
+   ========================================================== */
+
+.container {
+  width:
+    min(
+      calc(100% - 40px),
+      var(--container)
+    );
+
+  margin:
+    0 auto;
+}
+
+
+/* ==========================================================
+   4. HEADER
+   ========================================================== */
+
+.admin-header {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 1000;
+
+  background:
+    rgba(255, 255, 255, 0.96);
+
+  border-bottom:
+    1px solid var(--border);
+
+  backdrop-filter:
+    blur(14px);
+}
+
+
+.admin-header-inner {
+  min-height: 72px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 24px;
+}
+
+
+/* ==========================================================
+   5. LOGO
+   ========================================================== */
+
+.admin-logo {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  flex-shrink: 0;
+}
+
+
+.admin-logo-mark {
+  width: 42px;
+
+  height: 42px;
+
+  border-radius: 12px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background:
+    var(--green);
+
+  color:
+    var(--white);
+
+  font-family:
+    "Fraunces",
+    Georgia,
+    serif;
+
+  font-size: 20px;
+
+  font-weight: 700;
+}
+
+
+.admin-logo-text {
+  display: flex;
+
+  flex-direction: column;
+
+  color:
+    var(--green-dark);
+
+  font-weight: 700;
+
+  line-height: 1.1;
+}
+
+
+.admin-logo-text strong {
+  font-family:
+    "Fraunces",
+    Georgia,
+    serif;
+
+  font-size: 19px;
+}
+
+
+.admin-logo-text small {
+  margin-top: 3px;
+
+  color:
+    var(--muted);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.07em;
+
+  text-transform: uppercase;
+}
+
+
+/* ==========================================================
+   6. DESKTOP NAVIGATION
+   ========================================================== */
+
+.admin-nav {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  flex: 1;
+}
+
+
+.admin-nav a {
+  padding:
+    9px 11px;
+
+  border-radius:
+    8px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    14px;
+
+  font-weight:
+    600;
+
+  transition:
+    background var(--transition),
+    color var(--transition);
+}
+
+
+.admin-nav a:hover,
+.admin-nav a.active {
+  background:
+    var(--green-light);
+
+  color:
+    var(--green-dark);
+}
+
+
+/* ==========================================================
+   7. HEADER ACTIONS
+   ========================================================== */
+
+.header-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  flex-shrink: 0;
+}
+
+
+.admin-user-name {
+  max-width: 150px;
+
+  overflow: hidden;
+
+  color:
+    var(--muted);
+
+  font-size:
+    13px;
+
+  font-weight:
+    600;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+/* ==========================================================
+   8. BUTTONS
+   ========================================================== */
+
+.btn {
+  min-height: 42px;
+
+  padding:
+    9px 16px;
+
+  border:
+    1px solid transparent;
+
+  border-radius:
+    10px;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    7px;
+
+  font-weight:
+    700;
+
+  line-height:
+    1.2;
+
+  transition:
+    transform var(--transition),
+    background var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    opacity var(--transition);
+}
+
+
+.btn:hover {
+  transform:
+    translateY(-1px);
+}
+
+
+.btn:disabled {
+  cursor:
+    not-allowed;
+
+  opacity:
+    0.6;
+
+  transform:
+    none;
+}
+
+
+.btn-primary {
+  background:
+    var(--green);
+
+  border-color:
+    var(--green);
+
+  color:
+    var(--white);
+}
+
+
+.btn-primary:hover {
+  background:
+    var(--green-dark);
+
+  border-color:
+    var(--green-dark);
+}
+
+
+.btn-outline {
+  background:
+    var(--white);
+
+  border-color:
+    var(--border);
+
+  color:
+    var(--green-dark);
+}
+
+
+.btn-outline:hover {
+  border-color:
+    var(--green);
+
+  color:
+    var(--green);
+}
+
+
+.btn-danger {
+  background:
+    var(--red);
+
+  border-color:
+    var(--red);
+
+  color:
+    var(--white);
+}
+
+
+.btn-danger:hover {
+  background:
+    var(--red-dark);
+
+  border-color:
+    var(--red-dark);
+}
+
+
+.btn-success {
+  background:
+    var(--success);
+
+  border-color:
+    var(--success);
+
+  color:
+    var(--white);
+}
+
+
+.btn-small {
+  min-height:
+    34px;
+
+  padding:
+    7px 11px;
+
+  border-radius:
+    8px;
+
+  font-size:
+    13px;
+}
+
+
+.btn-block {
+  width: 100%;
+}
+
+
+/* ==========================================================
+   9. MAIN
+   ========================================================== */
+
+.admin-main {
+  min-height:
+    calc(100vh - 150px);
+
+  padding:
+    34px 0 60px;
+}
+
+
+/* ==========================================================
+   10. PAGE HEADER
+   ========================================================== */
+
+.page-header {
+  margin-bottom:
+    24px;
+}
+
+
+.page-header h1 {
+  margin-bottom:
+    7px;
+
+  font-size:
+    clamp(
+      27px,
+      4vw,
+      39px
+    );
+}
+
+
+.page-header p {
+  max-width:
+    760px;
+
+  margin-bottom:
+    0;
+
+  color:
+    var(--muted);
+}
+
+
+/* ==========================================================
+   11. CARDS
+   ========================================================== */
+
+.card {
+  background:
+    var(--white);
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius);
+
+  box-shadow:
+    var(--shadow-small);
+
+  padding:
+    22px;
+}
+
+
+.card-title {
+  margin-bottom:
+    5px;
+
+  font-size:
+    20px;
+}
+
+
+.card-subtitle {
+  margin-bottom:
+    18px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    14px;
+}
+
+
+/* ==========================================================
+   12. LOGIN
+   ========================================================== */
+
+.auth-layout {
+  min-height:
+    calc(100vh - 210px);
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+}
+
+
+.auth-card {
+  width:
+    min(
+      100%,
+      520px
+    );
+
+  padding:
+    32px;
+}
+
+
+.auth-card h1 {
+  margin-bottom:
+    9px;
+}
+
+
+.auth-card .text-center > p {
+  color:
+    var(--muted);
+}
+
+
+/* ==========================================================
+   13. FORMS
+   ========================================================== */
+
+.form-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap:
+    18px;
+}
+
+
+.form-field {
+  min-width: 0;
+}
+
+
+.form-field.full {
+  grid-column:
+    1 / -1;
+}
+
+
+.form-field label {
+  display:
+    block;
+
+  margin-bottom:
+    7px;
+
+  color:
+    var(--green-dark);
+
+  font-size:
+    14px;
+
+  font-weight:
+    700;
+}
+
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width:
+    100%;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    10px;
+
+  background:
+    var(--white);
+
+  color:
+    var(--text);
+
+  outline:
+    none;
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+
+.form-field input,
+.form-field select {
+  min-height:
+    46px;
+
+  padding:
+    10px 12px;
+}
+
+
+.form-field textarea {
+  min-height:
+    120px;
+
+  padding:
+    12px;
+
+  resize:
+    vertical;
+}
+
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color:
+    var(--green);
+
+  box-shadow:
+    0 0 0 3px rgba(31, 90, 58, 0.11);
+}
+
+
+.form-field input:disabled,
+.form-field select:disabled,
+.form-field textarea:disabled {
+  background:
+    #f3f3ef;
+
+  cursor:
+    not-allowed;
+}
+
+
+.form-help {
+  margin-top:
+    5px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    12px;
+}
+
+
+.error {
+  min-height:
+    18px;
+
+  margin-top:
+    4px;
+
+  color:
+    var(--danger);
+
+  font-size:
+    12px;
+
+  font-weight:
+    600;
+}
+
+
+/* ==========================================================
+   14. NOTICES
+   ========================================================== */
+
+.notice {
+  margin-bottom:
+    20px;
+
+  padding:
+    13px 15px;
+
+  border:
+    1px solid #cddfd3;
+
+  border-radius:
+    10px;
+
+  background:
+    var(--green-light);
+
+  color:
+    var(--green-dark);
+
+  font-size:
+    14px;
+}
+
+
+.notice-success {
+  border-color:
+    #b8ddc5;
+
+  background:
+    var(--success-bg);
+
+  color:
+    var(--success);
+}
+
+
+.notice-warning {
+  border-color:
+    #ead29c;
+
+  background:
+    var(--warning-bg);
+
+  color:
+    var(--warning);
+}
+
+
+.notice-error {
+  border-color:
+    #f0c1bc;
+
+  background:
+    var(--danger-bg);
+
+  color:
+    var(--danger);
+}
+
+
+.notice-info {
+  border-color:
+    #bfd7e7;
+
+  background:
+    var(--info-bg);
+
+  color:
+    var(--info);
+}
+
+
+/* ==========================================================
+   15. ADMIN DASHBOARD LAYOUT
+   ========================================================== */
+
+.admin-layout {
+  display:
+    grid;
+
+  grid-template-columns:
+    var(--sidebar-width) minmax(0, 1fr);
+
+  gap:
+    25px;
+
+  align-items:
+    start;
+}
+
+
+/* ==========================================================
+   16. SIDEBAR
+   ========================================================== */
+
+.admin-sidebar {
+  position:
+    sticky;
+
+  top:
+    96px;
+
+  padding:
+    17px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--white);
+
+  box-shadow:
+    var(--shadow-small);
+}
+
+
+.sidebar-title {
+  padding:
+    4px 8px 12px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    11px;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.08em;
+
+  text-transform:
+    uppercase;
+}
+
+
+.sidebar-nav {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    5px;
+}
+
+
+.sidebar-nav a {
+  padding:
+    10px 11px;
+
+  border-radius:
+    9px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    14px;
+
+  font-weight:
+    700;
+
+  transition:
+    background var(--transition),
+    color var(--transition);
+}
+
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  background:
+    var(--green-light);
+
+  color:
+    var(--green-dark);
+}
+
+
+/* ==========================================================
+   17. STATS
+   ========================================================== */
+
+.stats-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap:
+    16px;
+
+  margin-bottom:
+    24px;
+}
+
+
+.stat-card {
+  min-width:
+    0;
+
+  padding:
+    20px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--white);
+
+  box-shadow:
+    var(--shadow-small);
+}
+
+
+.stat-label {
+  margin-bottom:
+    8px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    13px;
+
+  font-weight:
+    700;
+}
+
+
+.stat-value {
+  color:
+    var(--green-dark);
+
+  font-family:
+    "Fraunces",
+    Georgia,
+    serif;
+
+  font-size:
+    30px;
+
+  font-weight:
+    700;
+
+  line-height:
+    1;
+}
+
+
+.stat-note {
+  margin-top:
+    8px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    12px;
+}
+
+
+/* ==========================================================
+   18. TOOLBAR
+   ========================================================== */
+
+.toolbar {
+  margin-bottom:
+    18px;
+
+  display:
+    flex;
+
+  align-items:
+    flex-end;
+
+  justify-content:
+    space-between;
+
+  gap:
+    16px;
+
+  flex-wrap:
+    wrap;
+}
+
+
+.toolbar .page-header {
+  margin-bottom:
+    0;
+}
+
+
+.toolbar-actions {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    9px;
+
+  flex-wrap:
+    wrap;
+}
+
+
+/* ==========================================================
+   19. TABLE
+   ========================================================== */
+
+.table-card {
+  overflow:
+    hidden;
+
+  padding:
+    0;
+}
+
+
+.table-scroll {
+  width:
+    100%;
+
+  overflow-x:
+    auto;
+}
+
+
+.admin-table {
+  width:
+    100%;
+
+  min-width:
+    760px;
+
+  border-collapse:
+    collapse;
+}
+
+
+.admin-table th,
+.admin-table td {
+  padding:
+    14px 15px;
+
+  border-bottom:
+    1px solid var(--border);
+
+  text-align:
+    left;
+
+  vertical-align:
+    middle;
+}
+
+
+.admin-table th {
+  background:
+    #faf9f5;
+
+  color:
+    var(--muted);
+
+  font-size:
+    12px;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.03em;
+
+  text-transform:
+    uppercase;
+}
+
+
+.admin-table td {
+  font-size:
+    14px;
+}
+
+
+.admin-table tbody tr:last-child td {
+  border-bottom:
+    0;
+}
+
+
+.admin-table tbody tr:hover {
+  background:
+    #fcfbf7;
+}
+
+
+/* ==========================================================
+   20. TABLE ACTIONS
+   ========================================================== */
+
+.table-actions {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    7px;
+
+  flex-wrap:
+    wrap;
+}
+
+
+/* ==========================================================
+   21. BADGES
+   ========================================================== */
+
+.badge {
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  min-height:
+    27px;
+
+  padding:
+    4px 9px;
+
+  border-radius:
+    999px;
+
+  background:
+    #ecece8;
+
+  color:
+    #555e58;
+
+  font-size:
+    11px;
+
+  font-weight:
+    800;
+
+  line-height:
+    1;
+
+  text-transform:
+    capitalize;
+}
+
+
+.badge-pending {
+  background:
+    var(--warning-bg);
+
+  color:
+    var(--warning);
+}
+
+
+.badge-active,
+.badge-approved,
+.badge-paid,
+.badge-delivered {
+  background:
+    var(--success-bg);
+
+  color:
+    var(--success);
+}
+
+
+.badge-rejected,
+.badge-failed,
+.badge-cancelled,
+.badge-suspended {
+  background:
+    var(--danger-bg);
+
+  color:
+    var(--danger);
+}
+
+
+.badge-processing,
+.badge-shipped,
+.badge-confirmed {
+  background:
+    var(--info-bg);
+
+  color:
+    var(--info);
+}
+
+
+.badge-inactive,
+.badge-refunded {
+  background:
+    #ecece8;
+
+  color:
+    #59625c;
+}
+
+
+/* ==========================================================
+   22. PRODUCT / SELLER GRIDS
+   ========================================================== */
+
+.admin-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap:
+    18px;
+}
+
+
+.admin-item-card {
+  min-width:
+    0;
+
+  padding:
+    18px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--white);
+
+  box-shadow:
+    var(--shadow-small);
+}
+
+
+.admin-item-card h2,
+.admin-item-card h3 {
+  margin-bottom:
+    6px;
+}
+
+
+.admin-item-card p:last-child {
+  margin-bottom:
+    0;
+}
+
+
+/* ==========================================================
+   23. PRODUCT IMAGE
+   ========================================================== */
+
+.product-image {
+  width:
+    100%;
+
+  height:
+    190px;
+
+  margin-bottom:
+    15px;
+
+  border-radius:
+    12px;
+
+  background:
+    #efeee9;
+
+  object-fit:
+    cover;
+}
+
+
+.product-image-placeholder {
+  width:
+    100%;
+
+  height:
+    190px;
+
+  margin-bottom:
+    15px;
+
+  border-radius:
+    12px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+    #efeee9;
+
+  color:
+    var(--muted);
+
+  font-weight:
+    700;
+}
+
+
+/* ==========================================================
+   24. DETAILS
+   ========================================================== */
+
+.details-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap:
+    14px;
+
+  margin:
+    18px 0;
+}
+
+
+.detail-item {
+  padding:
+    13px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    10px;
+
+  background:
+    #fcfbf7;
+}
+
+
+.detail-label {
+  display:
+    block;
+
+  margin-bottom:
+    3px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    11px;
+
+  font-weight:
+    800;
+
+  text-transform:
+    uppercase;
+}
+
+
+.detail-value {
+  overflow-wrap:
+    anywhere;
+
+  font-weight:
+    700;
+}
+
+
+/* ==========================================================
+   25. EMPTY STATE
+   ========================================================== */
+
+.empty-state {
+  padding:
+    45px 22px;
+
+  text-align:
+    center;
+}
+
+
+.empty-state h2 {
+  margin-bottom:
+    8px;
+}
+
+
+.empty-state p {
+  max-width:
+    520px;
+
+  margin:
+    0 auto 18px;
+
+  color:
+    var(--muted);
+}
+
+
+/* ==========================================================
+   26. LOADING
+   ========================================================== */
+
+.loading {
+  padding:
+    35px;
+
+  color:
+    var(--muted);
+
+  text-align:
+    center;
+
+  font-weight:
+    700;
+}
+
+
+/* ==========================================================
+   27. MODAL
+   ========================================================== */
+
+.modal-backdrop {
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  z-index:
+    2000;
+
+  padding:
+    25px 15px;
+
+  display:
+    flex;
+
+  align-items:
+    flex-start;
+
+  justify-content:
+    center;
+
+  overflow-y:
+    auto;
+
+  background:
+    rgba(12, 20, 15, 0.62);
+}
+
+
+.modal-card {
+  width:
+    min(100%, 680px);
+
+  margin:
+    auto;
+
+  padding:
+    24px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--white);
+
+  box-shadow:
+    var(--shadow);
+}
+
+
+.modal-header {
+  margin-bottom:
+    20px;
+
+  display:
+    flex;
+
+  align-items:
+    flex-start;
+
+  justify-content:
+    space-between;
+
+  gap:
+    15px;
+}
+
+
+.modal-header h2 {
+  margin-bottom:
+    3px;
+}
+
+
+.modal-header p {
+  margin-bottom:
+    0;
+
+  color:
+    var(--muted);
+}
+
+
+/* ==========================================================
+   28. ADMIN STATUS / ACCESS BOX
+   ========================================================== */
+
+.admin-status-box {
+  padding:
+    20px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--white);
+}
+
+
+.access-denied {
+  width:
+    min(100%, 620px);
+
+  margin:
+    50px auto;
+
+  padding:
+    35px;
+
+  border:
+    1px solid #efc2bd;
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--white);
+
+  box-shadow:
+    var(--shadow);
+
+  text-align:
+    center;
+}
+
+
+.access-denied h1 {
+  color:
+    var(--red);
+}
+
+
+/* ==========================================================
+   29. FOOTER
+   ========================================================== */
+
+.admin-footer {
+  border-top:
+    1px solid var(--border);
+
+  background:
+    var(--white);
+}
+
+
+.admin-footer-inner {
+  min-height:
+    76px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    20px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    13px;
+}
+
+
+.admin-footer-links {
+  display:
+    flex;
+
+  gap:
+    14px;
+
+  flex-wrap:
+    wrap;
+}
+
+
+.admin-footer a:hover {
+  color:
+    var(--green);
+}
+
+
+/* ==========================================================
+   30. MOBILE MENU BUTTON
+   ========================================================== */
+
+.mobile-menu-button {
+  width:
+    42px;
+
+  height:
+    42px;
+
+  padding:
+    0;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    10px;
+
+  display:
+    none;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+    var(--white);
+
+  color:
+    var(--green-dark);
+
+  font-size:
+    23px;
+}
+
+
+/* ==========================================================
+   31. MOBILE BACKDROP
+   ========================================================== */
+
+.mobile-backdrop {
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  z-index:
+    1490;
+
+  background:
+    rgba(7, 15, 10, 0.62);
+
+  opacity:
+    0;
+
+  visibility:
+    hidden;
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+
+.mobile-backdrop.open {
+  opacity:
+    1;
+
+  visibility:
+    visible;
+}
+
+
+/* ==========================================================
+   32. MOBILE DRAWER
+   ========================================================== */
+
+.mobile-drawer {
+  position:
+    fixed;
+
+  top:
+    0;
+
+  right:
+    0;
+
+  z-index:
+    1500;
+
+  width:
+    min(86vw, 360px);
+
+  height:
+    100vh;
+
+  padding:
+    20px;
+
+  background:
+    var(--white);
+
+  box-shadow:
+    -12px 0 35px rgba(0, 0, 0, 0.18);
+
+  transform:
+    translateX(105%);
+
+  transition:
+    transform 0.28s ease;
+
+  overflow-y:
+    auto;
+}
+
+
+.mobile-drawer.open {
+  transform:
+    translateX(0);
+}
+
+
+.mobile-drawer-header {
+  padding-bottom:
+    17px;
+
+  border-bottom:
+    1px solid var(--border);
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    15px;
+}
+
+
+.mobile-close {
+  width:
+    40px;
+
+  height:
+    40px;
+
+  padding:
+    0;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    9px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+    var(--white);
+
+  color:
+    var(--green-dark);
+
+  font-size:
+    23px;
+}
+
+
+.mobile-nav {
+  margin-top:
+    18px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    6px;
+}
+
+
+.mobile-nav a,
+.mobile-nav button {
+  width:
+    100%;
+
+  padding:
+    12px;
+
+  border:
+    0;
+
+  border-radius:
+    9px;
+
+  background:
+    transparent;
+
+  color:
+    var(--text);
+
+  text-align:
+    left;
+
+  font-weight:
+    700;
+}
+
+
+.mobile-nav a:hover,
+.mobile-nav a.active,
+.mobile-nav button:hover {
+  background:
+    var(--green-light);
+
+  color:
+    var(--green-dark);
+}
+
+
+.mobile-nav-divider {
+  height:
+    1px;
+
+  margin:
+    9px 0;
+
+  background:
+    var(--border);
+}
+
+
+/* ==========================================================
+   33. FILTER BAR
+   ========================================================== */
+
+.filter-bar {
+  margin-bottom:
+    20px;
+
+  padding:
+    18px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius);
+
+  display:
+    grid;
+
+  grid-template-columns:
+    minmax(220px, 1fr)
+    minmax(160px, 220px);
+
+  gap:
+    14px;
+
+  background:
+    var(--white);
+
+  box-shadow:
+    var(--shadow-small);
+}
+
+
+.filter-bar input,
+.filter-bar select {
+  width:
+    100%;
+
+  min-height:
+    44px;
+
+  padding:
+    9px 12px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    9px;
+
+  background:
+    var(--white);
+
+  outline:
+    none;
+}
+
+
+.filter-bar input:focus,
+.filter-bar select:focus {
+  border-color:
+    var(--green);
+
+  box-shadow:
+    0 0 0 3px rgba(31, 90, 58, 0.1);
+}
+
+
+/* ==========================================================
+   34. ORDER CARD
+   ========================================================== */
+
+.order-card {
+  margin-bottom:
+    18px;
+}
+
+
+.order-card-header {
+  margin-bottom:
+    18px;
+
+  display:
+    flex;
+
+  align-items:
+    flex-start;
+
+  justify-content:
+    space-between;
+
+  gap:
+    15px;
+
+  flex-wrap:
+    wrap;
+}
+
+
+.order-card-header h2 {
+  margin-bottom:
+    4px;
+}
+
+
+.order-statuses {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    7px;
+
+  flex-wrap:
+    wrap;
+}
+
+
+.order-summary {
+  margin-top:
+    18px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    flex-end;
+
+  gap:
+    15px;
+}
+
+
+/* ==========================================================
+   35. ADMIN ACTION PANEL
+   ========================================================== */
+
+.action-panel {
+  margin-top:
+    18px;
+
+  padding-top:
+    18px;
+
+  border-top:
+    1px solid var(--border);
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    15px;
+
+  flex-wrap:
+    wrap;
+}
+
+
+.action-panel-buttons {
+  display:
+    flex;
+
+  gap:
+    8px;
+
+  flex-wrap:
+    wrap;
+}
+
+
+/* ==========================================================
+   36. MUTED
+   ========================================================== */
+
+.muted {
+  color:
+    var(--muted);
+}
+
+
+/* ==========================================================
+   37. UTILITY CLASSES
+   ========================================================== */
+
+.hidden {
+  display:
+    none !important;
+}
+
+
+.text-center {
+  text-align:
+    center;
+}
+
+
+.text-right {
+  text-align:
+    right;
+}
+
+
+.mt-0 {
+  margin-top:
+    0 !important;
+}
+
+
+.mt-1 {
+  margin-top:
+    8px !important;
+}
+
+
+.mt-2 {
+  margin-top:
+    16px !important;
+}
+
+
+.mt-3 {
+  margin-top:
+    24px !important;
+}
+
+
+.mb-0 {
+  margin-bottom:
+    0 !important;
+}
+
+
+.mb-1 {
+  margin-bottom:
+    8px !important;
+}
+
+
+.mb-2 {
+  margin-bottom:
+    16px !important;
+}
+
+
+.mb-3 {
+  margin-bottom:
+    24px !important;
+}
+
+
+/* ==========================================================
+   38. FOCUS ACCESSIBILITY
+   ========================================================== */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline:
+    3px solid rgba(31, 90, 58, 0.22);
+
+  outline-offset:
+    2px;
+}
+
+
+/* ==========================================================
+   39. SELECTION
+   ========================================================== */
+
+::selection {
+  background:
+    var(--green);
+
+  color:
+    var(--white);
+}
