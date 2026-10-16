@@ -54,6 +54,74 @@
     href="responsive.css"
   >
 
+
+  <style>
+
+    .order-management-box {
+      margin-top: 24px;
+      padding: 20px;
+      border: 1px solid rgba(31, 90, 58, 0.15);
+      border-radius: 16px;
+      background: #f8faf8;
+    }
+
+    .order-management-box h3 {
+      margin-top: 0;
+      margin-bottom: 6px;
+    }
+
+    .order-management-box p {
+      margin-top: 0;
+      color: #68736c;
+    }
+
+    .status-update-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      margin-top: 16px;
+    }
+
+    .status-update-field {
+      flex: 1;
+    }
+
+    .status-update-field label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .status-update-field select {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #d8ddd9;
+      border-radius: 10px;
+      background: #ffffff;
+      font: inherit;
+    }
+
+    .status-update-message {
+      margin-top: 14px;
+    }
+
+    @media (max-width: 600px) {
+
+      .status-update-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .status-update-row .btn {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 
@@ -337,6 +405,7 @@
 
             </select>
 
+
             <select
               id="sort-filter"
               aria-label="Sort orders"
@@ -460,15 +529,6 @@
 
 
       <div id="order-details"></div>
-
-
-      <div class="notice notice-info mt-2 mb-0">
-
-        Order management is currently read-only.
-        Secure Admin order-status updates will be connected
-        through a protected database function later.
-
-      </div>
 
     </div>
 
@@ -717,11 +777,6 @@
 
         try {
 
-          /*
-           * Admin RLS must allow Admin SELECT
-           * on the orders table.
-           */
-
           var ordersResult =
             await window.supabaseClient
 
@@ -760,11 +815,6 @@
 
           }
 
-
-          /*
-           * Admin RLS must allow Admin SELECT
-           * on order_items.
-           */
 
           var itemsResult =
             await window.supabaseClient
@@ -1261,7 +1311,7 @@
                         order.id
                       )}"
                     >
-                      View Order
+                      View / Manage Order
                     </button>
 
                   </div>
@@ -1703,6 +1753,130 @@
 
           </div>
 
+
+          <!-- ==============================================
+               ADMIN ORDER STATUS MANAGEMENT
+               ============================================== -->
+
+          <div class="order-management-box">
+
+            <h3>
+              Manage Order Status
+            </h3>
+
+            <p>
+              Update the customer order's delivery status.
+            </p>
+
+
+            <div class="status-update-row">
+
+              <div class="status-update-field">
+
+                <label for="admin-order-status">
+                  Order Status
+                </label>
+
+                <select id="admin-order-status">
+
+                  <option
+                    value="pending"
+                    ${
+                      order.order_status ===
+                      'pending'
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    Pending
+                  </option>
+
+                  <option
+                    value="confirmed"
+                    ${
+                      order.order_status ===
+                      'confirmed'
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    Confirmed
+                  </option>
+
+                  <option
+                    value="processing"
+                    ${
+                      order.order_status ===
+                      'processing'
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    Processing
+                  </option>
+
+                  <option
+                    value="shipped"
+                    ${
+                      order.order_status ===
+                      'shipped'
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    Shipped
+                  </option>
+
+                  <option
+                    value="delivered"
+                    ${
+                      order.order_status ===
+                      'delivered'
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    Delivered
+                  </option>
+
+                  <option
+                    value="cancelled"
+                    ${
+                      order.order_status ===
+                      'cancelled'
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    Cancelled
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <button
+                id="update-order-status-button"
+                class="btn"
+                type="button"
+              >
+                Update Status
+              </button>
+
+            </div>
+
+
+            <div
+              id="status-update-message"
+              class="status-update-message"
+              hidden
+              role="status"
+              aria-live="polite"
+            ></div>
+
+          </div>
+
         `;
 
 
@@ -1712,6 +1886,305 @@
         document.body.classList.add(
           'menu-open'
         );
+
+
+        var updateButton =
+          document.getElementById(
+            'update-order-status-button'
+          );
+
+
+        if (updateButton) {
+
+          updateButton.addEventListener(
+            'click',
+            updateOrderStatus
+          );
+
+        }
+
+      }
+
+
+      /* ====================================================
+         UPDATE ORDER STATUS
+         ==================================================== */
+
+      async function updateOrderStatus() {
+
+        if (!selectedOrder) {
+
+          return;
+
+        }
+
+
+        var statusSelect =
+          document.getElementById(
+            'admin-order-status'
+          );
+
+
+        var updateButton =
+          document.getElementById(
+            'update-order-status-button'
+          );
+
+
+        var statusMessage =
+          document.getElementById(
+            'status-update-message'
+          );
+
+
+        if (
+          !statusSelect ||
+          !updateButton ||
+          !statusMessage
+        ) {
+
+          return;
+
+        }
+
+
+        var newStatus =
+          statusSelect.value;
+
+
+        var allowedStatuses = [
+          'pending',
+          'confirmed',
+          'processing',
+          'shipped',
+          'delivered',
+          'cancelled'
+        ];
+
+
+        if (
+          !allowedStatuses.includes(
+            newStatus
+          )
+        ) {
+
+          statusMessage.hidden = false;
+
+          statusMessage.className =
+            'notice notice-error status-update-message';
+
+          statusMessage.textContent =
+            'Please select a valid order status.';
+
+          return;
+
+        }
+
+
+        if (
+          newStatus ===
+          selectedOrder.order_status
+        ) {
+
+          statusMessage.hidden = false;
+
+          statusMessage.className =
+            'notice notice-info status-update-message';
+
+          statusMessage.textContent =
+            'This order already has the selected status.';
+
+          return;
+
+        }
+
+
+        var confirmed =
+          window.confirm(
+            'Change Order #' +
+            selectedOrder.id +
+            ' status from "' +
+            selectedOrder.order_status +
+            '" to "' +
+            newStatus +
+            '"?'
+          );
+
+
+        if (!confirmed) {
+
+          statusSelect.value =
+            selectedOrder.order_status;
+
+          return;
+
+        }
+
+
+        updateButton.disabled = true;
+
+        statusSelect.disabled = true;
+
+        updateButton.textContent =
+          'Updating...';
+
+
+        statusMessage.hidden = false;
+
+        statusMessage.className =
+          'notice notice-info status-update-message';
+
+        statusMessage.textContent =
+          'Updating order status...';
+
+
+        try {
+
+          var result =
+            await window.supabaseClient
+              .rpc(
+                'admin_update_order_status',
+                {
+                  order_id_input:
+                    Number(
+                      selectedOrder.id
+                    ),
+
+                  new_status_input:
+                    newStatus
+                }
+              );
+
+
+          if (result.error) {
+
+            throw result.error;
+
+          }
+
+
+          selectedOrder.order_status =
+            newStatus;
+
+
+          selectedOrder.updated_at =
+            new Date().toISOString();
+
+
+          var orderInState =
+            orders.find(
+
+              function (order) {
+
+                return (
+                  String(order.id) ===
+                  String(selectedOrder.id)
+                );
+
+              }
+
+            );
+
+
+          if (orderInState) {
+
+            orderInState.order_status =
+              newStatus;
+
+            orderInState.updated_at =
+              selectedOrder.updated_at;
+
+          }
+
+
+          statusMessage.hidden = false;
+
+          statusMessage.className =
+            'notice notice-success status-update-message';
+
+          statusMessage.textContent =
+            'Order status updated successfully.';
+
+
+          updateStatistics();
+
+          renderOrders();
+
+
+          var currentOrderId =
+            selectedOrder.id;
+
+
+          window.setTimeout(
+
+            function () {
+
+              openOrder(
+                currentOrderId
+              );
+
+              var refreshedMessage =
+                document.getElementById(
+                  'status-update-message'
+                );
+
+
+              if (refreshedMessage) {
+
+                refreshedMessage.hidden =
+                  false;
+
+                refreshedMessage.className =
+                  'notice notice-success status-update-message';
+
+                refreshedMessage.textContent =
+                  'Order status updated successfully.';
+
+              }
+
+            },
+
+            100
+
+          );
+
+        }
+
+        catch (error) {
+
+          console.error(
+            'Admin order status update error:',
+            error
+          );
+
+
+          statusMessage.hidden = false;
+
+          statusMessage.className =
+            'notice notice-error status-update-message';
+
+          statusMessage.textContent =
+            error &&
+            error.message
+              ? error.message
+              : 'Unable to update order status.';
+
+
+          statusSelect.value =
+            selectedOrder.order_status;
+
+        }
+
+        finally {
+
+          updateButton.disabled = false;
+
+          statusSelect.disabled = false;
+
+          updateButton.textContent =
+            'Update Status';
+
+        }
 
       }
 
@@ -1831,11 +2304,6 @@
 
         }
 
-
-        /*
-         * Only profiles.role === admin
-         * can continue.
-         */
 
         var session =
           await window.BTAdmin
