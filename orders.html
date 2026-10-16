@@ -22,7 +22,6 @@
 
   <title>Orders | Brit.Tuna Admin</title>
 
-
   <!-- Google Fonts -->
 
   <link
@@ -41,7 +40,6 @@
     rel="stylesheet"
   >
 
-
   <!-- CSS -->
 
   <link
@@ -53,7 +51,6 @@
     rel="stylesheet"
     href="responsive.css"
   >
-
 
   <style>
 
@@ -105,6 +102,70 @@
 
     .status-update-message {
       margin-top: 14px;
+    }
+
+    .fulfillment-box {
+      margin-top: 8px;
+    }
+
+    .fulfillment-label {
+      display: block;
+      margin-bottom: 5px;
+      color: #68736c;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .fulfillment-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: capitalize;
+      white-space: nowrap;
+    }
+
+    .fulfillment-pending {
+      color: #92400e;
+      background: #fef3c7;
+    }
+
+    .fulfillment-processing {
+      color: #1e40af;
+      background: #dbeafe;
+    }
+
+    .fulfillment-shipped {
+      color: #5b21b6;
+      background: #ede9fe;
+    }
+
+    .fulfillment-delivered {
+      color: #166534;
+      background: #dcfce7;
+    }
+
+    .fulfillment-cancelled {
+      color: #991b1b;
+      background: #fee2e2;
+    }
+
+    .fulfillment-unknown {
+      color: #475467;
+      background: #f2f4f7;
+    }
+
+    .fulfillment-note {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #f8faf8;
+      color: #526158;
+      font-size: 13px;
+      line-height: 1.6;
     }
 
     @media (max-width: 600px) {
@@ -205,7 +266,8 @@
 
               <p>
                 View customer orders, payment status,
-                delivery information and marketplace items.
+                delivery information, seller fulfillment
+                and marketplace items.
               </p>
 
             </div>
@@ -432,9 +494,7 @@
           </div>
 
 
-          <!-- ==================================================
-               LOADING
-               ================================================== -->
+          <!-- LOADING -->
 
           <div
             id="loading"
@@ -444,9 +504,7 @@
           </div>
 
 
-          <!-- ==================================================
-               EMPTY
-               ================================================== -->
+          <!-- EMPTY -->
 
           <div
             id="empty-state"
@@ -465,9 +523,7 @@
           </div>
 
 
-          <!-- ==================================================
-               ORDERS
-               ================================================== -->
+          <!-- ORDERS -->
 
           <div
             id="orders-container"
@@ -510,7 +566,8 @@
           </h2>
 
           <p>
-            Customer, payment and marketplace item information.
+            Customer, payment, seller fulfillment
+            and marketplace item information.
           </p>
 
         </div>
@@ -535,21 +592,14 @@
   </div>
 
 
-  <!-- ======================================================
-       FOOTER
-       ====================================================== -->
+  <!-- FOOTER -->
 
   <div id="site-footer"></div>
 
 
-  <!-- ======================================================
-       SUPABASE
-       ====================================================== -->
+  <!-- SUPABASE -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-  <!-- PROJECT FILES -->
 
   <script src="config.js"></script>
 
@@ -718,12 +768,58 @@
           String(
             status || 'unknown'
           )
-          .trim()
-          .toLowerCase();
+            .trim()
+            .toLowerCase();
 
 
         return (
           '<span class="badge badge-' +
+          escapeHtml(safeStatus) +
+          '">' +
+          escapeHtml(safeStatus) +
+          '</span>'
+        );
+
+      }
+
+
+      /* ====================================================
+         SELLER FULFILLMENT BADGE
+         ==================================================== */
+
+      function fulfillmentBadge(status) {
+
+        var safeStatus =
+          String(
+            status || 'pending'
+          )
+            .trim()
+            .toLowerCase();
+
+
+        var allowed = [
+          'pending',
+          'processing',
+          'shipped',
+          'delivered',
+          'cancelled'
+        ];
+
+
+        if (
+          !allowed.includes(
+            safeStatus
+          )
+        ) {
+
+          safeStatus =
+            'unknown';
+
+        }
+
+
+        return (
+          '<span class="fulfillment-badge fulfillment-' +
           escapeHtml(safeStatus) +
           '">' +
           escapeHtml(safeStatus) +
@@ -771,11 +867,14 @@
 
         hideMessage();
 
-
         refreshButton.disabled = true;
 
 
         try {
+
+          /* ----------------------------------------------
+             LOAD ORDERS
+             ---------------------------------------------- */
 
           var ordersResult =
             await window.supabaseClient
@@ -816,6 +915,13 @@
           }
 
 
+          /* ----------------------------------------------
+             LOAD ORDER ITEMS
+
+             IMPORTANT:
+             fulfillment_status is now loaded here.
+             ---------------------------------------------- */
+
           var itemsResult =
             await window.supabaseClient
 
@@ -830,6 +936,7 @@
                 product_name,
                 price,
                 quantity,
+                fulfillment_status,
                 created_at
                 `
               )
@@ -884,7 +991,9 @@
 
 
           showMessage(
-            'Unable to load orders. Check Admin RLS permissions for orders and order_items.',
+            error && error.message
+              ? error.message
+              : 'Unable to load orders. Check Admin RLS permissions for orders and order_items.',
             'error'
           );
 
@@ -1036,8 +1145,8 @@
                   order.pincode,
                   order.payment_method
                 ]
-                .join(' ')
-                .toLowerCase();
+                  .join(' ')
+                  .toLowerCase();
 
 
               var matchesSearch =
@@ -1440,6 +1549,10 @@
                       Total
                     </th>
 
+                    <th>
+                      Seller Fulfillment
+                    </th>
+
                   </tr>
 
                 </thead>
@@ -1529,6 +1642,23 @@
 
                           </td>
 
+
+                          <td>
+
+                            <div class="fulfillment-box">
+
+                              <span class="fulfillment-label">
+                                Seller Fulfillment
+                              </span>
+
+                              ${fulfillmentBadge(
+                                item.fulfillment_status
+                              )}
+
+                            </div>
+
+                          </td>
+
                         </tr>
 
                       `;
@@ -1540,6 +1670,27 @@
                 </tbody>
 
               </table>
+
+            </div>
+
+
+            <div class="fulfillment-note">
+
+              <strong>
+                Seller Fulfillment:
+              </strong>
+
+              This status is updated by the seller for
+              their own marketplace item.
+
+              <br>
+
+              <strong>
+                Overall Order Status:
+              </strong>
+
+              Admin manages the complete customer order
+              separately below.
 
             </div>
 
@@ -1761,11 +1912,14 @@
           <div class="order-management-box">
 
             <h3>
-              Manage Order Status
+              Manage Overall Order Status
             </h3>
 
             <p>
-              Update the customer order's delivery status.
+              This controls the customer's overall
+              order delivery status.
+              Seller fulfillment is shown separately
+              in the item table above.
             </p>
 
 
@@ -1774,7 +1928,7 @@
               <div class="status-update-field">
 
                 <label for="admin-order-status">
-                  Order Status
+                  Overall Order Status
                 </label>
 
                 <select id="admin-order-status">
@@ -1907,7 +2061,7 @@
 
 
       /* ====================================================
-         UPDATE ORDER STATUS
+         UPDATE OVERALL ORDER STATUS
          ==================================================== */
 
       async function updateOrderStatus() {
@@ -2122,6 +2276,7 @@
               openOrder(
                 currentOrderId
               );
+
 
               var refreshedMessage =
                 document.getElementById(
