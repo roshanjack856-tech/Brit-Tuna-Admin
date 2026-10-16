@@ -22,6 +22,7 @@
 
   <title>Orders | Brit.Tuna Admin</title>
 
+
   <!-- Google Fonts -->
 
   <link
@@ -40,7 +41,8 @@
     rel="stylesheet"
   >
 
-  <!-- CSS -->
+
+  <!-- Project CSS -->
 
   <link
     rel="stylesheet"
@@ -52,7 +54,12 @@
     href="responsive.css"
   >
 
+
   <style>
+
+    /* ======================================================
+       ADMIN ORDERS PAGE
+       ====================================================== */
 
     .order-management-box {
       margin-top: 24px;
@@ -62,15 +69,19 @@
       background: #f8faf8;
     }
 
+
     .order-management-box h3 {
       margin-top: 0;
       margin-bottom: 6px;
     }
 
+
     .order-management-box p {
       margin-top: 0;
       color: #68736c;
+      line-height: 1.6;
     }
+
 
     .status-update-row {
       display: flex;
@@ -79,9 +90,11 @@
       margin-top: 16px;
     }
 
+
     .status-update-field {
       flex: 1;
     }
+
 
     .status-update-field label {
       display: block;
@@ -89,6 +102,7 @@
       font-size: 14px;
       font-weight: 700;
     }
+
 
     .status-update-field select {
       width: 100%;
@@ -100,83 +114,116 @@
       font: inherit;
     }
 
+
     .status-update-message {
       margin-top: 14px;
     }
 
-    .fulfillment-box {
-      margin-top: 8px;
+
+    /* ======================================================
+       SELLER FULFILLMENT
+       ====================================================== */
+
+    .seller-fulfillment {
+      min-width: 130px;
     }
+
 
     .fulfillment-label {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       color: #68736c;
       font-size: 12px;
       font-weight: 600;
     }
 
+
     .fulfillment-badge {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 5px 9px;
+      padding: 6px 10px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
+      line-height: 1;
       text-transform: capitalize;
       white-space: nowrap;
     }
+
 
     .fulfillment-pending {
       color: #92400e;
       background: #fef3c7;
     }
 
+
     .fulfillment-processing {
       color: #1e40af;
       background: #dbeafe;
     }
+
 
     .fulfillment-shipped {
       color: #5b21b6;
       background: #ede9fe;
     }
 
+
     .fulfillment-delivered {
       color: #166534;
       background: #dcfce7;
     }
+
 
     .fulfillment-cancelled {
       color: #991b1b;
       background: #fee2e2;
     }
 
+
     .fulfillment-unknown {
       color: #475467;
       background: #f2f4f7;
     }
 
-    .fulfillment-note {
+
+    .fulfillment-info-box {
       margin-top: 16px;
-      padding: 12px 14px;
-      border-radius: 10px;
+      padding: 14px 16px;
+      border: 1px solid rgba(31, 90, 58, 0.12);
+      border-radius: 12px;
       background: #f8faf8;
       color: #526158;
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    @media (max-width: 600px) {
+
+    .fulfillment-info-box strong {
+      color: #1f5a3a;
+    }
+
+
+    /* ======================================================
+       MOBILE
+       ====================================================== */
+
+    @media (max-width: 700px) {
 
       .status-update-row {
         flex-direction: column;
         align-items: stretch;
       }
 
+
       .status-update-row .btn {
         width: 100%;
+      }
+
+
+      .seller-fulfillment {
+        min-width: 120px;
       }
 
     }
@@ -216,6 +263,7 @@
           <div class="sidebar-title">
             Admin Menu
           </div>
+
 
           <nav class="sidebar-nav">
 
@@ -265,9 +313,8 @@
               </h1>
 
               <p>
-                View customer orders, payment status,
-                delivery information, seller fulfillment
-                and marketplace items.
+                View customer orders, payment information,
+                overall order status and seller fulfillment.
               </p>
 
             </div>
@@ -301,6 +348,7 @@
                ================================================== -->
 
           <div class="stats-grid">
+
 
             <div class="stat-card">
 
@@ -381,6 +429,7 @@
 
             </div>
 
+
           </div>
 
 
@@ -396,6 +445,7 @@
               placeholder="Search order ID, customer or phone..."
               aria-label="Search orders"
             >
+
 
             <select
               id="order-status-filter"
@@ -494,7 +544,9 @@
           </div>
 
 
-          <!-- LOADING -->
+          <!-- ==================================================
+               LOADING
+               ================================================== -->
 
           <div
             id="loading"
@@ -504,7 +556,9 @@
           </div>
 
 
-          <!-- EMPTY -->
+          <!-- ==================================================
+               EMPTY
+               ================================================== -->
 
           <div
             id="empty-state"
@@ -523,7 +577,9 @@
           </div>
 
 
-          <!-- ORDERS -->
+          <!-- ==================================================
+               ORDERS
+               ================================================== -->
 
           <div
             id="orders-container"
@@ -566,8 +622,8 @@
           </h2>
 
           <p>
-            Customer, payment, seller fulfillment
-            and marketplace item information.
+            Customer, payment, marketplace items
+            and seller fulfillment information.
           </p>
 
         </div>
@@ -592,14 +648,21 @@
   </div>
 
 
-  <!-- FOOTER -->
+  <!-- ======================================================
+       FOOTER
+       ====================================================== -->
 
   <div id="site-footer"></div>
 
 
-  <!-- SUPABASE -->
+  <!-- ======================================================
+       SUPABASE
+       ====================================================== -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+  <!-- PROJECT FILES -->
 
   <script src="config.js"></script>
 
@@ -712,24 +775,95 @@
 
       function escapeHtml(value) {
 
-        return window.BTAdminUtil
-          .escapeHtml(value);
+        if (
+          window.BTAdminUtil &&
+          window.BTAdminUtil.escapeHtml
+        ) {
+
+          return window.BTAdminUtil
+            .escapeHtml(value);
+
+        }
+
+
+        return String(
+          value == null
+            ? ''
+            : value
+        )
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
 
       }
 
 
       function formatINR(value) {
 
-        return window.BTAdminUtil
-          .formatINR(value);
+        if (
+          window.BTAdminUtil &&
+          window.BTAdminUtil.formatINR
+        ) {
+
+          return window.BTAdminUtil
+            .formatINR(value);
+
+        }
+
+
+        return new Intl.NumberFormat(
+          'en-IN',
+          {
+            style: 'currency',
+            currency: 'INR'
+          }
+        ).format(
+          Number(value || 0)
+        );
 
       }
 
 
       function formatDate(value) {
 
-        return window.BTAdminUtil
-          .formatDate(value);
+        if (
+          window.BTAdminUtil &&
+          window.BTAdminUtil.formatDate
+        ) {
+
+          return window.BTAdminUtil
+            .formatDate(value);
+
+        }
+
+
+        if (!value) {
+
+          return '-';
+
+        }
+
+
+        var date =
+          new Date(value);
+
+
+        if (
+          Number.isNaN(
+            date.getTime()
+          )
+        ) {
+
+          return '-';
+
+        }
+
+
+        return date.toLocaleString(
+          'en-IN'
+        );
 
       }
 
@@ -739,11 +873,14 @@
         type
       ) {
 
-        pageMessage.hidden = false;
+        pageMessage.hidden =
+          false;
+
 
         pageMessage.className =
           'notice notice-' +
           (type || 'info');
+
 
         pageMessage.textContent =
           message;
@@ -753,14 +890,23 @@
 
       function hideMessage() {
 
-        pageMessage.hidden = true;
+        pageMessage.hidden =
+          true;
 
-        pageMessage.textContent = '';
 
-        pageMessage.className = '';
+        pageMessage.textContent =
+          '';
+
+
+        pageMessage.className =
+          '';
 
       }
 
+
+      /* ====================================================
+         NORMAL STATUS BADGE
+         ==================================================== */
 
       function statusBadge(status) {
 
@@ -797,7 +943,7 @@
             .toLowerCase();
 
 
-        var allowed = [
+        var allowedStatuses = [
           'pending',
           'processing',
           'shipped',
@@ -807,7 +953,7 @@
 
 
         if (
-          !allowed.includes(
+          !allowedStatuses.includes(
             safeStatus
           )
         ) {
@@ -842,8 +988,12 @@
           function (item) {
 
             return (
-              String(item.order_id) ===
-              String(orderId)
+              String(
+                item.order_id
+              ) ===
+              String(
+                orderId
+              )
             );
 
           }
@@ -859,27 +1009,38 @@
 
       async function loadOrders() {
 
-        loading.hidden = false;
+        loading.hidden =
+          false;
 
-        ordersContainer.hidden = true;
 
-        emptyState.hidden = true;
+        ordersContainer.hidden =
+          true;
+
+
+        emptyState.hidden =
+          true;
+
 
         hideMessage();
 
-        refreshButton.disabled = true;
+
+        refreshButton.disabled =
+          true;
 
 
         try {
 
-          /* ----------------------------------------------
+
+          /* ==================================================
              LOAD ORDERS
-             ---------------------------------------------- */
+             ================================================== */
 
           var ordersResult =
             await window.supabaseClient
 
-              .from('orders')
+              .from(
+                'orders'
+              )
 
               .select(
                 `
@@ -908,24 +1069,28 @@
               );
 
 
-          if (ordersResult.error) {
+          if (
+            ordersResult.error
+          ) {
 
             throw ordersResult.error;
 
           }
 
 
-          /* ----------------------------------------------
+          /* ==================================================
              LOAD ORDER ITEMS
 
              IMPORTANT:
-             fulfillment_status is now loaded here.
-             ---------------------------------------------- */
+             fulfillment_status IS INCLUDED HERE.
+             ================================================== */
 
           var itemsResult =
             await window.supabaseClient
 
-              .from('order_items')
+              .from(
+                'order_items'
+              )
 
               .select(
                 `
@@ -949,7 +1114,9 @@
               );
 
 
-          if (itemsResult.error) {
+          if (
+            itemsResult.error
+          ) {
 
             throw itemsResult.error;
 
@@ -964,7 +1131,20 @@
             itemsResult.data || [];
 
 
+          console.log(
+            'Admin orders:',
+            orders
+          );
+
+
+          console.log(
+            'Admin order items:',
+            orderItems
+          );
+
+
           updateStatistics();
+
 
           renderOrders();
 
@@ -983,17 +1163,23 @@
           orderItems = [];
 
 
-          loading.hidden = true;
+          loading.hidden =
+            true;
 
-          ordersContainer.hidden = true;
 
-          emptyState.hidden = false;
+          ordersContainer.hidden =
+            true;
+
+
+          emptyState.hidden =
+            false;
 
 
           showMessage(
-            error && error.message
+            error &&
+            error.message
               ? error.message
-              : 'Unable to load orders. Check Admin RLS permissions for orders and order_items.',
+              : 'Unable to load orders.',
             'error'
           );
 
@@ -1001,7 +1187,8 @@
 
         finally {
 
-          refreshButton.disabled = false;
+          refreshButton.disabled =
+            false;
 
         }
 
@@ -1124,13 +1311,21 @@
             function (order) {
 
               var matchesOrderStatus =
-                orderStatus === 'all' ||
+                orderStatus ===
+                  'all'
+
+                ||
+
                 order.order_status ===
                   orderStatus;
 
 
               var matchesPaymentStatus =
-                paymentStatus === 'all' ||
+                paymentStatus ===
+                  'all'
+
+                ||
+
                 order.payment_status ===
                   paymentStatus;
 
@@ -1145,12 +1340,17 @@
                   order.pincode,
                   order.payment_method
                 ]
+
                   .join(' ')
+
                   .toLowerCase();
 
 
               var matchesSearch =
-                !search ||
+                !search
+
+                ||
+
                 searchable.includes(
                   search
                 );
@@ -1171,39 +1371,76 @@
 
           function (a, b) {
 
-            if (sort === 'oldest') {
+            if (
+              sort ===
+              'oldest'
+            ) {
 
               return (
-                new Date(a.created_at) -
-                new Date(b.created_at)
+                new Date(
+                  a.created_at
+                )
+
+                -
+
+                new Date(
+                  b.created_at
+                )
               );
 
             }
 
 
-            if (sort === 'highest') {
+            if (
+              sort ===
+              'highest'
+            ) {
 
               return (
-                Number(b.total_amount || 0) -
-                Number(a.total_amount || 0)
+                Number(
+                  b.total_amount || 0
+                )
+
+                -
+
+                Number(
+                  a.total_amount || 0
+                )
               );
 
             }
 
 
-            if (sort === 'lowest') {
+            if (
+              sort ===
+              'lowest'
+            ) {
 
               return (
-                Number(a.total_amount || 0) -
-                Number(b.total_amount || 0)
+                Number(
+                  a.total_amount || 0
+                )
+
+                -
+
+                Number(
+                  b.total_amount || 0
+                )
               );
 
             }
 
 
             return (
-              new Date(b.created_at) -
-              new Date(a.created_at)
+              new Date(
+                b.created_at
+              )
+
+              -
+
+              new Date(
+                a.created_at
+              )
             );
 
           }
@@ -1226,25 +1463,34 @@
           getFilteredOrders();
 
 
-        loading.hidden = true;
+        loading.hidden =
+          true;
 
 
         if (
-          filtered.length === 0
+          filtered.length ===
+          0
         ) {
 
-          ordersContainer.hidden = true;
+          ordersContainer.hidden =
+            true;
 
-          emptyState.hidden = false;
+
+          emptyState.hidden =
+            false;
+
 
           return;
 
         }
 
 
-        emptyState.hidden = true;
+        emptyState.hidden =
+          true;
 
-        ordersContainer.hidden = false;
+
+        ordersContainer.hidden =
+          false;
 
 
         ordersContainer.innerHTML =
@@ -1294,10 +1540,13 @@
                           font-size:21px;
                         "
                       >
+
                         Order #${escapeHtml(
                           order.id
                         )}
+
                       </h2>
+
 
                       <div class="muted">
 
@@ -1329,6 +1578,7 @@
 
                   <div class="details-grid">
 
+
                     <div class="detail-item">
 
                       <span class="detail-label">
@@ -1336,9 +1586,11 @@
                       </span>
 
                       <span class="detail-value">
+
                         ${escapeHtml(
                           order.customer_name
                         )}
+
                       </span>
 
                     </div>
@@ -1351,9 +1603,11 @@
                       </span>
 
                       <span class="detail-value">
+
                         ${escapeHtml(
                           order.customer_phone
                         )}
+
                       </span>
 
                     </div>
@@ -1381,16 +1635,19 @@
                       <span class="detail-value">
 
                         <strong>
+
                           ${escapeHtml(
                             formatINR(
                               order.total_amount
                             )
                           )}
+
                         </strong>
 
                       </span>
 
                     </div>
+
 
                   </div>
 
@@ -1404,10 +1661,12 @@
                       </span>
 
                       <div class="detail-value">
+
                         ${escapeHtml(
                           order.payment_method ||
                           'Not specified'
                         )}
+
                       </div>
 
                     </div>
@@ -1420,7 +1679,9 @@
                         order.id
                       )}"
                     >
+
                       View / Manage Order
+
                     </button>
 
                   </div>
@@ -1461,6 +1722,238 @@
 
 
       /* ====================================================
+         BUILD ORDER ITEMS TABLE
+         ==================================================== */
+
+      function buildItemsTable(
+        items
+      ) {
+
+        if (
+          !items ||
+          items.length === 0
+        ) {
+
+          return `
+
+            <div class="notice notice-warning">
+
+              No order items were found
+              for this order.
+
+            </div>
+
+          `;
+
+        }
+
+
+        return `
+
+          <div class="table-scroll">
+
+            <table class="admin-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Product
+                  </th>
+
+                  <th>
+                    Seller
+                  </th>
+
+                  <th>
+                    Price
+                  </th>
+
+                  <th>
+                    Qty
+                  </th>
+
+                  <th>
+                    Total
+                  </th>
+
+                  <th>
+                    Seller Fulfillment
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                ${items.map(
+
+                  function (item) {
+
+                    var lineTotal =
+
+                      Number(
+                        item.price || 0
+                      )
+
+                      *
+
+                      Number(
+                        item.quantity || 0
+                      );
+
+
+                    return `
+
+                      <tr>
+
+
+                        <!-- PRODUCT -->
+
+                        <td>
+
+                          <strong>
+
+                            ${escapeHtml(
+                              item.product_name
+                            )}
+
+                          </strong>
+
+                          <br>
+
+                          <small class="muted">
+
+                            Product ID:
+
+                            ${escapeHtml(
+                              item.product_id ||
+                              '-'
+                            )}
+
+                          </small>
+
+                        </td>
+
+
+                        <!-- SELLER -->
+
+                        <td>
+
+                          ${escapeHtml(
+                            item.seller_id ||
+                            'Brit.Tuna'
+                          )}
+
+                        </td>
+
+
+                        <!-- PRICE -->
+
+                        <td>
+
+                          ${escapeHtml(
+                            formatINR(
+                              item.price
+                            )
+                          )}
+
+                        </td>
+
+
+                        <!-- QUANTITY -->
+
+                        <td>
+
+                          ${escapeHtml(
+                            item.quantity
+                          )}
+
+                        </td>
+
+
+                        <!-- TOTAL -->
+
+                        <td>
+
+                          <strong>
+
+                            ${escapeHtml(
+                              formatINR(
+                                lineTotal
+                              )
+                            )}
+
+                          </strong>
+
+                        </td>
+
+
+                        <!-- SELLER FULFILLMENT -->
+
+                        <td>
+
+                          <div class="seller-fulfillment">
+
+                            <span class="fulfillment-label">
+
+                              Seller Status
+
+                            </span>
+
+
+                            ${fulfillmentBadge(
+                              item.fulfillment_status
+                            )}
+
+                          </div>
+
+                        </td>
+
+
+                      </tr>
+
+                    `;
+
+                  }
+
+                ).join('')}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div class="fulfillment-info-box">
+
+            <strong>
+              Seller Fulfillment
+            </strong>
+
+            shows the status updated by the seller
+            for their own product.
+
+            <br>
+
+            <strong>
+              Overall Order Status
+            </strong>
+
+            is controlled separately by Admin.
+
+          </div>
+
+        `;
+
+      }
+
+
+      /* ====================================================
          OPEN ORDER
          ==================================================== */
 
@@ -1474,8 +1967,12 @@
             function (order) {
 
               return (
-                String(order.id) ===
-                String(orderId)
+                String(
+                  order.id
+                ) ===
+                String(
+                  orderId
+                )
               );
 
             }
@@ -1483,7 +1980,9 @@
           );
 
 
-        if (!selectedOrder) {
+        if (
+          !selectedOrder
+        ) {
 
           return;
 
@@ -1500,223 +1999,40 @@
           );
 
 
-        var itemsHtml;
-
-
-        if (
-          items.length === 0
-        ) {
-
-          itemsHtml = `
-
-            <div class="notice notice-warning">
-              No order items were found for this order.
-            </div>
-
-          `;
-
-        }
-
-        else {
-
-          itemsHtml = `
-
-            <div class="table-scroll">
-
-              <table class="admin-table">
-
-                <thead>
-
-                  <tr>
-
-                    <th>
-                      Product
-                    </th>
-
-                    <th>
-                      Seller
-                    </th>
-
-                    <th>
-                      Price
-                    </th>
-
-                    <th>
-                      Qty
-                    </th>
-
-                    <th>
-                      Total
-                    </th>
-
-                    <th>
-                      Seller Fulfillment
-                    </th>
-
-                  </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                  ${items.map(
-
-                    function (item) {
-
-                      var lineTotal =
-                        Number(
-                          item.price || 0
-                        ) *
-                        Number(
-                          item.quantity || 0
-                        );
-
-
-                      return `
-
-                        <tr>
-
-                          <td>
-
-                            <strong>
-                              ${escapeHtml(
-                                item.product_name
-                              )}
-                            </strong>
-
-                            <br>
-
-                            <small class="muted">
-                              Product ID:
-                              ${escapeHtml(
-                                item.product_id ||
-                                '-'
-                              )}
-                            </small>
-
-                          </td>
-
-
-                          <td>
-
-                            ${escapeHtml(
-                              item.seller_id ||
-                              'Brit.Tuna'
-                            )}
-
-                          </td>
-
-
-                          <td>
-
-                            ${escapeHtml(
-                              formatINR(
-                                item.price
-                              )
-                            )}
-
-                          </td>
-
-
-                          <td>
-
-                            ${escapeHtml(
-                              item.quantity
-                            )}
-
-                          </td>
-
-
-                          <td>
-
-                            <strong>
-
-                              ${escapeHtml(
-                                formatINR(
-                                  lineTotal
-                                )
-                              )}
-
-                            </strong>
-
-                          </td>
-
-
-                          <td>
-
-                            <div class="fulfillment-box">
-
-                              <span class="fulfillment-label">
-                                Seller Fulfillment
-                              </span>
-
-                              ${fulfillmentBadge(
-                                item.fulfillment_status
-                              )}
-
-                            </div>
-
-                          </td>
-
-                        </tr>
-
-                      `;
-
-                    }
-
-                  ).join('')}
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-
-            <div class="fulfillment-note">
-
-              <strong>
-                Seller Fulfillment:
-              </strong>
-
-              This status is updated by the seller for
-              their own marketplace item.
-
-              <br>
-
-              <strong>
-                Overall Order Status:
-              </strong>
-
-              Admin manages the complete customer order
-              separately below.
-
-            </div>
-
-          `;
-
-        }
+        var itemsHtml =
+          buildItemsTable(
+            items
+          );
 
 
         orderDetails.innerHTML = `
+
+
+          <!-- ==============================================
+               ORDER HEADER
+               ============================================== -->
 
           <div class="order-card-header">
 
             <div>
 
               <h2>
+
                 Order #${escapeHtml(
                   order.id
                 )}
+
               </h2>
 
+
               <p class="muted">
+
                 ${escapeHtml(
                   formatDate(
                     order.created_at
                   )
                 )}
+
               </p>
 
             </div>
@@ -1737,12 +2053,17 @@
           </div>
 
 
+          <!-- ==============================================
+               CUSTOMER
+               ============================================== -->
+
           <h3 class="mt-2">
             Customer
           </h3>
 
 
           <div class="details-grid">
+
 
             <div class="detail-item">
 
@@ -1751,9 +2072,11 @@
               </span>
 
               <span class="detail-value">
+
                 ${escapeHtml(
                   order.customer_name
                 )}
+
               </span>
 
             </div>
@@ -1766,9 +2089,11 @@
               </span>
 
               <span class="detail-value">
+
                 ${escapeHtml(
                   order.customer_phone
                 )}
+
               </span>
 
             </div>
@@ -1781,9 +2106,11 @@
               </span>
 
               <span class="detail-value">
+
                 ${escapeHtml(
                   order.user_id
                 )}
+
               </span>
 
             </div>
@@ -1796,16 +2123,23 @@
               </span>
 
               <span class="detail-value">
+
                 ${escapeHtml(
                   order.payment_method ||
                   '-'
                 )}
+
               </span>
 
             </div>
 
+
           </div>
 
+
+          <!-- ==============================================
+               DELIVERY ADDRESS
+               ============================================== -->
 
           <h3 class="mt-2">
             Delivery Address
@@ -1817,6 +2151,7 @@
             <span class="detail-label">
               Address
             </span>
+
 
             <span class="detail-value">
 
@@ -1850,6 +2185,10 @@
           </div>
 
 
+          <!-- ==============================================
+               ITEMS
+               ============================================== -->
+
           <h3 class="mt-2">
             Items
           </h3>
@@ -1858,7 +2197,12 @@
           ${itemsHtml}
 
 
+          <!-- ==============================================
+               ORDER TOTAL
+               ============================================== -->
+
           <div class="order-summary mt-2">
+
 
             <div>
 
@@ -1866,17 +2210,20 @@
                 Order Total
               </span>
 
+
               <div
                 class="detail-value"
                 style="font-size:22px;"
               >
 
                 <strong>
+
                   ${escapeHtml(
                     formatINR(
                       order.total_amount
                     )
                   )}
+
                 </strong>
 
               </div>
@@ -1890,6 +2237,7 @@
                 Last Updated
               </span>
 
+
               <div class="detail-value">
 
                 ${escapeHtml(
@@ -1901,6 +2249,7 @@
               </div>
 
             </div>
+
 
           </div>
 
@@ -1915,23 +2264,32 @@
               Manage Overall Order Status
             </h3>
 
+
             <p>
-              This controls the customer's overall
-              order delivery status.
-              Seller fulfillment is shown separately
-              in the item table above.
+
+              Admin controls the complete customer
+              order status here.
+
+              Seller fulfillment status is displayed
+              separately for each item above.
+
             </p>
 
 
             <div class="status-update-row">
 
+
               <div class="status-update-field">
 
                 <label for="admin-order-status">
+
                   Overall Order Status
+
                 </label>
 
+
                 <select id="admin-order-status">
+
 
                   <option
                     value="pending"
@@ -1945,6 +2303,7 @@
                     Pending
                   </option>
 
+
                   <option
                     value="confirmed"
                     ${
@@ -1956,6 +2315,7 @@
                   >
                     Confirmed
                   </option>
+
 
                   <option
                     value="processing"
@@ -1969,6 +2329,7 @@
                     Processing
                   </option>
 
+
                   <option
                     value="shipped"
                     ${
@@ -1980,6 +2341,7 @@
                   >
                     Shipped
                   </option>
+
 
                   <option
                     value="delivered"
@@ -1993,6 +2355,7 @@
                     Delivered
                   </option>
 
+
                   <option
                     value="cancelled"
                     ${
@@ -2005,6 +2368,7 @@
                     Cancelled
                   </option>
 
+
                 </select>
 
               </div>
@@ -2015,8 +2379,11 @@
                 class="btn"
                 type="button"
               >
+
                 Update Status
+
               </button>
+
 
             </div>
 
@@ -2029,12 +2396,14 @@
               aria-live="polite"
             ></div>
 
+
           </div>
 
         `;
 
 
-        modal.hidden = false;
+        modal.hidden =
+          false;
 
 
         document.body.classList.add(
@@ -2048,7 +2417,9 @@
           );
 
 
-        if (updateButton) {
+        if (
+          updateButton
+        ) {
 
           updateButton.addEventListener(
             'click',
@@ -2066,7 +2437,9 @@
 
       async function updateOrderStatus() {
 
-        if (!selectedOrder) {
+        if (
+          !selectedOrder
+        ) {
 
           return;
 
@@ -2103,7 +2476,11 @@
 
 
         var newStatus =
-          statusSelect.value;
+          String(
+            statusSelect.value
+          )
+            .trim()
+            .toLowerCase();
 
 
         var allowedStatuses = [
@@ -2122,13 +2499,17 @@
           )
         ) {
 
-          statusMessage.hidden = false;
+          statusMessage.hidden =
+            false;
+
 
           statusMessage.className =
             'notice notice-error status-update-message';
 
+
           statusMessage.textContent =
             'Please select a valid order status.';
+
 
           return;
 
@@ -2140,13 +2521,17 @@
           selectedOrder.order_status
         ) {
 
-          statusMessage.hidden = false;
+          statusMessage.hidden =
+            false;
+
 
           statusMessage.className =
             'notice notice-info status-update-message';
 
+
           statusMessage.textContent =
             'This order already has the selected status.';
+
 
           return;
 
@@ -2155,38 +2540,56 @@
 
         var confirmed =
           window.confirm(
+
             'Change Order #' +
+
             selectedOrder.id +
+
             ' status from "' +
+
             selectedOrder.order_status +
+
             '" to "' +
+
             newStatus +
+
             '"?'
+
           );
 
 
-        if (!confirmed) {
+        if (
+          !confirmed
+        ) {
 
           statusSelect.value =
             selectedOrder.order_status;
+
 
           return;
 
         }
 
 
-        updateButton.disabled = true;
+        updateButton.disabled =
+          true;
 
-        statusSelect.disabled = true;
+
+        statusSelect.disabled =
+          true;
+
 
         updateButton.textContent =
           'Updating...';
 
 
-        statusMessage.hidden = false;
+        statusMessage.hidden =
+          false;
+
 
         statusMessage.className =
           'notice notice-info status-update-message';
+
 
         statusMessage.textContent =
           'Updating order status...';
@@ -2196,9 +2599,11 @@
 
           var result =
             await window.supabaseClient
+
               .rpc(
                 'admin_update_order_status',
                 {
+
                   order_id_input:
                     Number(
                       selectedOrder.id
@@ -2206,11 +2611,14 @@
 
                   new_status_input:
                     newStatus
+
                 }
               );
 
 
-          if (result.error) {
+          if (
+            result.error
+          ) {
 
             throw result.error;
 
@@ -2222,7 +2630,8 @@
 
 
           selectedOrder.updated_at =
-            new Date().toISOString();
+            new Date()
+              .toISOString();
 
 
           var orderInState =
@@ -2231,8 +2640,12 @@
               function (order) {
 
                 return (
-                  String(order.id) ===
-                  String(selectedOrder.id)
+                  String(
+                    order.id
+                  ) ===
+                  String(
+                    selectedOrder.id
+                  )
                 );
 
               }
@@ -2240,10 +2653,13 @@
             );
 
 
-          if (orderInState) {
+          if (
+            orderInState
+          ) {
 
             orderInState.order_status =
               newStatus;
+
 
             orderInState.updated_at =
               selectedOrder.updated_at;
@@ -2251,16 +2667,8 @@
           }
 
 
-          statusMessage.hidden = false;
-
-          statusMessage.className =
-            'notice notice-success status-update-message';
-
-          statusMessage.textContent =
-            'Order status updated successfully.';
-
-
           updateStatistics();
+
 
           renderOrders();
 
@@ -2269,39 +2677,33 @@
             selectedOrder.id;
 
 
-          window.setTimeout(
-
-            function () {
-
-              openOrder(
-                currentOrderId
-              );
-
-
-              var refreshedMessage =
-                document.getElementById(
-                  'status-update-message'
-                );
-
-
-              if (refreshedMessage) {
-
-                refreshedMessage.hidden =
-                  false;
-
-                refreshedMessage.className =
-                  'notice notice-success status-update-message';
-
-                refreshedMessage.textContent =
-                  'Order status updated successfully.';
-
-              }
-
-            },
-
-            100
-
+          openOrder(
+            currentOrderId
           );
+
+
+          var refreshedMessage =
+            document.getElementById(
+              'status-update-message'
+            );
+
+
+          if (
+            refreshedMessage
+          ) {
+
+            refreshedMessage.hidden =
+              false;
+
+
+            refreshedMessage.className =
+              'notice notice-success status-update-message';
+
+
+            refreshedMessage.textContent =
+              'Order status updated successfully.';
+
+          }
 
         }
 
@@ -2313,10 +2715,13 @@
           );
 
 
-          statusMessage.hidden = false;
+          statusMessage.hidden =
+            false;
+
 
           statusMessage.className =
             'notice notice-error status-update-message';
+
 
           statusMessage.textContent =
             error &&
@@ -2332,12 +2737,40 @@
 
         finally {
 
-          updateButton.disabled = false;
+          var currentButton =
+            document.getElementById(
+              'update-order-status-button'
+            );
 
-          statusSelect.disabled = false;
 
-          updateButton.textContent =
-            'Update Status';
+          var currentSelect =
+            document.getElementById(
+              'admin-order-status'
+            );
+
+
+          if (
+            currentButton
+          ) {
+
+            currentButton.disabled =
+              false;
+
+
+            currentButton.textContent =
+              'Update Status';
+
+          }
+
+
+          if (
+            currentSelect
+          ) {
+
+            currentSelect.disabled =
+              false;
+
+          }
 
         }
 
@@ -2350,9 +2783,12 @@
 
       function closeModal() {
 
-        modal.hidden = true;
+        modal.hidden =
+          true;
 
-        selectedOrder = null;
+
+        selectedOrder =
+          null;
 
 
         document.body.classList.remove(
@@ -2407,7 +2843,8 @@
         function (event) {
 
           if (
-            event.target === modal
+            event.target ===
+            modal
           ) {
 
             closeModal();
@@ -2423,7 +2860,11 @@
         function (event) {
 
           if (
-            event.key === 'Escape' &&
+            event.key ===
+              'Escape'
+
+            &&
+
             !modal.hidden
           ) {
 
@@ -2446,7 +2887,8 @@
           !window.BTAdmin
         ) {
 
-          loading.hidden = true;
+          loading.hidden =
+            true;
 
 
           showMessage(
@@ -2465,9 +2907,13 @@
             .requireAdmin();
 
 
-        if (!session) {
+        if (
+          !session
+        ) {
 
-          loading.hidden = true;
+          loading.hidden =
+            true;
+
 
           return;
 
